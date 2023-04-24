@@ -215,6 +215,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a4f33f20-8fd3-4d72-b5e5-becbd1a89326
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3bd308aa-0324-4ad0-8c21-f8ca531877d0
+    m_ActionName: Player/Fire[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
