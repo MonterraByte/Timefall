@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour {
+    private const float coyoteTimeLength = 0.15f;
     public float playerSpeed = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
@@ -19,8 +20,12 @@ public class PlayerScript : MonoBehaviour {
         characterController = GetComponent<CharacterController>();
     }
 
+    private bool CanJump() {
+        return isGrounded || coyoteTime > 0.0f;
+    }
+
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started && isGrounded) {
+        if (context.started && CanJump()) {
             jumpInput = true;
         }
     }
@@ -37,7 +42,7 @@ public class PlayerScript : MonoBehaviour {
         velocity.y += gravityValue * Time.deltaTime;
 
         if (isGrounded) {
-            coyoteTime = 2.0f;
+            coyoteTime = coyoteTimeLength;
 
             if (velocity.y < 0.0f) {
                 velocity.y = 0.0f;
@@ -48,7 +53,7 @@ public class PlayerScript : MonoBehaviour {
         velocity.y += gravityValue * Time.deltaTime;
 
         coyoteTime -= Time.deltaTime;
-        if (jumpInput && coyoteTime > 0.0f) {
+        if (jumpInput) {
             coyoteTime = 0.0f;
             velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             jumpInput = false;
