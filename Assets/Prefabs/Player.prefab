@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 4
+  playerAcceleration: 15
   jumpHeight: 2
   gravityValue: -18
 --- !u!114 &2619132402960791343

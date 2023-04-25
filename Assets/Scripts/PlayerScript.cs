@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour {
     public float playerSpeed = 1.0f;
+    public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
 
@@ -55,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
         }
         jumpInput -= Time.deltaTime;
 
-        velocity.x = moveInput.x * playerSpeed;
+        velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
         velocity.y += gravityValue * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
