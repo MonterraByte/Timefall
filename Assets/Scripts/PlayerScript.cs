@@ -38,9 +38,7 @@ public class PlayerScript : MonoBehaviour {
         isGrounded = characterController.isGrounded;
         var velocity = characterController.velocity;
 
-        velocity.x = moveInput.x * playerSpeed;
-        velocity.y += gravityValue * Time.deltaTime;
-
+        coyoteTime -= Time.deltaTime;
         if (isGrounded) {
             coyoteTime = coyoteTimeLength;
 
@@ -49,15 +47,14 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        velocity.x = moveInput.x * playerSpeed;
-        velocity.y += gravityValue * Time.deltaTime;
-
-        coyoteTime -= Time.deltaTime;
         if (jumpInput) {
             coyoteTime = 0.0f;
-            velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            velocity.y = Mathf.Sqrt(jumpHeight * 2.0f * -gravityValue);
             jumpInput = false;
         }
+
+        velocity.x = moveInput.x * playerSpeed;
+        velocity.y += gravityValue * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
     }
