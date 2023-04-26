@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour {
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
 
+    public bool hasDoubleJump;
+
     private CharacterController characterController;
 
     private Vector2 moveInput;
@@ -15,6 +17,7 @@ public class PlayerScript : MonoBehaviour {
 
     private float coyoteTime;
     private const float coyoteTimeLength = 0.15f;
+    private bool usedDoubleJump;
     private bool isGrounded;
 
     private void Start() {
@@ -23,6 +26,10 @@ public class PlayerScript : MonoBehaviour {
 
     private bool CanJump() {
         return isGrounded || coyoteTime > 0.0f;
+    }
+
+    private bool CanDoubleJump() {
+        return hasDoubleJump && !usedDoubleJump;
     }
 
     public void OnJump(InputAction.CallbackContext context) {
@@ -47,13 +54,17 @@ public class PlayerScript : MonoBehaviour {
         coyoteTime -= Time.deltaTime;
         if (isGrounded) {
             coyoteTime = coyoteTimeLength;
+            usedDoubleJump = false;
 
             if (velocity.y < 0.0f) {
                 velocity.y = 0.0f;
             }
         }
 
-        if (jumpInput > 0.0f && CanJump()) {
+        if (jumpInput > 0.0f && (CanJump() || CanDoubleJump())) {
+            if (CanDoubleJump()) {
+                usedDoubleJump = true;
+            }
             coyoteTime = 0.0f;
             velocity.y = Mathf.Sqrt(jumpHeight * 2.0f * -gravityValue);
             jumpInput = 0.0f;
