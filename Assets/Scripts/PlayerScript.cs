@@ -8,7 +8,6 @@ public class PlayerScript : MonoBehaviour {
     public float gravityValue = -9.81f;
 
     private CharacterController characterController;
-    private BoxCollider stickCollider;
     private Animator animator;
 
     private Vector2 moveInput;
@@ -23,19 +22,13 @@ public class PlayerScript : MonoBehaviour {
 
     private float attackTimer;
     private float currentAttackTimer;
-    private bool isDashing = false;
-    private bool isDashingLeft = false;
+    private int attackType = 0;
     private bool isAttacking = false;
-    private bool isAttackingAir = false;
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
 
         animator = GetComponent<Animator>();
-
-        this.stickCollider = this.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
-
-        this.stickCollider.enabled = false;
     }
 
     private bool CanJump() {
@@ -55,13 +48,28 @@ public class PlayerScript : MonoBehaviour {
     public void OnMelee(InputAction.CallbackContext context){
         if (context.started && !this.isAttacking) {
             meleeInput = true;
-            this.stickCollider.enabled = true;
         }
     }
 
     private void Update() {
         isGrounded = characterController.isGrounded;
         var velocity = characterController.velocity;
+
+        if (!(this.attackType == 1)) {
+            velocity.x = moveInput.x * playerSpeed;
+
+            if (isRight && velocity.x < 0.0f)
+            {
+                this.transform.Rotate(0.0f, 180.0f, 0.0f);
+                isRight = false;
+            }
+
+            if (!isRight && velocity.x > 0.0f)
+            {
+                this.transform.Rotate(0.0f, 180.0f, 0.0f);
+                isRight = true;
+            }
+        }
 
         coyoteTime -= Time.deltaTime;
         if (isGrounded) {
@@ -72,22 +80,21 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        if (meleeInput){
+        if (meleeInput && !this.isAttacking){
             if (!isGrounded) {
                 this.animator.SetTrigger("AirAttack");
                 this.attackTimer = 0.50f;
-                this.isAttackingAir = true;
+                this.attackType = 2;
             }
             else if (velocity.x != 0.0f) {
                 this.animator.SetTrigger("NeutralAttack");
-                this.isDashing = true;
-                this.attackTimer = 0.99f;
-                if (velocity.x < 0.0f) this.isDashingLeft = true;
-                else this.isDashingLeft = false;
+                this.attackType = 1;
+                this.attackTimer = 1.0f;
             }
             else {
                 this.animator.SetTrigger("NeutralAttack");
-                this.attackTimer = 0.99f;
+                this.attackTimer = 1.0f;
+                this.attackType = 0;
             }
             meleeInput = false;
             this.currentAttackTimer = 0.0f;
@@ -104,43 +111,33 @@ public class PlayerScript : MonoBehaviour {
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
         velocity.y += gravityValue * Time.deltaTime;
 
-        if (isRight && velocity.x < 0.0f) {
-            this.transform.Rotate(0.0f, 180.0f, 0.0f);
-            isRight = false;
-        }
+        if (this.currentAttackTimer < this.attackTimer) {
+            switch (this.attackType) {
+                case 1:
+                    if (this.isRight) velocity.x = 10;
+                    else velocity.x = -10;
+                    this.transform.Rotate(0, 0, -45 * Time.deltaTime);
 
-        if (!isRight && velocity.x > 0.0f) {
-            this.transform.Rotate(0.0f, 180.0f, 0.0f);
-            isRight = true;
-        }
+                    break;
 
-        if (this.isDashing && this.currentAttackTimer < this.attackTimer) {
-            if (this.isDashingLeft) this.transform.position -= new Vector3(10 * Time.deltaTime, 0, 0);
-            else this.transform.position += new Vector3(10 * Time.deltaTime, 0, 0);
-            this.transform.Rotate(0, 0, -45 * Time.deltaTime);
+                case 2:
+                    this.transform.Rotate(0, 0, -720 * Time.deltaTime);
+
+                    break;
+            }
+
             this.currentAttackTimer += Time.deltaTime;
         }
-        else if (this.isDashing) {
-            if (this.isDashingLeft) this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
-            else this.transform.rotation = new Quaternion(0, 0, 0, 0);
-            this.isDashing = false;
-        }
-        if (this.isAttackingAir && this.currentAttackTimer < this.attackTimer) {
-            this.transform.Rotate(0, 0, -720 * Time.deltaTime);
-            this.currentAttackTimer += Time.deltaTime;
-        }
-        else if (this.isAttackingAir) {
-            if (this.isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
-            else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
-            this.isAttackingAir = false;
-        }
+        else {
+            if (this.attackType != 0) {
+                if (this.isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
+                else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+            }
 
-        AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
-        if (this.isAttacking && stateInfo.IsName("Empty")) {
-            this.stickCollider.enabled = false;
+            this.attackType = 0;
             this.isAttacking = false;
         }
-        if (!this.isDashing)
-            characterController.Move(velocity * Time.deltaTime);
+
+        characterController.Move(velocity * Time.deltaTime);
     }
 }
