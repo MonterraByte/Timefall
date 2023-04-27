@@ -26,6 +26,7 @@ public class PlayerScript : MonoBehaviour {
     private bool isDashing = false;
     private bool isDashingLeft = false;
     private bool isAttacking = false;
+    private bool isAttackingAir = false;
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
@@ -73,19 +74,22 @@ public class PlayerScript : MonoBehaviour {
 
         if (meleeInput){
             if (!isGrounded) {
-                //attack air
+                this.animator.SetTrigger("AirAttack");
+                this.attackTimer = 0.50f;
+                this.isAttackingAir = true;
             }
-            if (velocity.x != 0.0f) {
+            else if (velocity.x != 0.0f) {
                 this.animator.SetTrigger("NeutralAttack");
                 this.isDashing = true;
+                this.attackTimer = 0.99f;
                 if (velocity.x < 0.0f) this.isDashingLeft = true;
                 else this.isDashingLeft = false;
             }
             else {
                 this.animator.SetTrigger("NeutralAttack");
+                this.attackTimer = 0.99f;
             }
             meleeInput = false;
-            this.attackTimer = 0.99f;
             this.currentAttackTimer = 0.0f;
             this.isAttacking = true;
         }
@@ -120,7 +124,15 @@ public class PlayerScript : MonoBehaviour {
             if (this.isDashingLeft) this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
             else this.transform.rotation = new Quaternion(0, 0, 0, 0);
             this.isDashing = false;
-            this.isAttacking = false;
+        }
+        if (this.isAttackingAir && this.currentAttackTimer < this.attackTimer) {
+            this.transform.Rotate(0, 0, -720 * Time.deltaTime);
+            this.currentAttackTimer += Time.deltaTime;
+        }
+        else if (this.isAttackingAir) {
+            if (this.isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
+            else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+            this.isAttackingAir = false;
         }
 
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
