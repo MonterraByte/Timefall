@@ -12,6 +12,8 @@ public class Gun : MonoBehaviour
     public float CooldownDuration = 1.0f;
 
     private bool IsAvailable = true;
+
+    private bool LastDirection = false;
     
 
 
@@ -46,7 +48,34 @@ public class Gun : MonoBehaviour
 
     private void RotateGun()
     {
+
+        // Get the player's input component
+        PlayerInput playerInput = GetComponentInParent<PlayerInput>();
+
+        // Get the horizontal input value
+        float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+
+        // Determine the direction the player is moving in
+        if (horizontalInput > 0)
+        {
+            // Player is moving right
+            LastDirection = false;
+        }
+        else if (horizontalInput < 0)
+        {
+            // Player is moving left
+            LastDirection = true;
+
+        }
+        else
+        {
+            LastDirection = false;
+            // Player is not moving horizontally
+
+        }
+
         
+
         Plane playerplane = new Plane(new Vector3(0,0,1), transform.position);
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -56,7 +85,7 @@ public class Gun : MonoBehaviour
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 25 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, SpeedRotation * Time.deltaTime);
         }
     }
 
