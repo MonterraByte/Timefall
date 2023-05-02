@@ -1066,7 +1066,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1057349678
 CharacterController:
@@ -1278,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1990840957}
+      objectReference: {fileID: 1990840958}
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1289,7 +1289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerScript, Assembly-CSharp
+      value: MeleeScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1427,7 +1427,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1378799703
 GameObject:
@@ -1639,14 +1639,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1990840957 stripped
+--- !u!114 &1990840958 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8829441663400177823, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+  m_CorrespondingSourceObject: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
   m_PrefabInstance: {fileID: 1267497474}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2182e41e831d7743b0ee0383ce9404a, type: 3}
+  m_Script: {fileID: 11500000, guid: 420dd3672edb9dc449da42c183b0646e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
