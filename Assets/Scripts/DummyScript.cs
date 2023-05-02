@@ -37,11 +37,11 @@ public class DummyScript : MonoBehaviour {
     }
 
     private void OnTriggerStay(Collider other) {
-        if (other.gameObject.layer == 1 && !this.isHit)
+        /*if (other.gameObject.layer == 1 && !this.isHit)
         {
             this.currentTime = 0.0f;
             this.hitTime = 0.35f;
             this.isHit = true;
-        }
+        }*/
     }
 }

@@ -48,9 +48,9 @@ public class MeleeScript : MonoBehaviour
                 switch (this.attackType)
                 { 
                     case 1:
-                        if (this.isRight) velocity.x = 10;
-                        else velocity.x = -10;
-                        this.transform.Rotate(0, 0, -45 * Time.deltaTime);
+                        if (this.isRight) velocity.x = 20;
+                        else velocity.x = -20;
+                        this.transform.Rotate(0, 0, -90 * Time.deltaTime);
                         break;
 
                     case 2:
@@ -83,7 +83,9 @@ public class MeleeScript : MonoBehaviour
     {
         this.isAttacking = true;
 
-        if (!characterController.isGrounded)
+        var velocity = characterController.velocity;
+
+        if (velocity.y != 0)
         {
             this.attackType = 2;
             this.animator.SetTrigger("AirAttack");
@@ -105,22 +107,24 @@ public class MeleeScript : MonoBehaviour
             {
                 case 0.0f:
                     this.attackType = 0;
+                    this.animator.SetTrigger("NeutralAttack");
                     break;
 
                 case < 0.0f:
                     this.attackType = 1;
                     this.isRight = false;
+                    this.animator.SetTrigger("DashAttack");
                     break;
 
                 case > 0.0f:
                     this.attackType = 1;
                     this.isRight = true;
+                    this.animator.SetTrigger("DashAttack");
                     break;
             }
 
-            this.animator.SetTrigger("NeutralAttack");
             this.currentAttackTime = 0.0f;
-            this.attackTime = 1.0f;
+            this.attackTime = 0.5f;
             playerInput.actions["Move"].Disable();
         }
     }
