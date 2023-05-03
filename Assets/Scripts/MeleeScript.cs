@@ -27,6 +27,14 @@ public class MeleeScript : MonoBehaviour
         }
     }
 
+    public void OnCounter(InputAction.CallbackContext context)
+    {
+        if (context.started && !this.isAttacking)
+        {
+            StartCounter();
+        }
+    }
+
     void Start()
     {
         this.animator = GetComponent<Animator>();
@@ -66,12 +74,20 @@ public class MeleeScript : MonoBehaviour
                 this.isAttacking = false;
                 this.attackTime = 0;
 
-                if (!(this.attackType == 0))
+                switch(this.attackType)
                 {
-                    if (isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
-                    else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+                    case 1:
+                    case 2:
+                        if (isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
+                        else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+                        break;
+
+                    case 3:
+                        this.gameObject.layer = 0;
+                        break;
                 }
 
+                this.attackType = 0;
                 this.playerInput.actions["Move"].Enable();
             }
         }
@@ -129,6 +145,17 @@ public class MeleeScript : MonoBehaviour
         }
     }
 
+    void StartCounter()
+    {
+        this.animator.SetTrigger("Counter");
+        this.isAttacking = true;
+        this.currentAttackTime = 0.0f;
+        this.attackTime = 0.2f;
+        this.attackType = 3;
+        this.gameObject.layer = 2;
+        playerInput.actions["Move"].Disable();
+    }
+
     void UpdateSide()
     {
         float sideMove = this.playerInput.actions["Move"].ReadValue<Vector2>().x;
@@ -137,6 +164,14 @@ public class MeleeScript : MonoBehaviour
         {
             this.isRight = !this.isRight;
             this.rotateDirection *= -1;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (this.attackType == 3)
+        {
+            this.gameObject.layer = 0;
         }
     }
 }

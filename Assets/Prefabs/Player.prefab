@@ -325,9 +325,37 @@ MonoBehaviour:
     m_ActionId: a4f33f20-8fd3-4d72-b5e5-becbd1a89326
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/z]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 933477672625220058}
+        m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
+        m_MethodName: OnMelee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f15925ee-949c-4c4c-b8df-0b1f2fc061ad
     m_ActionName: Player/Melee[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 933477672625220058}
+        m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
+        m_MethodName: OnCounter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e3a5fc3c-6a9a-4cd1-9317-03c08be4022c
+    m_ActionName: Player/Counter[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
