@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2329718030337702324}
   - component: {fileID: 1661606198566986445}
   - component: {fileID: 3693805877160259052}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 2619132402960791343}
   - component: {fileID: 3790827992475271637}
   - component: {fileID: 7923855450156504188}
+  - component: {fileID: 933477672625220058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -324,9 +325,37 @@ MonoBehaviour:
     m_ActionId: a4f33f20-8fd3-4d72-b5e5-becbd1a89326
     m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/z]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 933477672625220058}
+        m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
+        m_MethodName: OnMelee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f15925ee-949c-4c4c-b8df-0b1f2fc061ad
     m_ActionName: Player/Melee[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 933477672625220058}
+        m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
+        m_MethodName: OnCounter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e3a5fc3c-6a9a-4cd1-9317-03c08be4022c
+    m_ActionName: Player/Counter[/Keyboard/v]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -379,6 +408,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &933477672625220058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646028238889485781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420dd3672edb9dc449da42c183b0646e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3496611324335996653
 PrefabInstance:
   m_ObjectHideFlags: 0
