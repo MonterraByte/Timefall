@@ -16,6 +16,7 @@ public class MeleeScript : MonoBehaviour
     private Animator animator;
     private CharacterController characterController;
     private PlayerInput playerInput;
+    private BoxCollider boxColliderStick;
 
     // Start is called before the first frame update
 
@@ -42,6 +43,10 @@ public class MeleeScript : MonoBehaviour
         this.characterController = GetComponent<CharacterController>();
 
         this.playerInput = GetComponent<PlayerInput>();
+
+        this.boxColliderStick = GetComponentInChildren<BoxCollider>();
+
+        this.boxColliderStick.enabled = false;
     }
 
     // Update is called once per frame
@@ -74,6 +79,8 @@ public class MeleeScript : MonoBehaviour
                 this.isAttacking = false;
                 this.attackTime = 0;
 
+                this.boxColliderStick.enabled = false;
+
                 switch(this.attackType)
                 {
                     case 1:
@@ -98,6 +105,8 @@ public class MeleeScript : MonoBehaviour
     void StartAttack()
     {
         this.isAttacking = true;
+
+        this.boxColliderStick.enabled = true;
 
         var velocity = characterController.velocity;
 
