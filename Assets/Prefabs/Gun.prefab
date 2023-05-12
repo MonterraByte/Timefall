@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5669153930237201874}
   - component: {fileID: 2493726745617081507}
   - component: {fileID: 5243934188557130622}
+  - component: {fileID: 5275911216626541290}
+  - component: {fileID: 8826308362613104132}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -98,5 +100,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawnPoint: {fileID: 7724734256109863319, guid: 7862fe1013982c548bfdb971828f7b1f, type: 3}
   bullet: {fileID: 9051092121827246480, guid: 40753370f7b9eee448191865657ab4ae, type: 3}
-  cooldownTime: 5
+  CooldownDuration: 1
   bulletSpeed: 1
+  SpeedRotation: 25
+--- !u!114 &5275911216626541290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5853424998786151913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5dc750c8297294fb450fb55cff228b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnPoint: {fileID: 0}
+  bullet: {fileID: 0}
+  CooldownDuration: 1
+  bulletSpeed: 0
+  SpeedRotation: 25
+  fireSpawnPoint: {fileID: 4379569268233526529, guid: cb06eecc73769bc4e8b7acc60a3e4c09, type: 3}
+  fire: {fileID: 3048549802983062541, guid: cb0470975c2de8945bf51c8115ccef82, type: 3}
+  fireDamage: 10
+  fireDuration: 5
+--- !u!114 &8826308362613104132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5853424998786151913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbda8ccd1124b144a38ef7e5a1686cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnPoint: {fileID: 0}
+  bullet: {fileID: 0}
+  CooldownDuration: 1
+  bulletSpeed: 0
+  SpeedRotation: 25
+  boomerangSpawnPoint: {fileID: 4379569268233526529, guid: cb06eecc73769bc4e8b7acc60a3e4c09, type: 3}
+  boomerang: {fileID: 8051685668722661494, guid: 99cc15836de307c47924b1d7692726d6, type: 3}
+  boomerangSpeed: 0.5
+  boomerangRange: 10
+  boomerangReturnSpeed: 10
