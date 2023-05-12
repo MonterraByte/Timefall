@@ -110,6 +110,7 @@ public class HookshotScript : MonoBehaviour
                 this.hookEnd = false;
                 this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
                 this.animator.enabled = true;
+                this.gameObject.layer = 1;
                 playerInput.actions["Move"].Enable();
             }
         }
@@ -121,6 +122,16 @@ public class HookshotScript : MonoBehaviour
 
         if (sideMove < 0 && this.isRight) this.isRight = false;
         else if (sideMove > 0 && !this.isRight) this.isRight = true;
+    }
+
+    public Vector2 getCurrentCoordinates()
+    {
+        return new Vector2(this.currentX, this.currentY);
+    }
+
+    public bool getSide()
+    {
+        return this.isRight;
     }
 
     private void OnTriggerEnter(Collider other)
