@@ -9,8 +9,7 @@ public class HookshotScript : MonoBehaviour
 {
     public float hookSpeed = 2.0f;
 
-    private bool hookStart = false;
-    private bool hookEnd = false;
+    private int hookState = 0;
     private bool isRight = true;
     
     private Animator animator;
@@ -18,6 +17,7 @@ public class HookshotScript : MonoBehaviour
     private Camera mainCamera;
     private PlayerInput playerInput;
     private Vector3 vector;
+    private CharacterController parentController;
 
     private float currentX;
     private float currentY;
@@ -30,6 +30,7 @@ public class HookshotScript : MonoBehaviour
         this.animator = GetComponentInParent<Animator>();
         this.boxCollider = GetComponent<BoxCollider>();
         this.playerInput = GetComponentInParent<PlayerInput>();
+        this.parentController = GetComponentInParent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -44,13 +45,17 @@ public class HookshotScript : MonoBehaviour
 
     void fireHook()
     {
-        if (Mouse.current.rightButton.isPressed && !this.hookStart && !this.hookEnd)
+        if (Mouse.current.rightButton.isPressed && this.hookState == 0)
         {
             this.boxCollider.enabled = true;
             this.animator.enabled = false;
             this.gameObject.layer = 3;
-            this.hookStart = true;
+            this.hookState = 1;
+
             playerInput.actions["Move"].Disable();
+            playerInput.actions["Melee"].Disable();
+            playerInput.actions["Jump"].Disable();
+            playerInput.actions["Counter"].Disable();
 
             Vector2 mousePos = Mouse.current.position.ReadValue();
             Vector3 pos = this.mainCamera.ScreenToViewportPoint(mousePos);
@@ -83,36 +88,76 @@ public class HookshotScript : MonoBehaviour
 
     void moveHook()
     {
-        if (this.hookStart)
+        switch (this.hookState)
         {
-            this.transform.localScale += new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
+            case 1:
+                this.transform.localScale += new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
 
-            if (this.vector.x < 0) this.transform.localPosition += new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-            else this.transform.localPosition += new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                if (this.vector.x < 0)
+                {
+                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition += velocity;
+                    this.parentController.Move(velocity);
+                }
+                else
+                {
+                    this.transform.localPosition += new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                }
 
-            if (this.transform.localScale.y > 10.0)
-            {
-                this.hookStart = false;
-                this.hookEnd = true;
-                this.boxCollider.enabled = false;
-            }
-        }
+                if (this.transform.localScale.y > 10.0)
+                {
+                    this.hookState = 2;
+                    this.boxCollider.enabled = false;
+                }
+                break;
 
-        if (this.hookEnd)
-        {
-            this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
+            case 2:
+                this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
 
-            if (this.vector.x < 0) this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-            else this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                if (this.vector.x < 0) this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                else this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
 
-            if (this.transform.localScale.y < 1.0)
-            {
-                this.hookEnd = false;
-                this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
-                this.animator.enabled = true;
-                this.gameObject.layer = 1;
-                playerInput.actions["Move"].Enable();
-            }
+                if (this.transform.localScale.y < 1.0)
+                {
+                    this.hookState = 0;
+                    this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+                    this.animator.enabled = true;
+                    this.gameObject.layer = 1;
+                    playerInput.actions["Move"].Enable();
+                    playerInput.actions["Melee"].Enable();
+                    playerInput.actions["Jump"].Enable();
+                    playerInput.actions["Counter"].Enable();
+                }
+                break;
+
+            case 3:
+                this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
+
+                if (this.vector.x < 0)
+                {
+                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition += velocity;
+                    this.parentController.Move(velocity);
+                }
+                else
+                {
+                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition += velocity;
+                    this.parentController.Move(velocity);
+                }
+
+                if (this.transform.localScale.y < 1.0)
+                {
+                    this.hookState = 0;
+                    this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+                    this.animator.enabled = true;
+                    this.gameObject.layer = 1;
+                    playerInput.actions["Move"].Enable();
+                    playerInput.actions["Melee"].Enable();
+                    playerInput.actions["Jump"].Enable();
+                    playerInput.actions["Counter"].Enable();
+                }
+                break;
         }
     }
 
@@ -136,10 +181,13 @@ public class HookshotScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.hookStart)
+        if (other.gameObject.tag == "Hook" && this.hookState == 1)
         {
-            this.hookEnd = true;
-            this.hookStart = false;
+            this.hookState = 3;
+        }
+        if (this.hookState == 1)
+        {
+            this.hookState = 2;
             this.boxCollider.enabled = false;
         }
     }
