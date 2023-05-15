@@ -12,11 +12,10 @@ public class PlayerScript : MonoBehaviour {
     private Vector2 moveInput;
     private float jumpInput;
     private const float jumpInputMax = 0.1f;
-    private bool isGrounded;
 
     private float coyoteTime;
     private const float coyoteTimeLength = 0.15f;
-    private bool isRight = true;
+    private bool isGrounded;
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
@@ -40,19 +39,9 @@ public class PlayerScript : MonoBehaviour {
         isGrounded = characterController.isGrounded;
         var velocity = characterController.velocity;
 
-  
-        velocity.x = moveInput.x * playerSpeed;
-
-        if (isRight && velocity.x < 0.0f)
-        {
-            this.transform.Rotate(0.0f, 180.0f, 0.0f);
-            isRight = false;
-        }
-
-        if (!isRight && velocity.x > 0.0f)
-        {
-            this.transform.Rotate(0.0f, 180.0f, 0.0f);
-            isRight = true;
+        var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
+        if (headingInput.sqrMagnitude > 0.0025f) {
+            gameObject.transform.forward = headingInput;
         }
 
         coyoteTime -= Time.deltaTime;
@@ -73,7 +62,7 @@ public class PlayerScript : MonoBehaviour {
 
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
         velocity.y += gravityValue * Time.deltaTime;
-
+        velocity.z = 0.0f;
 
         characterController.Move(velocity * Time.deltaTime);
     }
