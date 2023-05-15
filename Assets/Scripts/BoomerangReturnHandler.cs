@@ -35,22 +35,25 @@ public class BoomerangReturnHandler : MonoBehaviour
         else // If the boomerang is returning
         {
             endPosition = playerTransform.position; // Update the end position to follow the player's position
-            transform.position = Vector3.Lerp(transform.position, endPosition, boomerangReturnSpeed * Time.deltaTime); // Lerp from current position to end position by using a speed factor and delta time
-            if (Vector3.Distance(transform.position, endPosition) < 0.1f) // Check if the boomerang has reached or is close enough to the end position
+            transform.position = Vector3.MoveTowards(transform.position, endPosition, boomerangReturnSpeed * Time.deltaTime); // Move towards the end position by using a speed factor and delta time
+            if (Vector3.Distance(transform.position, endPosition) < 0.5f) // Check if the boomerang has reached or is close enough to the end position
             {
                 Destroy(gameObject); // Destroy the boomerang object
             }
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // Check if the collider belongs to an obstacle or an enemy
-        if (collision.collider.CompareTag("Obstacle") || collision.collider.CompareTag("Enemy"))
+
+        /*
+        // Check if the other collider is the player
+        if (other.CompareTag("Player"))
         {
-            Destroy(gameObject); // Destroy the boomerang object
+            // Destroy the boomerang object
+            Destroy(gameObject);
         }
 
+        */
     }
-
 }
