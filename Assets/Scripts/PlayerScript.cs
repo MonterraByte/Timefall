@@ -62,7 +62,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         if (jumpInput > 0.0f && (CanJump() || CanDoubleJump())) {
-            if (CanDoubleJump()) {
+            if (!CanJump()) {
                 usedDoubleJump = true;
             }
             coyoteTime = 0.0f;
