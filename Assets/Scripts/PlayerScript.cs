@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour {
     public bool hasDoubleJump;
 
     private CharacterController characterController;
+    private HookshotScript hookScript;
 
     private Vector2 moveInput;
     private float jumpInput;
@@ -22,6 +23,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
+        hookScript = GetComponentsInChildren<HookshotScript>()[0];
     }
 
     private bool CanJump() {
@@ -35,6 +37,7 @@ public class PlayerScript : MonoBehaviour {
     public void OnJump(InputAction.CallbackContext context) {
         if (context.started) {
             jumpInput = jumpInputMax;
+            hookScript.endSwing = true;
         }
     }
 

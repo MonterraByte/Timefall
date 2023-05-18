@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class HookshotScript : MonoBehaviour
 {
     public float hookSpeed = 2.0f;
+    public bool endSwing = false;
 
     private int hookState = 0;
     private bool isRight = true;
@@ -18,10 +19,16 @@ public class HookshotScript : MonoBehaviour
     private PlayerInput playerInput;
     private Vector3 vector;
     private CharacterController parentController;
+    private Transform parentTransform;
+    private Rigidbody parentRB;
+    private LineRenderer lineRenderer;
+    private PlayerScript playerScript;
 
     private float currentX;
     private float currentY;
     private float currentAngle;
+    private Vector3 swingPoint;
+    private int sideSwing = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +38,9 @@ public class HookshotScript : MonoBehaviour
         this.boxCollider = GetComponent<BoxCollider>();
         this.playerInput = GetComponentInParent<PlayerInput>();
         this.parentController = GetComponentInParent<CharacterController>();
+        this.parentTransform = GetComponentInParent<Transform>();
+        this.lineRenderer = GetComponentInParent<LineRenderer>();
+        this.playerScript = GetComponentInParent<PlayerScript>();
     }
 
     // Update is called once per frame
@@ -93,16 +103,8 @@ public class HookshotScript : MonoBehaviour
             case 1:
                 this.transform.localScale += new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
 
-                if (this.vector.x < 0)
-                {
-                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition += velocity;
-                    this.parentController.Move(velocity);
-                }
-                else
-                {
-                    this.transform.localPosition += new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                }
+                if (this.vector.x < 0) this.transform.localPosition += new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                else this.transform.localPosition += new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
 
                 if (this.transform.localScale.y > 10.0)
                 {
@@ -132,18 +134,28 @@ public class HookshotScript : MonoBehaviour
 
             case 3:
                 this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
-
-                if (this.vector.x < 0)
+                
+                if (this.isRight && this.vector.x < 0)
                 {
                     Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition += velocity;
+                    this.transform.localPosition -= velocity;
                     this.parentController.Move(velocity);
+                }
+                else if (this.isRight && this.vector.x >= 0)
+                {
+                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= velocity;
+                    this.parentController.Move(velocity);
+                }
+                else if (!this.isRight && this.vector.x < 0)
+                {
+                    this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition += velocity;
-                    this.parentController.Move(velocity);
+                    this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
 
                 if (this.transform.localScale.y < 1.0)
@@ -158,7 +170,55 @@ public class HookshotScript : MonoBehaviour
                     playerInput.actions["Counter"].Enable();
                 }
                 break;
+
+            case 4:
+                this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
+
+                if (this.isRight && this.vector.x < 0)
+                {
+                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= velocity;
+                    this.parentController.Move(velocity);
+                }
+                else if (this.isRight && this.vector.x >= 0)
+                {
+                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= velocity;
+                    this.parentController.Move(velocity);
+                }
+                else if (!this.isRight && this.vector.x < 0)
+                {
+                    this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
+                }
+
+                if (this.transform.localScale.y < 1.0)
+                {
+                    this.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
+                    if (this.parentTransform.position.x < this.swingPoint.x) {
+                        this.parentTransform.position = this.swingPoint + new Vector3((float)-Math.Sqrt(2), (float)-Math.Sqrt(2), 0);
+                    }
+                    else
+                    {
+                        this.parentTransform.position = this.swingPoint + new Vector3((float)Math.Sqrt(2), (float)-Math.Sqrt(2), 0);
+                    }
+                    this.lineRenderer.enabled = true;
+                    this.transform.localScale = Vector3.zero;
+                    this.hookState = 5;
+                    playerInput.actions["Jump"].Enable();
+                }
+                break;
+
+            case 5:
+                swingMotion();
+                break;
         }
+
     }
 
     void updateSide()
@@ -169,6 +229,34 @@ public class HookshotScript : MonoBehaviour
         else if (sideMove > 0 && !this.isRight) this.isRight = true;
     }
 
+    void swingMotion()
+    {
+        if (this.endSwing)
+        {
+            this.hookState = 0;
+            this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+            this.animator.enabled = true;
+            this.gameObject.layer = 1;
+            this.lineRenderer.enabled = false;
+            this.endSwing = false;
+            playerInput.actions["Melee"].Enable();
+            playerInput.actions["Counter"].Enable();
+            playerInput.actions["Move"].Enable();
+        }
+
+        Vector3 velocity = this.swingPoint - this.parentTransform.position;
+        Vector3 movement = new Vector3(-velocity.y, velocity.x, 0.0f);
+
+        if (this.swingPoint.y < this.parentTransform.position.y)
+        {
+            this.sideSwing *= -1;
+        }
+
+        this.parentController.Move(movement.normalized * this.sideSwing * Time.deltaTime);
+        this.lineRenderer.SetPosition(0, this.parentTransform.position + Vector3.up * 2);
+        this.lineRenderer.SetPosition(1, this.swingPoint);
+    }
+
     public Vector2 getCurrentCoordinates()
     {
         return new Vector2(this.currentX, this.currentY);
@@ -176,7 +264,7 @@ public class HookshotScript : MonoBehaviour
 
     public bool getSide()
     {
-        return this.isRight;
+        return !(this.isRight ^ (this.vector.x < 0));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -184,6 +272,11 @@ public class HookshotScript : MonoBehaviour
         if (other.gameObject.tag == "Hook" && this.hookState == 1)
         {
             this.hookState = 3;
+        }
+        if (other.gameObject.tag == "Swing" && this.hookState == 1)
+        {
+            this.hookState = 4;
+            this.swingPoint = other.transform.position;
         }
         if (this.hookState == 1)
         {
