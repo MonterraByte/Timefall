@@ -42,8 +42,11 @@ public class PlayerScript : MonoBehaviour {
         moveInput = context.ReadValue<Vector2>();
     }
 
+    private void FixedUpdate() {
+        isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f);
+    }
+
     private void Update() {
-        isGrounded = characterController.isGrounded;
         var velocity = characterController.velocity;
 
         var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
