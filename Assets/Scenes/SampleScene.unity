@@ -1231,26 +1231,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: boomerang
-      value: 
-      objectReference: {fileID: 8051685668722661494, guid: 99cc15836de307c47924b1d7692726d6, type: 3}
-    - target: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: boomerangRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: boomerangSpeed
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: boomerangSpawnPoint
-      value: 
-      objectReference: {fileID: 1845477509}
-    - target: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: boomerangReturnSpeed
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 1644552631208750875, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -1387,37 +1367,9 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3790827992475271637, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3790827992475271637, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3790827992475271637, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4191535152341307726, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: fireSpawnPoint
-      value: 
-      objectReference: {fileID: 1845477509}
-    - target: {fileID: 4891195167509714668, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5646028238889485781, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8083777055920261871, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8083777055920261871, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8829441663400177823, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: dashSpeed
@@ -1743,11 +1695,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1845477509 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 883038072976008172, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-  m_PrefabInstance: {fileID: 1267497474}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1990840958 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
