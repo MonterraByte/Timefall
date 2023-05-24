@@ -11,25 +11,32 @@ public class Flamethrower : RangedWeapon
     public float fireDamage;
     public float fireDuration;
 
+    private ParticleSystem currentFirePS;
+
     public override void Fire()
     {
-        // Check if the left mouse button is pressed
+        // Check if the right mouse button is pressed
         if (Mouse.current.rightButton.isPressed)
         {
             // Instantiate a particle system that simulates fire
-            ParticleSystem firePS = Instantiate(fire, fireSpawnPoint.position, fireSpawnPoint.rotation);
+            currentFirePS = Instantiate(fire, fireSpawnPoint.position, fireSpawnPoint.rotation, fireSpawnPoint); // Set the parent to the fire spawn point
+            currentFirePS.transform.localPosition = Vector3.zero; // Set the local position to zero
+            currentFirePS.transform.localRotation = Quaternion.identity; // Set the local rotation to zero
             // Get the collider component of the particle system
-            
-            //ParticleSystemCollider fireCollider = firePS.GetComponent<ParticleSystemCollider>();
+            //ParticleSystemCollider fireCollider = currentFirePS.GetComponent<ParticleSystemCollider>();
             // Set the trigger property to true so that it can detect collisions
-            //fireCollider.trigger = true;
+            //fireCollider.enabled = true;
             // Add a script to handle collisions and damage
-            FireCollisionHandler fireHandler = firePS.gameObject.AddComponent<FireCollisionHandler>();
+            FireCollisionHandler fireHandler = currentFirePS.gameObject.AddComponent<FireCollisionHandler>();
             // Pass the parameters for damage and duration
             fireHandler.fireDamage = fireDamage;
             fireHandler.fireDuration = fireDuration;
+            fireHandler.fire = currentFirePS;
 
             StartCoroutine(StartCooldown());
         }
+
     }
+
 }
+

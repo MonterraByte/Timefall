@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class FireCollisionHandler : MonoBehaviour
 {
     public float fireDamage; // The amount of damage per second
     public float fireDuration; // The duration of the fire effect
+    public ParticleSystem fire;
 
     private float timer; // A timer to keep track of the fire duration
 
@@ -17,9 +18,9 @@ public class FireCollisionHandler : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime; // Increment the timer by the elapsed time
-        if (timer >= fireDuration) // Check if the timer has reached the fire duration
+        if (timer >= fireDuration || Mouse.current.rightButton.wasReleasedThisFrame) // Check if the timer has reached the fire duration
         {
-            Destroy(gameObject); // Destroy the fire particle
+            fire.Stop(true); // Destroy the fire particle
         }
     }
 
