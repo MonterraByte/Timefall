@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
+    public float maxHeight = 3.65f;
+
     private bool doorOpen = false;
     private bool doorClose = false;
     private float cooldown = 5.0f;
+    private float startPoint;
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.startPoint = this.transform.position.y;
     }
 
     // Update is called once per frame
@@ -19,7 +22,7 @@ public class DoorScript : MonoBehaviour
         if (this.doorOpen)
         {
             this.transform.position += Vector3.up * 3 * Time.deltaTime;
-            if (this.transform.position.y >= 7.0f)
+            if (this.transform.position.y >= (this.maxHeight + this.startPoint))
             {
                 this.doorOpen = false;
                 this.doorClose = true;
@@ -31,10 +34,10 @@ public class DoorScript : MonoBehaviour
             if (this.cooldown == 0.0f)
             {
                 this.transform.position -= Vector3.up * 3 * Time.deltaTime;
-                if (this.transform.position.y <= 3.35f)
+                if (this.transform.position.y <= this.startPoint)
                 {
                     Vector3 pos = this.transform.position;
-                    pos.y = 3.35f;
+                    pos.y = this.startPoint;
                     this.transform.position = pos;
                     this.doorClose = false;
                 }
