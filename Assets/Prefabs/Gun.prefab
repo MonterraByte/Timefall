@@ -119,7 +119,7 @@ MonoBehaviour:
   CooldownDuration: 1
   SpeedRotation: 25
   fireSpawnPoint: {fileID: 7712523169745513150}
-  fire: {fileID: 3048549802983062541, guid: cb0470975c2de8945bf51c8115ccef82, type: 3}
+  fire: {fileID: 198421077076039884, guid: bccc7a794e75b2a44a4b0dac69160b7b, type: 3}
   fireDamage: 10
   fireDuration: 5
 --- !u!114 &8826308362613104132
