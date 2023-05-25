@@ -7,7 +7,6 @@ public class Boomerang : RangedWeapon
 {
     public Transform boomerangSpawnPoint;
     public Transform boomerang;
-
     public float boomerangSpeed;
     public float boomerangRange;
     public float boomerangReturnSpeed;
