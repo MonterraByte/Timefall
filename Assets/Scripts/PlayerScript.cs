@@ -2,14 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour {
+    private const string ClimbLayer = "Climbable Wall";
+
     public float playerSpeed = 1.0f;
     public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
 
     public bool hasDoubleJump;
+    public bool hasClimb;
 
     private CharacterController characterController;
+    private LayerMask climbLayerMask;
 
     private Vector2 moveInput;
     private float jumpInput;
@@ -22,6 +26,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void Start() {
         characterController = GetComponent<CharacterController>();
+        climbLayerMask = LayerMask.GetMask(ClimbLayer);
     }
 
     private bool CanJump() {
@@ -52,6 +57,13 @@ public class PlayerScript : MonoBehaviour {
         var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
         if (headingInput.sqrMagnitude > 0.0025f) {
             gameObject.transform.forward = headingInput;
+        }
+
+        if (hasClimb && !isGrounded && Physics.Raycast(transform.position,
+                new Vector3(Mathf.Sign(moveInput.x), 0.0f, 0.0f),
+                characterController.radius + 0.1f, climbLayerMask)) {
+            coyoteTime = coyoteTimeLength;
+            usedDoubleJump = false;
         }
 
         coyoteTime -= Time.deltaTime;
