@@ -59,7 +59,7 @@ public class MeleeScript : MonoBehaviour
             if (this.currentAttackTime < this.attackTime)
             {
                 switch (this.attackType)
-                { 
+                {
                     case 1:
                         if (this.isRight) velocity.x = 20;
                         else velocity.x = -20;
@@ -97,9 +97,9 @@ public class MeleeScript : MonoBehaviour
                 this.attackType = 0;
                 this.playerInput.actions["Move"].Enable();
             }
-        }
 
-        characterController.Move(velocity * Time.deltaTime);
+            characterController.Move(velocity * Time.deltaTime);
+        }
     }
 
     void StartAttack()
