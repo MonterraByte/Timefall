@@ -12,6 +12,7 @@ public class HookshotScript : MonoBehaviour
 
     private int hookState = 0;
     private bool isRight = true;
+    private bool hook = false;
     
     private Animator animator;
     private BoxCollider boxCollider;
@@ -53,10 +54,19 @@ public class HookshotScript : MonoBehaviour
         moveHook();
     }
 
+    public void OnHook(InputAction.CallbackContext context)
+    {
+        if (context.started && this.hookState == 0 && !this.hook)
+        {
+            this.hook = true;
+        }
+    }
+
     void fireHook()
     {
-        if (Mouse.current.rightButton.isPressed && this.hookState == 0)
+        if (this.hook)
         {
+            this.hook = false;
             this.boxCollider.enabled = true;
             this.animator.enabled = false;
             this.gameObject.layer = 3;
@@ -253,7 +263,7 @@ public class HookshotScript : MonoBehaviour
         }
 
         this.parentController.Move(movement.normalized * this.sideSwing * Time.deltaTime);
-        this.lineRenderer.SetPosition(0, this.parentTransform.position + Vector3.up * 2);
+        this.lineRenderer.SetPosition(0, this.parentTransform.position + new Vector3(1, 1, 0));
         this.lineRenderer.SetPosition(1, this.swingPoint);
     }
 
