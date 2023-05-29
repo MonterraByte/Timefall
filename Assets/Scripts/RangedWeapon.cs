@@ -7,6 +7,15 @@ using UnityEngine.InputSystem;
 public class RangedWeapon : MonoBehaviour
 {
 
+    // An array of FireMethod delegates
+    private FireMethod[] weapons;
+
+    public delegate void FireMethod();
+
+    // The current weapon index
+    private int currentWeapon = 0;
+
+
     public float CooldownDuration = 1.0f;
 
     private bool IsAvailable = true;
@@ -22,11 +31,34 @@ public class RangedWeapon : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+
+        // Get the references to each script and assign them to the array
+        weapons = new FireMethod[3];
+        weapons[0] = GetComponent<Gun>().Fire;
+        weapons[1] = GetComponent<Boomerang>().Fire;
+        weapons[2] = GetComponent<Flamethrower>().Fire;
     }
 
     private void Update()
     {
         RotateGun();
+
+        // Check if the user presses Q
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            // Disable all weapon scripts first
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                ((MonoBehaviour)GetComponent(weapons[i].Method.DeclaringType)).enabled = false;
+            }
+
+            // Change the current weapon index by adding one and using modulo to wrap around
+            currentWeapon = (currentWeapon + 1) % weapons.Length;
+
+            // Enable the script for the current weapon
+            ((MonoBehaviour)GetComponent(weapons[currentWeapon].Method.DeclaringType)).enabled = true;
+        }
+
 
         // if not available to use (still cooling down) just exit
         if (getAvailable() == false)
@@ -34,7 +66,12 @@ public class RangedWeapon : MonoBehaviour
             return;
         }
 
-        Fire();
+        // Check if the user presses left mouse button
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            // Invoke the Fire method of the current weapon
+            weapons[currentWeapon]();
+        }
 
 
     }

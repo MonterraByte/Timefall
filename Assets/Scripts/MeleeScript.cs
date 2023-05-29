@@ -61,8 +61,8 @@ public class MeleeScript : MonoBehaviour
                 switch (this.attackType)
                 {
                     case 1:
-                        if (this.isRight) velocity.x = 20;
-                        else velocity.x = -20;
+                        if (this.isRight) velocity.x = 10;
+                        else velocity.x = -10;
                         this.transform.Rotate(0, 0, -90 * Time.deltaTime);
                         break;
 

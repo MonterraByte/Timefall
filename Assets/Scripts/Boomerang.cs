@@ -16,9 +16,7 @@ public class Boomerang : RangedWeapon
 
     public override void Fire()
     {
-        // Check if the left mouse button is pressed
-        if (Mouse.current.rightButton.isPressed)
-        {
+
             // Instantiate a boomerang object
             boomerangInstance = Instantiate(boomerang, boomerangSpawnPoint.position, boomerangSpawnPoint.rotation);
             // Get the rigidbody component of the boomerang object
@@ -36,6 +34,6 @@ public class Boomerang : RangedWeapon
             returnHandler.playerTransform = transform.parent;
 
             StartCoroutine(StartCooldown());
-        }
+        
     }
 }

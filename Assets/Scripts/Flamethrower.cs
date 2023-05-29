@@ -15,9 +15,7 @@ public class Flamethrower : RangedWeapon
 
     public override void Fire()
     {
-        // Check if the right mouse button is pressed
-        if (Mouse.current.rightButton.isPressed)
-        {
+
             // Instantiate a particle system that simulates fire
             currentFirePS = Instantiate(fire, fireSpawnPoint.position, fireSpawnPoint.rotation, fireSpawnPoint); // Set the parent to the fire spawn point
             currentFirePS.transform.localPosition = Vector3.zero; // Set the local position to zero
@@ -34,7 +32,7 @@ public class Flamethrower : RangedWeapon
             fireHandler.fire = currentFirePS;
 
             StartCoroutine(StartCooldown());
-        }
+        
 
     }
 
