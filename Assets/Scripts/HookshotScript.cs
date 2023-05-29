@@ -76,13 +76,24 @@ public class HookshotScript : MonoBehaviour
             playerInput.actions["Melee"].Disable();
             playerInput.actions["Jump"].Disable();
             playerInput.actions["Counter"].Disable();
+        
+            Plane playerplane = new Plane(new Vector3(0, 0, 1), transform.position);
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector3 pos = this.mainCamera.ScreenToViewportPoint(mousePos);
-            this.vector = pos - new Vector3(0.5f, 0.5f, 0);
+            float hitdist;
 
-            if (this.isRight) this.currentAngle = Mathf.Acos(Vector3.Dot(vector, Vector3.up) / vector.magnitude);
-            else this.currentAngle = Mathf.Acos(Vector3.Dot(vector, Vector3.down) / vector.magnitude);
+            if (playerplane.Raycast(ray, out hitdist))
+            {
+                Vector3 targetPoint = ray.GetPoint(hitdist);
+                if (this.isRight) this.vector = targetPoint - this.parentTransform.position - Vector3.right / 2;
+                else this.vector = targetPoint - this.parentTransform.position + Vector3.right / 2;
+            }
+
+            if (this.isRight) this.currentAngle = Mathf.Acos(Vector3.Dot(this.vector, Vector3.up) / this.vector.magnitude);
+            else this.currentAngle = Mathf.Acos(Vector3.Dot(this.vector, Vector3.down) / this.vector.magnitude);
+
+            Debug.Log("Current angle = " + this.currentAngle * Mathf.Rad2Deg);
+            Debug.Log("Vecctor = " + this.vector);
 
             this.currentX = (float)(Math.Sin(this.currentAngle));
             this.currentY = (float)(Math.Cos(this.currentAngle));
@@ -262,8 +273,10 @@ public class HookshotScript : MonoBehaviour
             this.sideSwing *= -1;
         }
 
-        this.parentController.Move(movement.normalized * this.sideSwing * Time.deltaTime);
-        this.lineRenderer.SetPosition(0, this.parentTransform.position + new Vector3(1, 1, 0));
+        Vector3 swingMovement = movement.normalized * this.sideSwing * Time.deltaTime;
+
+        this.parentController.Move(swingMovement);
+        this.lineRenderer.SetPosition(0, this.parentTransform.position);
         this.lineRenderer.SetPosition(1, this.swingPoint);
     }
 
