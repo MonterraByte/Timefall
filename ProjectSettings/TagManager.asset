@@ -11,6 +11,7 @@ TagManager:
   - Boots
   - Moving
   - Claws
+  - HookShot
   layers:
   - Default
   - TransparentFX

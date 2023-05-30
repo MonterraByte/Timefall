@@ -112,6 +112,10 @@ public class PlayerScript : MonoBehaviour {
         {
             this.hasClimb = true;
         }
+        if (other.gameObject.tag == "HookShot")
+        {
+            GetComponentInChildren<HookshotScript>().enabled = true;
+        }
         if (other.gameObject.tag == "Moving")
         {
             this.onPlatform = true;
