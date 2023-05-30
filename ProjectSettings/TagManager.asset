@@ -8,6 +8,8 @@ TagManager:
   - Crusher
   - Hook
   - Swing
+  - Boots
+  - Moving
   layers:
   - Default
   - TransparentFX

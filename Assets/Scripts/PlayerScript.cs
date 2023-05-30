@@ -25,10 +25,13 @@ public class PlayerScript : MonoBehaviour {
     private bool usedDoubleJump;
     private bool isGrounded;
 
+    private bool onPlatform = false;
+
     private void Start() {
         characterController = GetComponent<CharacterController>();
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
         hookScript = GetComponentsInChildren<HookshotScript>()[0];
+        meleeRoation = GetComponent<MeleeScript>().rotateDirection;
     }
 
     private bool CanJump() {
@@ -43,6 +46,7 @@ public class PlayerScript : MonoBehaviour {
         if (context.started) {
             jumpInput = jumpInputMax;
             hookScript.endSwing = true;
+            this.onPlatform = false;
         }
     }
 
@@ -90,9 +94,32 @@ public class PlayerScript : MonoBehaviour {
         jumpInput -= Time.deltaTime;
 
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
-        velocity.y += gravityValue * Time.deltaTime;
+        if (!this.onPlatform)
+        {
+            velocity.y += gravityValue * Time.deltaTime;
+        }
         velocity.z = 0.0f;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Boots")
+        {
+            this.hasDoubleJump = true;
+        }
+        if (other.gameObject.tag == "Moving")
+        {
+            this.onPlatform = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Moving")
+        {
+            this.onPlatform = false;
+        }
     }
 }

@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class MeleeScript : MonoBehaviour
 {
+    public bool hasDash = false;
+    public float dashSpeed = 10.0f;
+    public float rotateDirection = -720.0f;
+
     private bool isAttacking = false;
     private int attackType = 0;
 
     private bool isRight;
     private float attackTime;
     private float currentAttackTime;
-    private float rotateDirection = -720.0f;
 
     private Animator animator;
     private CharacterController characterController;
@@ -61,9 +64,10 @@ public class MeleeScript : MonoBehaviour
                 switch (this.attackType)
                 {
                     case 1:
-                        if (this.isRight) velocity.x = 20;
-                        else velocity.x = -20;
+                        if (this.isRight) velocity.x = this.dashSpeed;
+                        else velocity.x = -this.dashSpeed;
                         this.transform.Rotate(0, 0, -90 * Time.deltaTime);
+                        characterController.Move(velocity * Time.deltaTime);
                         break;
 
                     case 2:
@@ -97,8 +101,6 @@ public class MeleeScript : MonoBehaviour
                 this.attackType = 0;
                 this.playerInput.actions["Move"].Enable();
             }
-
-            characterController.Move(velocity * Time.deltaTime);
         }
     }
 
@@ -123,7 +125,15 @@ public class MeleeScript : MonoBehaviour
             if (sideMove < 0) this.isRight = false;
             else this.isRight = true;
         }
+        else if (!this.hasDash)
+        {
+            this.attackType = 0;
+            this.animator.SetTrigger("NeutralAttack");
 
+            this.currentAttackTime = 0.0f;
+            this.attackTime = 0.5f;
+            playerInput.actions["Move"].Disable();
+        }
         else
         {
             float sideMove = this.playerInput.actions["Move"].ReadValue<Vector2>().x;
@@ -181,6 +191,14 @@ public class MeleeScript : MonoBehaviour
         if (this.attackType == 3)
         {
             this.gameObject.layer = 0;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("here melee");
+        if (other.gameObject.tag == "Boots")
+        {
+            this.hasDash = true;
         }
     }
 }
