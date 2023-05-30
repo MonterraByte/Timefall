@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
+    public int playerHealth = 100;
 
     public bool hasDoubleJump;
     public bool hasClimb;
@@ -95,4 +96,28 @@ public class PlayerScript : MonoBehaviour {
 
         characterController.Move(velocity * Time.deltaTime);
     }
+
+    private void DamagePlayer(int damage) {
+        TakeDamage(damage);
+        VerifyPlayerHealth();
+    }
+
+    private void TakeDamage(int damage) {
+        playerHealth -= damage;
+    }
+
+    private void VerifyPlayerHealth() {
+        Debug.Log("Player health is now " + playerHealth);
+        if (playerHealth <= 0) {
+            Debug.Log("Player is dead");
+            // TO DO: Game over
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Bullet")) {
+            DamagePlayer(other.gameObject.GetComponent<BulletController>().damage);
+        }
+    }
+
 }

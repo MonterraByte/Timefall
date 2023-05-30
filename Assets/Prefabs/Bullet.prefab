@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1218697570812238508}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Bot
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237550bacadab9d4ebaca541ab9367a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10

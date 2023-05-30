@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public int damage = 10;
 
     
     
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         Destroy(this.gameObject);
     }

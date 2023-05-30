@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public float sightRange = 1f;
     public float attackCooldown = 2f;
     public float speedRotation = 25f;
-    protected int health = 100;
+    protected int health = 10;
 
     protected Transform player;
     protected float lastAttackTime = 0f;
@@ -77,24 +77,25 @@ public class Enemy : MonoBehaviour
     {
     }
 
-    private void OnColEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Bullet")
-        {
-            TakeDamage();
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Bullet") {
+            DamageEnemy(other.gameObject.GetComponent<BulletController>().damage);
         }
     }
 
-    protected virtual void TakeDamage(){
-        /*
+    protected virtual void DamageEnemy(int damage){
+        TakeDamage(damage);
+        VerifyPlayerHealth();
+    }
+
+    private void TakeDamage(int damage){
         health -= damage;
-        Debug.Log("Health: " + health);
-        if (health <= 0){
+    }
+
+    private void VerifyPlayerHealth() {
+        if (health <= 0) {
             Die();
         }
-        */
-        Debug.Log("TakeDamage");
-        Destroy(gameObject);
     }
 
     protected void Die()
