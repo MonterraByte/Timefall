@@ -31,7 +31,6 @@ public class PlayerScript : MonoBehaviour {
         characterController = GetComponent<CharacterController>();
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
         hookScript = GetComponentsInChildren<HookshotScript>()[0];
-        meleeRoation = GetComponent<MeleeScript>().rotateDirection;
     }
 
     private bool CanJump() {
@@ -108,6 +107,10 @@ public class PlayerScript : MonoBehaviour {
         if (other.gameObject.tag == "Boots")
         {
             this.hasDoubleJump = true;
+        }
+        if (other.gameObject.tag == "Claws")
+        {
+            this.hasClimb = true;
         }
         if (other.gameObject.tag == "Moving")
         {

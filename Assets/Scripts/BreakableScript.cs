@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpScript : MonoBehaviour
+public class BreakableScript : MonoBehaviour
 {
-    public static event Action OnDestroyed;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +18,9 @@ public class PowerUpScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.layer == 1 || other.gameObject.layer == 7)
         {
-            string tag = this.gameObject.tag;
             Destroy(this.gameObject);
-            if (tag == "Boots")
-            {
-                OnDestroyed?.Invoke();
-            }
         }
     }
 }
