@@ -1383,6 +1383,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.00020405743
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.00014034705
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.0023308974
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.012704057
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00526117
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715240166684829091, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.051092573
+      objectReference: {fileID: 0}
     - target: {fileID: 8829441663400177823, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: dashSpeed
       value: 20

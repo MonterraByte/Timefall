@@ -41,7 +41,7 @@ public class MeleeScript : MonoBehaviour
 
     void Start()
     {
-        this.animator = GetComponent<Animator>();
+        this.animator = GetComponentInChildren<Animator>();
 
         this.characterController = GetComponent<CharacterController>();
 

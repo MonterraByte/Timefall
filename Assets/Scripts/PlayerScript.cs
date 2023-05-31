@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour {
     private void Update() {
         var velocity = characterController.velocity;
 
-        var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
+        var headingInput = new Vector3(moveInput.x, 0.0f, 0.0f);
         if (headingInput.sqrMagnitude > 0.0025f) {
             gameObject.transform.forward = headingInput;
         }
