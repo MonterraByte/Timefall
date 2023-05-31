@@ -71,6 +71,7 @@ public class HookshotScript : MonoBehaviour
             this.animator.enabled = false;
             this.gameObject.layer = 3;
             this.hookState = 1;
+            this.endSwing = false;
 
             playerInput.actions["Move"].Disable();
             playerInput.actions["Melee"].Disable();
@@ -91,9 +92,6 @@ public class HookshotScript : MonoBehaviour
 
             if (this.isRight) this.currentAngle = Mathf.Acos(Vector3.Dot(this.vector, Vector3.up) / this.vector.magnitude);
             else this.currentAngle = Mathf.Acos(Vector3.Dot(this.vector, Vector3.down) / this.vector.magnitude);
-
-            Debug.Log("Current angle = " + this.currentAngle * Mathf.Rad2Deg);
-            Debug.Log("Vecctor = " + this.vector);
 
             this.currentX = (float)(Math.Sin(this.currentAngle));
             this.currentY = (float)(Math.Cos(this.currentAngle));

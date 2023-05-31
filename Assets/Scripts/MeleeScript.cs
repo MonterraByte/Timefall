@@ -195,7 +195,6 @@ public class MeleeScript : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("here melee");
         if (other.gameObject.tag == "Boots")
         {
             this.hasDash = true;

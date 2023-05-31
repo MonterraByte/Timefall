@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour
 {
-    public static event Action OnDestroyed;
+    public static event Action OnDestroyedBoots;
+    public static event Action OnDestroyedFlame;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,11 @@ public class PowerUpScript : MonoBehaviour
             Destroy(this.gameObject);
             if (tag == "Boots")
             {
-                OnDestroyed?.Invoke();
+                OnDestroyedBoots?.Invoke();
+            }
+            if (tag == "Flame")
+            {
+                OnDestroyedFlame?.Invoke();
             }
         }
     }

@@ -104,21 +104,27 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Boots")
+        switch(other.gameObject.tag)
         {
-            this.hasDoubleJump = true;
-        }
-        if (other.gameObject.tag == "Claws")
-        {
-            this.hasClimb = true;
-        }
-        if (other.gameObject.tag == "HookShot")
-        {
-            GetComponentInChildren<HookshotScript>().enabled = true;
-        }
-        if (other.gameObject.tag == "Moving")
-        {
-            this.onPlatform = true;
+            case "Boots":
+                this.hasDoubleJump = true;
+                break;
+
+            case "Claws":
+                this.hasClimb = true;
+                break;
+
+            case "HookShot":
+                GetComponentInChildren<HookshotScript>().enabled = true;
+                break;
+
+            case "Flame":
+                GetComponentInChildren<Flamethrower>().enabled = true;
+                break;
+
+            case "Moving":
+                this.onPlatform = true;
+                break;
         }
     }
 

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5489533243516230818}
   - component: {fileID: 7258347655026571139}
   - component: {fileID: 4357860241848539902}
-  - component: {fileID: 7113396195383178121}
   m_Layer: 0
   m_Name: Moving
   m_TagString: Moving
@@ -34,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4444440207445993074
 MeshFilter:
@@ -123,15 +122,3 @@ MonoBehaviour:
   goBack: 1
   moveLength: -22
   moveSpeed: -5
---- !u!114 &7113396195383178121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5304436350276257428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f89cffbaf5795e64ca5ce60e8911d5e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
