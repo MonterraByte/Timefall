@@ -34,11 +34,10 @@ class Enemies : MonoBehaviour
     void SpawnBots(){
 
         List<Transform[]> patrolPointsBotsList = new List<Transform[]>();
-        for (int i = 0; i < patrolPointsBots.Length; i += 3){
-            Transform[] patrolPoints = new Transform[3];
+        for (int i = 0; i < patrolPointsBots.Length; i += 2){
+            Transform[] patrolPoints = new Transform[2];
             patrolPoints[0] = patrolPointsBots[i];
             patrolPoints[1] = patrolPointsBots[i + 1];
-            patrolPoints[2] = patrolPointsBots[i + 2];
             patrolPointsBotsList.Add(patrolPoints);
 
         }
