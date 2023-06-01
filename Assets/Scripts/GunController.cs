@@ -33,7 +33,4 @@ public class Gun : RangedWeapon
 
         
     }
-
-
-
 }
