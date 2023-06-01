@@ -7,6 +7,7 @@ public class BurnScript : MonoBehaviour
     public float health = 100;
     public ParticleSystem fire;
     public Vector3 flamePos;
+    public Vector3 flameScale;
 
     private bool burning = false;
     private float currentTime = 0;
@@ -18,7 +19,7 @@ public class BurnScript : MonoBehaviour
         this.burn = Instantiate(fire, Vector3.zero, Quaternion.identity, this.transform);
         this.burn.transform.localPosition = flamePos;
         this.burn.transform.localRotation = Quaternion.identity;
-        this.burn.transform.localScale = Vector3.one * 2.5f;
+        this.burn.transform.localScale = flameScale;
         this.burn.Stop(true);
     
     }
