@@ -9,6 +9,7 @@ TagManager:
   - Hook
   - Swing
   - Bot
+  - Bullet
   layers:
   - Default
   - TransparentFX
