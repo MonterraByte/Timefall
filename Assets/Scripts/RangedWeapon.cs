@@ -13,6 +13,8 @@ public class RangedWeapon : MonoBehaviour
 
     //private bool LastDirection = false;
 
+    private bool FacingRight = true;
+
     public float SpeedRotation = 25f;
 
 
@@ -50,19 +52,19 @@ public class RangedWeapon : MonoBehaviour
 
         // Determine the direction the player is moving in
 
-        /*
         if (horizontalInput > 0)
         {
             // Player is moving right
-            LastDirection = false;
+            //LastDirection = false;
+            FacingRight = true;
         }
         else if (horizontalInput < 0)
         {
             // Player is moving left
-            LastDirection = true;
-
+            //LastDirection = true;
+            FacingRight = false;
         }
-        else
+        /*else
         {
             LastDirection = false;
             // Player is not moving horizontally
@@ -82,6 +84,18 @@ public class RangedWeapon : MonoBehaviour
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+
+            if (FacingRight && targetRotation.y < 0) // Facing right and pointing left
+            {
+                targetRotation.y = -targetRotation.y;
+                targetRotation.z = -targetRotation.z;
+            }
+            else if (!FacingRight && targetRotation.y > 0) // Facing left and pointing right
+            {
+                targetRotation.y = -targetRotation.y;
+                targetRotation.z = -targetRotation.z;
+            }
+
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, SpeedRotation * Time.deltaTime);
         }
     }
