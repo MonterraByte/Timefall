@@ -26,7 +26,6 @@ public class FireCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         /*
         // Check if the collider belongs to an enemy
         if (other.CompareTag("Enemy"))

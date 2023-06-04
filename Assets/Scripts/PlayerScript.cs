@@ -25,6 +25,8 @@ public class PlayerScript : MonoBehaviour {
     private bool usedDoubleJump;
     private bool isGrounded;
 
+    private bool onPlatform = false;
+
     private void Start() {
         characterController = GetComponent<CharacterController>();
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
@@ -43,6 +45,7 @@ public class PlayerScript : MonoBehaviour {
         if (context.started) {
             jumpInput = jumpInputMax;
             hookScript.endSwing = true;
+            this.onPlatform = false;
         }
     }
 
@@ -90,9 +93,46 @@ public class PlayerScript : MonoBehaviour {
         jumpInput -= Time.deltaTime;
 
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
-        velocity.y += gravityValue * Time.deltaTime;
+        if (!this.onPlatform)
+        {
+            velocity.y += gravityValue * Time.deltaTime;
+        }
         velocity.z = 0.0f;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch(other.gameObject.tag)
+        {
+            case "Boots":
+                this.hasDoubleJump = true;
+                break;
+
+            case "Claws":
+                this.hasClimb = true;
+                break;
+
+            case "HookShot":
+                GetComponentInChildren<HookshotScript>().enabled = true;
+                break;
+
+            case "Flame":
+                GetComponentInChildren<Flamethrower>().enabled = true;
+                break;
+
+            case "Moving":
+                this.onPlatform = true;
+                break;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Moving")
+        {
+            this.onPlatform = false;
+        }
     }
 }

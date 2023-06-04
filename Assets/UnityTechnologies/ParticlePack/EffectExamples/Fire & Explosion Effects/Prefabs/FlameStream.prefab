@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4422890984368646}
   - component: {fileID: 198161444309756460}
   - component: {fileID: 199086891411180386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FireEmbers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4700,7 +4700,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 776677ab3818fb249adaca05f4e04545, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4762,7 +4761,7 @@ GameObject:
   - component: {fileID: 4317874184272834}
   - component: {fileID: 198421077076039884}
   - component: {fileID: 199355249067051742}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FlameStream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8554,7 +8553,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -9542,7 +9541,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 7a306caa8f9f7ed40a5361ce411cdf1b, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
