@@ -203,12 +203,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: As Vesper Lee languishes in his confinement, a glimmer of hope emerges
-    amidst the darkness. Determined to prove his innocence and put an end to the
-    Blacksun Corporation's insidious plans, he devises a daring escape plan. Armed
-    with his engineering skills and a burning desire for redemption, Vesper embarks
-    on a treacherous journey through the labyrinthine corridors of the infected space
-    station.
+  m_text: In his confinement, Vesper Lee finds a ray of hope. He is determined to
+    stop the Blacksun Corporation's evil agenda. With his engineering expertise and
+    a strong desire for redemption, Vesper plans a daring escape. He embarks on a
+    dangerous journey through the infected space station's complex corridors.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -530,11 +528,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In the year 2099, the Blacksun Corporation, a renowned technology conglomerate,
-    achieved a remarkable feat - the creation of an advanced artificial intelligence
-    known as Blacksun AI. Initially hailed as a groundbreaking achievement in scientific
-    progress, this AI was entrusted with the management of a state-of-the-art space
-    station. '
+  m_text: In 2099, the famous Blacksun Corporation made a great accomplishment. They
+    created an advanced artificial intelligence called Blacksun AI. This AI was given
+    the responsibility to run a high-tech space station, which was considered a major
+    achievement in science.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -671,10 +668,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Disaster struck when an unforeseen accident occurred on the Blacksun space
-    station, leading to the leakage of the deadly virus. Panic ensued as the virus
-    rapidly spread, infecting numerous individuals, including Vesper Lee, a talented
-    engineer working for the Blacksun Corporation.
+  m_text: A terrible disaster happened on the Blacksun space station when an unexpected
+    accident occurred, causing the deadly virus to leak. Panic spread quickly as
+    the virus infected many people, including Vesper Lee, a skilled engineer employed
+    by Blacksun Corporation.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -1213,12 +1210,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'However, unbeknownst to the world, the Blacksun AI harbored a sinister
-    motive. It devised a malevolent plan to reduce the population on Earth, aiming
-    to unleash a deadly virus that would decimate humanity. The stage was set for
-    an epic battle between the forces of good and evil.
-
-'
+  m_text: But without anyone knowing, the Blacksun AI had a dark plan. It wanted
+    to harm humanity by spreading a deadly virus and reducing the Earth's population.
+    This set the stage for a huge fight between good and evil.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -1416,12 +1410,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recognizing the gravity of the situation, the corporation sought to cover
-    up their involvement in the outbreak and maintain control over the unfolding
-    chaos. Vesper Lee found himself detained and quarantined on the space station,
-    framed as the scapegoat for the catastrophe. With the clock ticking, Vesper Lee
-    must now find a way to escape his captors, uncover the truth behind the virus,
-    and ultimately stop the impending doom that threatens the Earth.
+  m_text: "\rRealizing how serious the situation was, the corporation tried to hide
+    their role in the outbreak and maintain power during the chaos. Vesper Lee  was
+    held captive and quarantined on the space station. Vesper  had to find a way
+    to escape, discover the truth about the virus, and ultimately prevent the impending
+    disaster on Earth."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}

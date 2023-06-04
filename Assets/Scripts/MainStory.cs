@@ -7,7 +7,7 @@ public class MainStory : MonoBehaviour
 {
     void OnEnable()
     {
-        SceneManager.LoadScene("Spaceship Level", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         
     }
 }
