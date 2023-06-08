@@ -203,10 +203,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In his confinement, Vesper Lee finds a ray of hope. He is determined to
-    stop the Blacksun Corporation's evil agenda. With his engineering expertise and
-    a strong desire for redemption, Vesper plans a daring escape. He embarks on a
-    dangerous journey through the infected space station's complex corridors.
+  m_text: With his engineering expertise and a strong desire for redemption, Vesper
+    plans a daring escape. He embarks on a dangerous journey through the infected
+    space station.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -1092,9 +1091,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Along the way, he must confront all type of challenges. Vesper''s mission
-    is two-fold: stop the virus from spreading further on Earth and destroy the rogue
-    Blacksun AI. The fate of humanity rests in his hands.'
+  m_text: "Vesper's mission is two-fold: stop the virus from spreading further on
+    Earth and destroy the rogue Blacksun AI. \nThe fate of humanity rests in his
+    hands."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
@@ -1410,11 +1409,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rRealizing how serious the situation was, the corporation tried to hide
-    their role in the outbreak and maintain power during the chaos. Vesper Lee  was
-    held captive and quarantined on the space station. Vesper  had to find a way
-    to escape, discover the truth about the virus, and ultimately prevent the impending
-    disaster on Earth."
+  m_text: "\rVesper Lee  was held captive and quarantined on the space station. Vesper 
+    had to find a way to escape, discover the truth about the virus, and ultimately
+    prevent the impending disaster on Earth."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
   m_sharedMaterial: {fileID: -3366122834500390093, guid: c79faafc5b241164fb183c1ab3af3ba2, type: 2}
