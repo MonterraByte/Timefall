@@ -20,16 +20,14 @@ public class Gun : RangedWeapon
 
     public override void Fire()
     {
-        // Check if the left mouse button is pressed
-        if (Mouse.current.leftButton.isPressed)
-        {
+
             Transform bulletTrans = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Rigidbody BulletRB = bulletTrans.GetComponent<Rigidbody>();
             BulletRB.AddRelativeForce(Vector3.forward * bulletSpeed);
 
 
             StartCoroutine(StartCooldown());
-        }
+        
 
         
     }

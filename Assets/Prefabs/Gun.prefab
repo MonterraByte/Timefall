@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5243934188557130622}
   - component: {fileID: 5275911216626541290}
   - component: {fileID: 8826308362613104132}
+  - component: {fileID: 1261256355972866136}
   m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
@@ -141,6 +142,20 @@ MonoBehaviour:
   boomerangSpeed: 500
   boomerangRange: 10
   boomerangReturnSpeed: 20
+--- !u!114 &1261256355972866136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5853424998786151913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07a3ac00c5bd3c469d52dfc45ae5bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CooldownDuration: 1
+  SpeedRotation: 25
 --- !u!1001 &6327339766322853823
 PrefabInstance:
   m_ObjectHideFlags: 0

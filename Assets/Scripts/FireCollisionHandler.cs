@@ -18,7 +18,7 @@ public class FireCollisionHandler : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime; // Increment the timer by the elapsed time
-        if (timer >= fireDuration || Mouse.current.rightButton.wasReleasedThisFrame) // Check if the timer has reached the fire duration
+        if (timer >= fireDuration || Mouse.current.leftButton.wasReleasedThisFrame) // Check if the timer has reached the fire duration
         {
             fire.Stop(true); // Destroy the fire particle
         }
