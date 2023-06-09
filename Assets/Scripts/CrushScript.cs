@@ -67,4 +67,17 @@ public class CrushScript : MonoBehaviour
                 break;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
+
+            if (manager != null)
+            {
+                manager.StartRespawn();
+            }
+        }
+    }
 }
