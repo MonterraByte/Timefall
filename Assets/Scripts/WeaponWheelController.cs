@@ -10,13 +10,12 @@ public class WeaponWheelButtonController : MonoBehaviour
     public TextMeshProUGUI itemText;
     public Sprite icon;
 
-
     private bool selected = false;
     private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
-
+        
         anim = GetComponent<Animator>();
         
     }
