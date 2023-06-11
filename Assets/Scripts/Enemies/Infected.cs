@@ -17,11 +17,16 @@ public class Infected : Enemy
     }
 
     // if infected in contact with player, infected stops moving
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            movementSpeed = 0f;
+            if (transform.position.x < player.position.x) {
+                transform.position = new Vector3(transform.position.x - 3.0f, transform.position.y, transform.position.z);
+            }
+            else {
+                transform.position = new Vector3(transform.position.x + 3.0f, transform.position.y, transform.position.z);
+            }
         }
     }
 
