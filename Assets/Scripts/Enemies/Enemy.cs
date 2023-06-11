@@ -5,7 +5,6 @@ public class Enemy : MonoBehaviour
     public float platformHeight = 0f;
     public int damage = 10;
     public float movementSpeed = 5f;
-    public int attackDamage = 10;
     public float attackRange = 1f;
     public float sightRange = 1f;
     public float attackCooldown = 2f;
@@ -80,10 +79,6 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.tag == "Bullet") {
             DamageEnemy(other.gameObject.GetComponent<BulletController>().damage);
         }
-    }
-
-    private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.tag);
     }
 
     protected virtual void DamageEnemy(int damage){

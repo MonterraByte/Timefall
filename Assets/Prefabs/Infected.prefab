@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1760012574398734567}
   - component: {fileID: 755291363609968649}
   - component: {fileID: 516893173254793810}
+  - component: {fileID: -4433939091712059866}
   m_Layer: 0
   m_Name: Infected
-  m_TagString: Untagged
+  m_TagString: Infected
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6896067685626574072
 MeshFilter:
@@ -123,8 +124,29 @@ MonoBehaviour:
   platformHeight: 0
   damage: 10
   movementSpeed: 5
-  attackDamage: 10
-  attackRange: 1
-  sightRange: 1
+  attackRange: 0
+  sightRange: 10
   attackCooldown: 2
   speedRotation: 25
+  attackDamage: 10
+--- !u!65 &-4433939091712059866
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567746468615442495}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2}
+  m_Center: {x: 0, y: -2, z: 0.5}

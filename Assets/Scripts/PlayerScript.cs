@@ -104,6 +104,8 @@ public class PlayerScript : MonoBehaviour {
         if (other.gameObject.CompareTag("Bullet")) {
             DamagePlayer(other.gameObject.GetComponent<BulletController>().damage);
         }
+        if (other.gameObject.CompareTag("Infected")) {
+            DamagePlayer(other.gameObject.GetComponent<Infected>().attackDamage);
+        }
     }
-
 }
