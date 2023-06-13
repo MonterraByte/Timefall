@@ -8,10 +8,13 @@ public class CloseScript : MonoBehaviour
 
     private bool done = false;
     private float startSpot;
+
+    private GameObject childObject;
     // Start is called before the first frame update
     void Start()
     {
         this.startSpot = this.transform.position.x;
+        this.childObject = this.transform.Find("SpawnPoint").gameObject;
     }
 
     // Update is called once per frame
@@ -33,6 +36,13 @@ public class CloseScript : MonoBehaviour
         if (playerTransform.position.x > 82 && playerTransform.position.x < 110
             && playerTransform.position.y > 59 && playerTransform.position.y < 73)
         {
+            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
+
+            if (manager != null)
+            {
+                manager.setSpawnPoint(this.childObject);
+            }
+
             return true;
         }
         return false;

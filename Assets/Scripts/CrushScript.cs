@@ -72,12 +72,8 @@ public class CrushScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
-
-            if (manager != null)
-            {
-                manager.StartRespawn();
-            }
+            PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+            player.setHealth(0);
         }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
+    public int health = 100;
 
     public bool hasDoubleJump;
     public bool hasClimb;
@@ -53,11 +54,19 @@ public class PlayerScript : MonoBehaviour {
         moveInput = context.ReadValue<Vector2>();
     }
 
+    public void setHealth(int newHealth)
+    {
+        this.health = newHealth;
+    }
+
     private void FixedUpdate() {
+        OnDeath();
+
         isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f);
     }
 
-    private void Update() {
+    private void Update()
+    { 
         var velocity = characterController.velocity;
 
         var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
@@ -100,6 +109,21 @@ public class PlayerScript : MonoBehaviour {
         velocity.z = 0.0f;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private void OnDeath()
+    {
+        if (this.health == 0)
+        {
+            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
+
+            if (manager != null)
+            {
+                manager.StartRespawn();
+            }
+
+            this.health = 100;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
