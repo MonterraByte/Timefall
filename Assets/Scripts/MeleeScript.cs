@@ -21,6 +21,8 @@ public class MeleeScript : MonoBehaviour
     private PlayerInput playerInput;
     private BoxCollider boxColliderStick;
 
+    private static readonly int meleeAttackTrigger = Animator.StringToHash("MeleeAttack");
+
     // Start is called before the first frame update
 
     public void OnMelee(InputAction.CallbackContext context)
@@ -41,7 +43,7 @@ public class MeleeScript : MonoBehaviour
 
     void Start()
     {
-        this.animator = GetComponent<Animator>();
+        this.animator = GetComponentInChildren<Animator>();
 
         this.characterController = GetComponent<CharacterController>();
 
@@ -115,7 +117,7 @@ public class MeleeScript : MonoBehaviour
         if (velocity.y != 0)
         {
             this.attackType = 2;
-            this.animator.SetTrigger("AirAttack");
+            this.animator.SetTrigger(meleeAttackTrigger);
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
             this.rotateDirection = -720.0f;
@@ -128,7 +130,7 @@ public class MeleeScript : MonoBehaviour
         else if (!this.hasDash)
         {
             this.attackType = 0;
-            this.animator.SetTrigger("NeutralAttack");
+            this.animator.SetTrigger(meleeAttackTrigger);
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
@@ -142,19 +144,19 @@ public class MeleeScript : MonoBehaviour
             {
                 case 0.0f:
                     this.attackType = 0;
-                    this.animator.SetTrigger("NeutralAttack");
+                    this.animator.SetTrigger(meleeAttackTrigger);
                     break;
 
                 case < 0.0f:
                     this.attackType = 1;
                     this.isRight = false;
-                    this.animator.SetTrigger("DashAttack");
+                    this.animator.SetTrigger(meleeAttackTrigger);
                     break;
 
                 case > 0.0f:
                     this.attackType = 1;
                     this.isRight = true;
-                    this.animator.SetTrigger("DashAttack");
+                    this.animator.SetTrigger(meleeAttackTrigger);
                     break;
             }
 

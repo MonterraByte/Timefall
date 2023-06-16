@@ -12,9 +12,16 @@ public class PlayerScript : MonoBehaviour {
     public bool hasDoubleJump;
     public bool hasClimb;
 
+    public Animator animator;
     private CharacterController characterController;
     private LayerMask climbLayerMask;
     private HookshotScript hookScript;
+
+    private static readonly int jumpTrigger = Animator.StringToHash("Jump");
+    private static readonly int doubleJumpTrigger = Animator.StringToHash("DoubleJump");
+    private static readonly int runningParameter = Animator.StringToHash("Running");
+    private static readonly int runSpeedParameter = Animator.StringToHash("RunSpeed");
+    private static readonly int groundedParameter = Animator.StringToHash("Grounded");
 
     private Vector2 moveInput;
     private float jumpInput;
@@ -55,14 +62,18 @@ public class PlayerScript : MonoBehaviour {
 
     private void FixedUpdate() {
         isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f);
+        animator.SetBool(groundedParameter, isGrounded);
     }
 
     private void Update() {
         var velocity = characterController.velocity;
 
-        var headingInput = new Vector3(0.0f, 0.0f, moveInput.x);
+        var headingInput = new Vector3(moveInput.x, 0.0f, 0.0f);
         if (headingInput.sqrMagnitude > 0.0025f) {
             gameObject.transform.forward = headingInput;
+            animator.SetBool(runningParameter, true);
+        } else {
+            animator.SetBool(runningParameter, false);
         }
 
         if (hasClimb && !isGrounded && Physics.Raycast(transform.position,
@@ -85,10 +96,12 @@ public class PlayerScript : MonoBehaviour {
         if (jumpInput > 0.0f && (CanJump() || CanDoubleJump())) {
             if (!CanJump()) {
                 usedDoubleJump = true;
+                animator.SetTrigger(doubleJumpTrigger);
             }
             coyoteTime = 0.0f;
             velocity.y = Mathf.Sqrt(jumpHeight * 2.0f * -gravityValue);
             jumpInput = 0.0f;
+            animator.SetTrigger(jumpTrigger);
         }
         jumpInput -= Time.deltaTime;
 
@@ -99,6 +112,7 @@ public class PlayerScript : MonoBehaviour {
         }
         velocity.z = 0.0f;
 
+        animator.SetFloat(runSpeedParameter, Mathf.Abs(velocity.x));
         characterController.Move(velocity * Time.deltaTime);
     }
 
