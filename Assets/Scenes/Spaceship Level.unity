@@ -1987,7 +1987,7 @@ MonoBehaviour:
   m_StreamingVersion: 20221011
   m_LegacyPriority: 10
   Target:
-    TrackingTarget: {fileID: 1056425397}
+    TrackingTarget: {fileID: 1581094476}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -7266,11 +7266,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1056425397 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7769449521738897759, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-  m_PrefabInstance: {fileID: 2126346397}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1126557986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7911949639329042131, guid: ca75b1b75a3220e4e97576e99c3f001c, type: 3}
@@ -15502,10 +15497,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 396626689805084070, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2599666274164506151, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
