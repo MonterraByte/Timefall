@@ -39,25 +39,31 @@ public class RangedWeapon : MonoBehaviour
         weapons[2] = GetComponent<Flamethrower>().Fire;
     }
 
+    public void disableGuns()
+    {
+        // Disable all weapon scripts first
+        for (int i = 0; i < this.weapons.Length; i++)
+        {
+            Debug.Log(weapons.Length);
+            ((MonoBehaviour)GetComponent(this.weapons[i].Method.DeclaringType)).enabled = false;
+        }
+
+    }
+
+    public void activateWeapon(int current)
+    {
+
+        this.currentWeapon = current;
+
+        Debug.Log(this.currentWeapon);
+
+        // Enable the script for the current weapon
+        ((MonoBehaviour)GetComponent(this.weapons[this.currentWeapon].Method.DeclaringType)).enabled = true;
+    }
+
     private void Update()
     {
         RotateGun();
-
-        // Check if the user presses Q
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            // Disable all weapon scripts first
-            for (int i = 0; i < weapons.Length; i++)
-            {
-                ((MonoBehaviour)GetComponent(weapons[i].Method.DeclaringType)).enabled = false;
-            }
-
-            // Change the current weapon index by adding one and using modulo to wrap around
-            currentWeapon = (currentWeapon + 1) % weapons.Length;
-
-            // Enable the script for the current weapon
-            ((MonoBehaviour)GetComponent(weapons[currentWeapon].Method.DeclaringType)).enabled = true;
-        }
 
 
         // if not available to use (still cooling down) just exit
@@ -69,8 +75,8 @@ public class RangedWeapon : MonoBehaviour
         // Check if the user presses left mouse button
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            // Invoke the Fire method of the current weapon
-            weapons[currentWeapon]();
+            Debug.Log(this.currentWeapon);
+            weapons[this.currentWeapon]();
         }
 
 
