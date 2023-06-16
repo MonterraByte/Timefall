@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ee1142e97ad703b1397144c80c0279cf
+guid: b77773efe1c1a5b93be695b2b55d6631
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -21,10 +21,10 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
+    animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -33,19 +33,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: damage
-      takeName: damage
-      internalID: -3551865654841311323
-      firstFrame: 660
-      lastFrame: 860
+      name: Character1_Reference|Idle
+      takeName: Character1_Reference|Idle
+      internalID: -2926074435285203520
+      firstFrame: 0
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -60,7 +60,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 660
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -856,7 +856,7 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: 
-    hasTranslationDoF: 0
+    hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7427ba10caa9159a9832886cdcd215d8, type: 3}
