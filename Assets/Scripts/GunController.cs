@@ -17,7 +17,6 @@ public class Gun : RangedWeapon
 
     public float bulletSpeed;
 
-
     public override void Fire()
     {
 

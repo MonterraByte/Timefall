@@ -130,10 +130,16 @@ public class PlayerScript : MonoBehaviour {
         if (this.health == 0)
         {
             RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
+            HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
 
             if (manager != null)
             {
                 manager.StartRespawn();
+            }
+
+            if (healthManager != null)
+            {
+                healthManager.takeHeart();
             }
 
             this.health = 100;
@@ -157,11 +163,11 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case "Flame":
-                GetComponentInChildren<Flamethrower>().enabled = true;
+                GetComponentInChildren<Flamethrower>().setEnable();
                 break;
 
             case "Boomerang":
-                GetComponentInChildren<Boomerang>().enabled = true;
+                GetComponentInChildren<Boomerang>().setEnable();
                 break;
 
             case "Moving":

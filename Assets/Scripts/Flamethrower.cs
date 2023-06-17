@@ -12,6 +12,17 @@ public class Flamethrower : RangedWeapon
     public float fireDuration;
 
     private ParticleSystem currentFirePS;
+    private bool enabled = false;
+
+    public void setEnable()
+    {
+        this.enabled = true;
+    }
+
+    public bool getEnable()
+    {
+        return this.enabled;
+    }
 
     public override void Fire()
     {

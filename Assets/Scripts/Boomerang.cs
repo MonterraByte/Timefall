@@ -13,6 +13,17 @@ public class Boomerang : RangedWeapon
     public float boomerangReturnSpeed;
 
     private Transform boomerangInstance;
+    private bool enabled = false;
+
+    public void setEnable()
+    {
+        this.enabled = true;
+    }
+
+    public bool getEnable()
+    {
+        return this.enabled;
+    }
 
     public override void Fire()
     {

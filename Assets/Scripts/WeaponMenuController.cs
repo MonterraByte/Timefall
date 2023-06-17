@@ -48,14 +48,20 @@ public class WeaponMenuController : MonoBehaviour
                     break;
                 case 3: //flamethrower
                     Debug.Log("flamethrower");
-                    weapon.disableGuns();
-                    weapon.activateWeapon(2);
+                    if (weapon.checkIfPossible(2))
+                    {
+                        weapon.disableGuns();
+                        weapon.activateWeapon(2);
+                    }
                     weaponMenuSelected = false;
                     break;
                 case 4: //boomerang
                     Debug.Log("boomerang");
-                    weapon.disableGuns();
-                    weapon.activateWeapon(1);
+                    if (weapon.checkIfPossible(1))
+                    {
+                        weapon.disableGuns();
+                        weapon.activateWeapon(1);
+                    }
                     weaponMenuSelected = false;
                     break;
 
