@@ -11,12 +11,16 @@ public class WeaponWheelButtonController : MonoBehaviour
     public Sprite icon;
 
     private bool selected = false;
+    private bool changed = false;
     private Animator anim;
+    private Image childIcon;
+    //private Sprite finalIcon;
     // Start is called before the first frame update
     void Start()
     {
-        
+
         anim = GetComponent<Animator>();
+        childIcon = this.transform.Find("Icon").GetComponent<Image>();
         
     }
 
@@ -30,7 +34,43 @@ public class WeaponWheelButtonController : MonoBehaviour
             itemText.text = itemName;
 
         }
-        
+
+        checkForChange();
+    }
+
+    public void checkForChange()
+    {
+        if (!changed)
+        {
+            switch(itemName)
+            {
+                case "LASER GUN":   
+                    changeIcon();
+                    break;
+
+                case "FLAMETHROWER":
+                    Flamethrower flame = GameObject.Find("Gun").GetComponent<Flamethrower>();
+                    if (flame.getEnable())
+                    {
+                        changeIcon();
+                    }
+                    break;
+
+                case "BOOMERANG":
+                    Boomerang boomerang = GameObject.Find("Gun").GetComponent<Boomerang>();
+                    if (boomerang.getEnable())
+                    {
+                        changeIcon();
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void changeIcon()
+    {
+        this.childIcon.sprite = icon;
+        this.changed = true;
     }
 
     public void Selected()

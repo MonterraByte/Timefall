@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
+    public int health = 100;
 
     public bool hasDoubleJump;
     public bool hasClimb;
@@ -60,12 +61,20 @@ public class PlayerScript : MonoBehaviour {
         moveInput = context.ReadValue<Vector2>();
     }
 
+    public void setHealth(int newHealth)
+    {
+        this.health = newHealth;
+    }
+
     private void FixedUpdate() {
+        OnDeath();
+
         isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f);
         animator.SetBool(groundedParameter, isGrounded);
     }
 
-    private void Update() {
+    private void Update()
+    { 
         var velocity = characterController.velocity;
 
         var headingInput = new Vector3(moveInput.x, 0.0f, 0.0f);
@@ -116,6 +125,27 @@ public class PlayerScript : MonoBehaviour {
         characterController.Move(velocity * Time.deltaTime);
     }
 
+    private void OnDeath()
+    {
+        if (this.health == 0)
+        {
+            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
+            HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
+
+            if (manager != null)
+            {
+                manager.StartRespawn();
+            }
+
+            if (healthManager != null)
+            {
+                healthManager.takeHeart();
+            }
+
+            this.health = 100;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         switch(other.gameObject.tag)
@@ -133,7 +163,11 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case "Flame":
-                GetComponentInChildren<Flamethrower>().enabled = true;
+                GetComponentInChildren<Flamethrower>().setEnable();
+                break;
+
+            case "Boomerang":
+                GetComponentInChildren<Boomerang>().setEnable();
                 break;
 
             case "Moving":

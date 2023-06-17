@@ -68,4 +68,9 @@ public class HealthManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("Spaceship Level");
     }
+
+    public void takeHeart()
+    {
+        this.lifes--;
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,6 +38,24 @@ public class RangedWeapon : MonoBehaviour
         weapons[0] = GetComponent<Gun>().Fire;
         weapons[1] = GetComponent<Boomerang>().Fire;
         weapons[2] = GetComponent<Flamethrower>().Fire;
+    }
+
+    public bool checkIfPossible(int current)
+    {
+        switch(current)
+        {
+            case 0:
+                return true;
+
+            case 1:
+                return GetComponent<Boomerang>().getEnable();
+
+            case 2:
+                return GetComponent<Flamethrower>().getEnable();
+
+            default:
+                return false;
+        }
     }
 
     public void disableGuns()
@@ -148,6 +167,11 @@ public class RangedWeapon : MonoBehaviour
     public virtual void Fire()
     {
 
+
+    }
+
+    public virtual void getEnable()
+    {
 
     }
 
