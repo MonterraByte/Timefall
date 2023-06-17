@@ -67,4 +67,13 @@ public class CrushScript : MonoBehaviour
                 break;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
+            player.setHealth(0);
+        }
+    }
 }
