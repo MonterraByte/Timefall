@@ -160,6 +160,10 @@ public class PlayerScript : MonoBehaviour {
                 GetComponentInChildren<Flamethrower>().enabled = true;
                 break;
 
+            case "Boomerang":
+                GetComponentInChildren<Boomerang>().enabled = true;
+                break;
+
             case "Moving":
                 this.onPlatform = true;
                 break;
