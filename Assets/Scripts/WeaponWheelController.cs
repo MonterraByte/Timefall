@@ -49,16 +49,16 @@ public class WeaponWheelButtonController : MonoBehaviour
                     break;
 
                 case "FLAMETHROWER":
-                    Flamethrower flame = GameObject.Find("Gun").GetComponent<Flamethrower>();
-                    if (flame.getEnable())
+                    GameObject flame = GameObject.Find("Flamethrower");
+                    if (flame == null)
                     {
                         changeIcon();
                     }
                     break;
 
                 case "BOOMERANG":
-                    Boomerang boomerang = GameObject.Find("Gun").GetComponent<Boomerang>();
-                    if (boomerang.getEnable())
+                    GameObject boomerang = GameObject.Find("Boomerang");
+                    if (boomerang == null)
                     {
                         changeIcon();
                     }
