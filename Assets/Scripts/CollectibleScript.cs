@@ -23,7 +23,7 @@ public class CollectibleScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){
-            onCollected?.Invoke();
+            
             HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
             switch(typeCollectable){
                 case 1:
@@ -38,6 +38,7 @@ public class CollectibleScript : MonoBehaviour
                     break;
             }
             Destroy(gameObject);
+            onCollected?.Invoke();
         }
     }
 }

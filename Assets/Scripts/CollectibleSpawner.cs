@@ -18,10 +18,10 @@ public class CollectibleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.transform.childCount == 0){
+        if(transform.childCount == 0){
             timer += Time.deltaTime;
             if(timer > delay){
-                Instantiate(collectibleBox, this.transform.position, Quaternion.identity);
+                Instantiate(collectibleBox, this.transform.position, Quaternion.Euler(90f, Time.time * 100f, 0), this.transform);
             }
         }
 
