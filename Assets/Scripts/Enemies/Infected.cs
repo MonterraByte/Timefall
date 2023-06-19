@@ -2,23 +2,26 @@ using UnityEngine;
 
 public class Infected : Enemy
 {
-
-    private bool isCured = false;
     public System.Action killed;  
 
     public int attackDamage = 10;
 
+    //player
+
+
     protected override void AttackPlayer(){
+        if (Time.time > lastAttackTime + attackCooldown) {
+            PlayerScript playerScript = player.GetComponent<PlayerScript>();
+            playerScript.DamagePlayer(attackDamage);
+        }
         
     }
 
-    protected void Cure(){
-        isCured = true;
-    }
-
     // if infected in contact with player, infected stops moving
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
+        // Call the base method to handle bullet collision
+        base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag("Player"))
         {
             if (transform.position.x < player.position.x) {
@@ -30,5 +33,11 @@ public class Infected : Enemy
         }
     }
 
-    
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Player")) {
+            Rigidbody enemyRigidbody = GetComponent<Rigidbody>();
+            enemyRigidbody.velocity = Vector3.zero;
+            enemyRigidbody.angularVelocity = Vector3.zero;
+        }
+    }
 }

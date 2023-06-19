@@ -82,7 +82,7 @@ public class PlayerScript : MonoBehaviour {
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    private void DamagePlayer(int damage) {
+    public void DamagePlayer(int damage) {
         TakeDamage(damage);
         VerifyPlayerHealth();
     }
@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour {
     }
 
     private void VerifyPlayerHealth() {
-        Debug.Log("Player health is now " + playerHealth);
+        //Debug.Log("Player health is now " + playerHealth);
         if (playerHealth <= 0) {
             Debug.Log("Player is dead");
             // TO DO: Game over
@@ -100,12 +100,8 @@ public class PlayerScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Player collided with " + other.gameObject.name);
         if (other.gameObject.CompareTag("Bullet")) {
             DamagePlayer(other.gameObject.GetComponent<BulletController>().damage);
-        }
-        if (other.gameObject.CompareTag("Infected")) {
-            DamagePlayer(other.gameObject.GetComponent<Infected>().attackDamage);
         }
     }
 }

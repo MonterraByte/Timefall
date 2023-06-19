@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float platformHeight = 0f;
     public int damage = 10;
     public float movementSpeed = 5f;
     public float attackRange = 1f;
@@ -11,11 +10,20 @@ public class Enemy : MonoBehaviour
     public float speedRotation = 25f;
     protected int health = 10;
 
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public float bulletSpeed = 0.1f;
+
     protected Transform player;
     protected float lastAttackTime = 0f;
 
+    private float gravityValue = -9.81f;
+
+    protected CharacterController characterController;
+
     private void Start()
     {
+        characterController = GetComponent<CharacterController>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         if (gameObject.tag == "Infected")
@@ -32,6 +40,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected virtual void ChasePlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 movement = direction * movementSpeed * Time.deltaTime;
+
+        movement.y += gravityValue * Time.deltaTime;
+
+        characterController.Move(movement);
+
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speedRotation * Time.deltaTime);
+
+        if (characterController.isGrounded)
+        {
+            movement.y = 0f;
+        }
+    }
+    
     private void Update()
     {
         if (Vector3.Distance(transform.position, player.position) > sightRange)
@@ -55,15 +82,16 @@ public class Enemy : MonoBehaviour
 
     protected virtual void DefaultAction()
     {
-    }
+        Vector3 movement = Vector3.zero;
+        
+        movement.y += gravityValue * Time.deltaTime;
 
-    protected void ChasePlayer()
-    {
-        Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = platformHeight;
-        transform.position += direction * movementSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), speedRotation * Time.deltaTime);
+        characterController.Move(movement);
 
+        if (characterController.isGrounded)
+        {
+            movement.y = 0f;
+        }
     }
 
     protected bool CanAttack()
@@ -73,9 +101,14 @@ public class Enemy : MonoBehaviour
 
     protected virtual void AttackPlayer()
     {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        Vector3 direction = (player.position - bullet.transform.position).normalized;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), speedRotation * Time.deltaTime);
+        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        bulletRigidbody.velocity = direction * bulletSpeed;
     }
 
-    private void OnTriggerEnter(Collider other) {
+    protected virtual void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "Bullet") {
             DamageEnemy(other.gameObject.GetComponent<BulletController>().damage);
         }
