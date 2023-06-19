@@ -13,7 +13,8 @@ public class HookshotScript : MonoBehaviour
     private int hookState = 0;
     private bool isRight = true;
     private bool hook = false;
-    
+
+    public InputActionReference hookshotAction;
     private Animator animator;
     private BoxCollider boxCollider;
     private Camera mainCamera;
@@ -42,6 +43,16 @@ public class HookshotScript : MonoBehaviour
         this.parentTransform = GetComponentInParent<Transform>();
         this.lineRenderer = GetComponentInParent<LineRenderer>();
         this.playerScript = GetComponentInParent<PlayerScript>();
+
+        hookshotAction.action.started += OnHook;
+    }
+
+    private void OnEnable() {
+        hookshotAction.action.Enable();
+    }
+
+    private void OnDisable() {
+        hookshotAction.action.Disable();
     }
 
     // Update is called once per frame
@@ -77,7 +88,7 @@ public class HookshotScript : MonoBehaviour
             playerInput.actions["Melee"].Disable();
             playerInput.actions["Jump"].Disable();
             playerInput.actions["Counter"].Disable();
-        
+
             Plane playerplane = new Plane(new Vector3(0, 0, 1), transform.position);
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -153,7 +164,7 @@ public class HookshotScript : MonoBehaviour
 
             case 3:
                 this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
-                
+
                 if (this.isRight && this.vector.x < 0)
                 {
                     Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookSpeed: 10
   endSwing: 0
+  hookshotAction: {fileID: 6143472106228143392, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!1 &5646028238889485781
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ Transform:
   - {fileID: 1723155242367458936}
   - {fileID: 1615860760088232663}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8829441663400177823
 MonoBehaviour:
