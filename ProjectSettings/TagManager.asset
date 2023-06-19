@@ -17,6 +17,7 @@ TagManager:
   - Boomerang
   - Enemy
   - Infected
+  - Bullet
   layers:
   - Default
   - TransparentFX

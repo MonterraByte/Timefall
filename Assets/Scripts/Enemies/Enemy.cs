@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "Bullet") {
-            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
     }
 }
