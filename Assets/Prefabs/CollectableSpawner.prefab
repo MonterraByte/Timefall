@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 168
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3843651296114044179
 MonoBehaviour:
@@ -46,4 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectibleBox: {fileID: 5217786068135292060, guid: 5038f2bf9aa545e499413017d0e91cd4, type: 3}
   delay: 10
-  isSpawn: 1

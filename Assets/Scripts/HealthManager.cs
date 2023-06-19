@@ -20,8 +20,7 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public int _shields;
-
+    private int _shields;
     public int Shields {
         get => _shields;
         set {

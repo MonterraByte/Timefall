@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleScript : MonoBehaviour
@@ -20,10 +18,7 @@ public class CollectibleScript : MonoBehaviour
 
 
     void OnTriggerEnter(Collider other){
-        Debug.Log(other.gameObject.name);
-        Debug.Log(other.gameObject.tag);
         if(other.CompareTag("Player")){
-            Debug.Log("match");
             HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
             switch(typeCollectable){
                 case 1:
