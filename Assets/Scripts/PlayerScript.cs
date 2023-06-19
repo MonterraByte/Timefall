@@ -148,6 +148,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.tag + " hit");
         switch(other.gameObject.tag)
         {
             case "Boots":

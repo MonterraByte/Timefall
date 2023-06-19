@@ -8,4 +8,9 @@ public class BulletController : MonoBehaviour
     {
         Destroy(this.gameObject);
     }   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(this.gameObject);
+    }
 }

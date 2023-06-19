@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 3790827992475271637}
   - component: {fileID: 933477672625220058}
   - component: {fileID: 869882088263529225}
+  - component: {fileID: 1637469853917570730}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -156,7 +157,7 @@ Transform:
   - {fileID: 1723155242367458936}
   - {fileID: 1615860760088232663}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8829441663400177823
 MonoBehaviour:
@@ -174,6 +175,7 @@ MonoBehaviour:
   playerAcceleration: 15
   jumpHeight: 2
   gravityValue: -18
+  health: 100
   hasDoubleJump: 0
   hasClimb: 0
   animator: {fileID: 4686501482761536514}
@@ -267,7 +269,19 @@ MonoBehaviour:
     m_ActionId: e3a5fc3c-6a9a-4cd1-9317-03c08be4022c
     m_ActionName: Player/Counter[/Keyboard/v]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: HookshotScript, Assembly-CSharp
+        m_MethodName: OnHook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d005db79-36a1-4a59-8fd6-ef62fb1fd378
     m_ActionName: Player/Hook[/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
@@ -420,6 +434,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!136 &1637469853917570730
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646028238889485781}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 9.3, y: -24.6, z: 0.5}
 --- !u!1001 &1180886403028318611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -501,6 +538,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5243934188557130622, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
       propertyPath: cooldownTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275911216626541290, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5853424998786151913, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
