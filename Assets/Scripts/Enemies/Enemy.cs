@@ -7,18 +7,14 @@ public class Enemy : MonoBehaviour
     public float attackRange = 1f;
     public float sightRange = 1f;
     public float attackCooldown = 2f;
+    protected float lastAttackTime = 0f;
     public float speedRotation = 25f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public float bulletSpeed = 0.1f;
-
     protected Transform player;
-    protected float lastAttackTime = 0f;
-
     private float gravityValue = -9.81f;
-
     protected CharacterController characterController;
-
     private int projectileLayer;
 
     private void Start()
@@ -33,7 +29,7 @@ public class Enemy : MonoBehaviour
         }
         else if (gameObject.tag == "Human")
         {  
-            gameObject.GetComponent<Renderer>().material.color = Color.white;   
+            gameObject.GetComponent<Renderer>().material.color = Color.blue;   
         }
         else if (gameObject.tag == "Bot")
         {

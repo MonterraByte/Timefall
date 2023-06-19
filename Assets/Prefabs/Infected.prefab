@@ -125,15 +125,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  movementSpeed: 2
+  movementSpeed: 3
   attackRange: 1.2
-  sightRange: 5
+  sightRange: 10
   attackCooldown: 2
   speedRotation: 25
   bulletPrefab: {fileID: 0}
   bulletSpawnPoint: {fileID: 0}
   bulletSpeed: 0.1
-  attackDamage: 10
 --- !u!143 &5071680757850784179
 CharacterController:
   m_ObjectHideFlags: 0
