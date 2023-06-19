@@ -148,6 +148,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.tag + " hit");
         switch(other.gameObject.tag)
         {
             case "Boots":
@@ -172,6 +173,10 @@ public class PlayerScript : MonoBehaviour {
 
             case "Moving":
                 this.onPlatform = true;
+                break;
+            case "Bullet":
+                Debug.Log("Bullet hit");
+                this.health -= 10;
                 break;
         }
     }

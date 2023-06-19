@@ -156,7 +156,7 @@ Transform:
   - {fileID: 1723155242367458936}
   - {fileID: 1615860760088232663}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8829441663400177823
 MonoBehaviour:
@@ -174,6 +174,7 @@ MonoBehaviour:
   playerAcceleration: 15
   jumpHeight: 2
   gravityValue: -18
+  health: 100
   hasDoubleJump: 0
   hasClimb: 0
   animator: {fileID: 4686501482761536514}
@@ -251,7 +252,19 @@ MonoBehaviour:
     m_ActionId: e3a5fc3c-6a9a-4cd1-9317-03c08be4022c
     m_ActionName: Player/Counter[/Keyboard/v]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: HookshotScript, Assembly-CSharp
+        m_MethodName: OnHook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d005db79-36a1-4a59-8fd6-ef62fb1fd378
     m_ActionName: Player/Hook[/Keyboard/x]
   - m_PersistentCalls:
@@ -503,6 +516,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5243934188557130622, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
       propertyPath: cooldownTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275911216626541290, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5853424998786151913, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}

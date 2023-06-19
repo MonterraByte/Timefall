@@ -15,6 +15,9 @@ TagManager:
   - Flame
   - Flammable
   - Boomerang
+  - Enemy
+  - Infected
+  - Bullet
   layers:
   - Default
   - TransparentFX
