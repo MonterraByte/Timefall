@@ -86,9 +86,10 @@ public class RangedWeapon : MonoBehaviour {
     }
 
     private void OnFire() {
-        if (!getAvailable()) {
+        if (!IsAvailable) {
             return;
         }
+        IsAvailable = false;
 
         Debug.Log(this.currentWeapon);
         weapons[this.currentWeapon]();
