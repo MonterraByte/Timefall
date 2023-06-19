@@ -186,6 +186,7 @@ public class PlayerScript : MonoBehaviour {
     public void TakeDamage(int damage)
     {
         this.health -= damage;
+        animator.SetTrigger(hurtTrigger);
         Debug.Log(this.health);
     }
 
