@@ -815,7 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca69b902c9d3d24e972651acd8990a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 1
   itemName: LASER GUN
   itemText: {fileID: 276801774}
   icon: {fileID: 21300000, guid: fbb5b101ece76c6468ed96da08919165, type: 3}
@@ -2334,17 +2334,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &287022930 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7105694732468917244, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-  m_PrefabInstance: {fileID: 2126346397}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c07a3ac00c5bd3c469d52dfc45ae5bb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &290521087
 GameObject:
   m_ObjectHideFlags: 0
@@ -5927,7 +5916,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 700129977}
-  weapon: {fileID: 287022930}
+  weapons:
+  - {fileID: 2126346400}
+  - {fileID: 2126346399}
+  - {fileID: 2126346398}
   toggleAction: {fileID: 2581905126108661269, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!1 &706976316
 GameObject:
@@ -6706,7 +6698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca69b902c9d3d24e972651acd8990a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 4
+  ID: 2
   itemName: BOOMERANG
   itemText: {fileID: 276801774}
   icon: {fileID: 21300000, guid: 95207e5606387b1409e087d9ac1ba88c, type: 3}
@@ -21076,14 +21068,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[7].m_ActionName
       value: Player/SecondaryAttack[/XInputControllerWindows/rightTrigger,/Mouse/rightButton]
       objectReference: {fileID: 0}
-    - target: {fileID: 4191535152341307726, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4312948792394688730, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5646028238889485781, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_Name
       value: Player
@@ -21093,6 +21077,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+--- !u!114 &2126346398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4191535152341307726, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+  m_PrefabInstance: {fileID: 2126346397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5dc750c8297294fb450fb55cff228b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2126346399 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 676040213856185760, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+  m_PrefabInstance: {fileID: 2126346397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbda8ccd1124b144a38ef7e5a1686cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2126346400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4312948792394688730, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+  m_PrefabInstance: {fileID: 2126346397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb85b8dcb1a52e146b3e8ff40038acba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2135475721
 GameObject:
   m_ObjectHideFlags: 0

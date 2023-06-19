@@ -13,19 +13,8 @@ public class Boomerang : RangedWeapon
     public float boomerangReturnSpeed;
 
     private Transform boomerangInstance;
-    private bool enabledWeapon = false;
 
-    public void setEnable()
-    {
-        this.enabledWeapon = true;
-    }
-
-    public bool getEnable()
-    {
-        return this.enabledWeapon;
-    }
-
-    public override void Fire()
+    protected override void Fire()
     {
 
             // Instantiate a boomerang object
@@ -45,6 +34,6 @@ public class Boomerang : RangedWeapon
             returnHandler.playerTransform = transform.parent;
 
             StartCoroutine(StartCooldown());
-        
+
     }
 }

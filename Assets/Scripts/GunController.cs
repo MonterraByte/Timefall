@@ -12,7 +12,7 @@ public class Gun : RangedWeapon
         bulletLayer = LayerMask.NameToLayer("Player Projectile");
     }
 
-    public override void Fire() {
+    protected override void Fire() {
         var bulletTrans = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         bulletTrans.gameObject.layer = bulletLayer;
         var BulletRB = bulletTrans.GetComponent<Rigidbody>();

@@ -3,21 +3,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class RangedWeapon : MonoBehaviour {
+public abstract class RangedWeapon : MonoBehaviour {
     public InputActionReference fireAction;
-
-    // An array of FireMethod delegates
-    private FireMethod[] weapons;
-
-    public delegate void FireMethod();
-
-    // The current weapon index
-    private int currentWeapon = 0;
-
 
     public float CooldownDuration = 1.0f;
 
-    private bool IsAvailable = true;
+    private bool _equipped;
+    public bool Equipped {
+        get => _equipped;
+        set {
+            _equipped = value;
+            CanFire = _equipped;
+        }
+    }
+    private bool CanFire = true;
 
     private bool FacingRight = true;
 
@@ -26,16 +25,11 @@ public class RangedWeapon : MonoBehaviour {
 
     private Camera mainCamera;
 
+    protected abstract void Fire();
 
     private void Start()
     {
         mainCamera = Camera.main;
-
-        // Get the references to each script and assign them to the array
-        weapons = new FireMethod[3];
-        weapons[0] = GetComponent<Gun>().Fire;
-        weapons[1] = GetComponent<Boomerang>().Fire;
-        weapons[2] = GetComponent<Flamethrower>().Fire;
 
         fireAction.action.started += ctx => {
             if (ctx.started) {
@@ -45,54 +39,12 @@ public class RangedWeapon : MonoBehaviour {
         fireAction.action.Enable();
     }
 
-    public bool checkIfPossible(int current)
-    {
-        switch(current)
-        {
-            case 0:
-                return true;
-
-            case 1:
-                return GetComponent<Boomerang>().getEnable();
-
-            case 2:
-                return GetComponent<Flamethrower>().getEnable();
-
-            default:
-                return false;
-        }
-    }
-
-    public void disableGuns()
-    {
-        // Disable all weapon scripts first
-        for (int i = 0; i < this.weapons.Length; i++)
-        {
-            Debug.Log(weapons.Length);
-            ((MonoBehaviour)GetComponent(this.weapons[i].Method.DeclaringType)).enabled = false;
-        }
-
-    }
-
-    public void activateWeapon(int current)
-    {
-
-        this.currentWeapon = current;
-
-        Debug.Log(this.currentWeapon);
-
-        // Enable the script for the current weapon
-        ((MonoBehaviour)GetComponent(this.weapons[this.currentWeapon].Method.DeclaringType)).enabled = true;
-    }
-
     private void OnFire() {
-        if (!IsAvailable) {
+        if (!CanFire) {
             return;
         }
-        IsAvailable = false;
-
-        Debug.Log(this.currentWeapon);
-        weapons[this.currentWeapon]();
+        CanFire = false;
+        Fire();
     }
 
     private void Update()
@@ -149,29 +101,10 @@ public class RangedWeapon : MonoBehaviour {
         }
     }
 
-
-    public bool getAvailable()
-    {
-
-        return IsAvailable;
-
-    }
-
     public IEnumerator StartCooldown()
     {
-        IsAvailable = false;
+        CanFire = false;
         yield return new WaitForSeconds(CooldownDuration);
-        IsAvailable = true;
+        CanFire = true;
     }
-
-
-    public virtual void Fire()
-    {
-
-
-    }
-
-
-
-
 }

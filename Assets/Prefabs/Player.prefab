@@ -507,10 +507,6 @@ PrefabInstance:
       propertyPath: cooldownTime
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5275911216626541290, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5853424998786151913, guid: 54b827afb0ea01140bd5a4ff4153aecc, type: 3}
       propertyPath: m_Name
       value: Gun
