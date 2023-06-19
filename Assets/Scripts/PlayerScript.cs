@@ -174,6 +174,7 @@ public class PlayerScript : MonoBehaviour {
                 this.onPlatform = true;
                 break;
             case "Bullet":
+                Debug.Log("Bullet hit");
                 this.health -= 10;
                 break;
         }

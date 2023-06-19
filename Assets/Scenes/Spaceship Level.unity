@@ -6545,7 +6545,7 @@ GameObject:
   - component: {fileID: 933636777}
   m_Layer: 0
   m_Name: Human
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6568,8 +6568,8 @@ MonoBehaviour:
   sightRange: 1
   attackCooldown: 2
   speedRotation: 25
-  bulletPrefab: {fileID: 0}
-  bulletSpawnPoint: {fileID: 0}
+  bulletPrefab: {fileID: 289034907574265465, guid: 40753370f7b9eee448191865657ab4ae, type: 3}
+  bulletSpawnPoint: {fileID: 859373167}
   bulletSpeed: 0.1
 --- !u!136 &933636773
 CapsuleCollider:
@@ -8422,7 +8422,7 @@ GameObject:
   - component: {fileID: 1228115229}
   m_Layer: 0
   m_Name: Bot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12528,9 +12528,10 @@ GameObject:
   - component: {fileID: 1727545693}
   - component: {fileID: 1727545692}
   - component: {fileID: 1727545697}
+  - component: {fileID: 1727545698}
   m_Layer: 0
   m_Name: Infected
-  m_TagString: Untagged
+  m_TagString: Infected
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12673,6 +12674,33 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1727545698
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727545691}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1734750741
 GameObject:
   m_ObjectHideFlags: 0
