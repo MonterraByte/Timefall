@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour {
 
     private static readonly int jumpTrigger = Animator.StringToHash("Jump");
     private static readonly int doubleJumpTrigger = Animator.StringToHash("DoubleJump");
+    private static readonly int hurtTrigger = Animator.StringToHash("Hurt");
     private static readonly int runningParameter = Animator.StringToHash("Running");
     private static readonly int runSpeedParameter = Animator.StringToHash("RunSpeed");
     private static readonly int groundedParameter = Animator.StringToHash("Grounded");
@@ -74,7 +75,7 @@ public class PlayerScript : MonoBehaviour {
     }
 
     private void Update()
-    { 
+    {
         var velocity = characterController.velocity;
 
         var headingInput = new Vector3(moveInput.x, 0.0f, 0.0f);

@@ -18,7 +18,6 @@ public class HealthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         heart1.gameObject.SetActive(true);
         heart2.gameObject.SetActive(true);
         heart3.gameObject.SetActive(true);
@@ -66,7 +65,7 @@ public class HealthManager : MonoBehaviour
 
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Spaceship Level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void takeHeart()
