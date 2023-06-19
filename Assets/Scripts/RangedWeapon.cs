@@ -171,10 +171,6 @@ public class RangedWeapon : MonoBehaviour {
 
     }
 
-    public virtual void getEnable()
-    {
-
-    }
 
 
 
