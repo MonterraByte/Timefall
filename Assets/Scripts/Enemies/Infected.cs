@@ -13,12 +13,4 @@ public class Infected : Enemy
         }
         
     }
-
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Player")) {
-            Rigidbody enemyRigidbody = GetComponent<Rigidbody>();
-            enemyRigidbody.velocity = Vector3.zero;
-            enemyRigidbody.angularVelocity = Vector3.zero;
-        }
-    }
 }

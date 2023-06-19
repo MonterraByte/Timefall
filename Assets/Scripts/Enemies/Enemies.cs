@@ -28,8 +28,8 @@ class Enemies : MonoBehaviour
     private void Start(){
         
         //SpawnBots();
-        //SpawnHumans();
-        SpawnInfected();
+        SpawnHumans();
+        //SpawnInfected();
     }
 
     void SpawnBots(){

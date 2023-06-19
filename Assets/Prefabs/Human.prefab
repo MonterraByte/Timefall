@@ -36,7 +36,7 @@ Transform:
   - {fileID: 913253083339715943}
   - {fileID: 7153963665670909098}
   m_Father: {fileID: 0}
-  m_RootOrder: 128
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7347840570590082784
 MeshFilter:
@@ -107,7 +107,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.9
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -124,14 +124,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  movementSpeed: 5
-  attackRange: 1
-  sightRange: 1
+  movementSpeed: 2
+  attackRange: 5
+  sightRange: 10
   attackCooldown: 2
   speedRotation: 25
   bulletPrefab: {fileID: 289034907574265465, guid: 40753370f7b9eee448191865657ab4ae, type: 3}
   bulletSpawnPoint: {fileID: 7153963665670909098}
-  bulletSpeed: 0.1
+  bulletSpeed: 3
 --- !u!143 &7860682648405857269
 CharacterController:
   m_ObjectHideFlags: 0
@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 913253083339715943}
   - component: {fileID: 6169263683129935560}
   - component: {fileID: 2547724318905368724}
-  - component: {fileID: 7619137287222300346}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -242,29 +241,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7619137287222300346
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5508242916758897256}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5702407829964712938
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5702407829964712938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 1.2}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
