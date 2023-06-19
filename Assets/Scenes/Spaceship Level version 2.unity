@@ -12304,6 +12304,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1611589865}
     - target: {fileID: 4718679683462545338, guid: 2983aadc515c0024a94c89996ef66082, type: 3}
+      propertyPath: shield
+      value: 
+      objectReference: {fileID: 1371119069}
+    - target: {fileID: 4718679683462545338, guid: 2983aadc515c0024a94c89996ef66082, type: 3}
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 789871210}
@@ -12683,6 +12687,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
+--- !u!1 &1371119069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8626466441250380838, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
+  m_PrefabInstance: {fileID: 1371119068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1381956252
 GameObject:
   m_ObjectHideFlags: 0
