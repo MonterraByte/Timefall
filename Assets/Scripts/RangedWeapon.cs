@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class RangedWeapon : MonoBehaviour
-{
+public class RangedWeapon : MonoBehaviour {
+    public InputActionReference fireAction;
 
     // An array of FireMethod delegates
     private FireMethod[] weapons;
@@ -38,6 +36,13 @@ public class RangedWeapon : MonoBehaviour
         weapons[0] = GetComponent<Gun>().Fire;
         weapons[1] = GetComponent<Boomerang>().Fire;
         weapons[2] = GetComponent<Flamethrower>().Fire;
+
+        fireAction.action.started += ctx => {
+            if (ctx.started) {
+                OnFire();
+            }
+        };
+        fireAction.action.Enable();
     }
 
     public bool checkIfPossible(int current)
@@ -80,25 +85,18 @@ public class RangedWeapon : MonoBehaviour
         ((MonoBehaviour)GetComponent(this.weapons[this.currentWeapon].Method.DeclaringType)).enabled = true;
     }
 
-    private void Update()
-    {
-        RotateGun();
-
-
-        // if not available to use (still cooling down) just exit
-        if (getAvailable() == false)
-        {
+    private void OnFire() {
+        if (!getAvailable()) {
             return;
         }
 
-        // Check if the user presses left mouse button
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            Debug.Log(this.currentWeapon);
-            weapons[this.currentWeapon]();
-        }
+        Debug.Log(this.currentWeapon);
+        weapons[this.currentWeapon]();
+    }
 
-
+    private void Update()
+    {
+        RotateGun();
     }
 
     private void RotateGun()
@@ -178,4 +176,3 @@ public class RangedWeapon : MonoBehaviour
 
 
 }
-

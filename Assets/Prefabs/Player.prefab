@@ -239,22 +239,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 933477672625220058}
         m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
-        m_MethodName: OnMelee
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f15925ee-949c-4c4c-b8df-0b1f2fc061ad
-    m_ActionName: Player/Melee[/Keyboard/c]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 933477672625220058}
-        m_TargetAssemblyTypeName: MeleeScript, Assembly-CSharp
         m_MethodName: OnCounter
         m_Mode: 0
         m_Arguments:
@@ -283,6 +267,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d005db79-36a1-4a59-8fd6-ef62fb1fd378
     m_ActionName: Player/Hook[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9ddd6db-b657-4ed5-93b9-7446cd4097ea
+    m_ActionName: Player/WeaponWheel[/Keyboard/q,/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54c97d05-52f7-46d5-abc5-1698c6290f98
+    m_ActionName: Player/PrimaryAttack[/XInputControllerWindows/buttonWest,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d568204c-67da-46c4-8959-4ea1c190afab
+    m_ActionName: Player/SecondaryAttack[/XInputControllerWindows/rightTrigger,/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a0d37b9c-1e80-4106-91c4-6dd834ac76e1
+    m_ActionName: Player/Dash[/Keyboard/leftShift,/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -329,6 +329,8 @@ MonoBehaviour:
   hasDash: 0
   dashSpeed: 10
   rotateDirection: -720
+  moveAction: {fileID: -1641312880010274799, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  attackAction: {fileID: 3915551019711098263, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!120 &869882088263529225
 LineRenderer:
   serializedVersion: 2
