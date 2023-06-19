@@ -388,6 +388,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca75b1b75a3220e4e97576e99c3f001c, type: 3}
+--- !u!114 &36132840 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4718679683462545338, guid: 2983aadc515c0024a94c89996ef66082, type: 3}
+  m_PrefabInstance: {fileID: 1311256872}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346471c7f37a0144784e4b7370285c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &38262488
 GameObject:
   m_ObjectHideFlags: 0
@@ -12370,7 +12381,7 @@ PrefabInstance:
     - target: {fileID: 4207313411228014487, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 36132840}
     - target: {fileID: 4207313411228014487, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GameOverMainMenu
@@ -12466,7 +12477,7 @@ PrefabInstance:
     - target: {fileID: 7882053090310471500, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 36132840}
     - target: {fileID: 7882053090310471500, guid: b2d72abf918fac343a29a9073aa9a414, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GameOverRetry
