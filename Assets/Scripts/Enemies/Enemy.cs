@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public Transform bulletSpawnPoint;
     public float bulletSpeed = 0.1f;
     protected Transform player;
-    private float gravityValue = -9.81f;
+    protected float gravityValue = -9.81f;
     protected CharacterController characterController;
     private int projectileLayer;
 
@@ -68,12 +68,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (CanAttack())
-            {
-                AttackPlayer();
-
-                lastAttackTime = Time.time;
-            }
+            AttackPlayer();
         }
     }
 
@@ -98,12 +93,17 @@ public class Enemy : MonoBehaviour
 
     protected virtual void AttackPlayer()
     {
+        if (!CanAttack())
+        {
+            return;
+        }
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         bullet.layer = projectileLayer;
         Vector3 direction = (player.position - bullet.transform.position).normalized;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), speedRotation * Time.deltaTime);
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
         bulletRigidbody.velocity = direction * bulletSpeed;
+        lastAttackTime = Time.time;
     }
 
     protected virtual void OnTriggerEnter(Collider other){
