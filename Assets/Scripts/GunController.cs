@@ -1,36 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Gun : RangedWeapon
 {
-
     public Transform bulletSpawnPoint;
     public Transform bullet;
-
-
-    //private bool LastDirection = false;
-    
-
-
-
     public float bulletSpeed;
 
-    public override void Fire()
-    {
+    private int bulletLayer;
 
-            Transform bulletTrans = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            Rigidbody BulletRB = bulletTrans.GetComponent<Rigidbody>();
-            BulletRB.AddRelativeForce(Vector3.forward * bulletSpeed);
-
-
-            StartCoroutine(StartCooldown());
-        
-
-        
+    public void Start() {
+        bulletLayer = LayerMask.NameToLayer("Player Projectile");
     }
 
-
-
+    public override void Fire() {
+        var bulletTrans = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        bulletTrans.gameObject.layer = bulletLayer;
+        var BulletRB = bulletTrans.GetComponent<Rigidbody>();
+        BulletRB.AddRelativeForce(Vector3.forward * bulletSpeed);
+        StartCoroutine(StartCooldown());
+    }
 }
