@@ -141,8 +141,11 @@ public class PlayerScript : MonoBehaviour {
 
             if (healthManager != null)
             {
-                Debug.Log("Taking heart");
-                healthManager.takeHeart();
+                if (healthManager.Shields > 0) {
+                    healthManager.Shields--;
+                } else {
+                    healthManager.Lives--;
+                }
             }
 
             this.health = 100;
