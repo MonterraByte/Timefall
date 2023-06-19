@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class CollectibleScript : MonoBehaviour
 {
-    public static event Action onCollected;
     public int typeCollectable;
+    public CollectibleSpawner spawner;
 
 
     void Start(){
-        System.Random random = new System.Random();
-        typeCollectable = random.Next(1, 3);
+        typeCollectable = Random.Range(1, 3);
     }
 
     // Update is called once per frame
@@ -21,9 +19,12 @@ public class CollectibleScript : MonoBehaviour
         
     }
 
+
     void OnTriggerEnter(Collider other){
+        Debug.Log(other.gameObject.name);
+        Debug.Log(other.gameObject.tag);
         if(other.CompareTag("Player")){
-            
+            Debug.Log("match");
             HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
             switch(typeCollectable){
                 case 1:
@@ -36,9 +37,12 @@ public class CollectibleScript : MonoBehaviour
                         healthManager.gainShield();
                     }
                     break;
+                default:
+                    Debug.LogError("Invalid collectable type.");
+                    break;
             }
+            spawner.collectableDestroyed();
             Destroy(gameObject);
-            onCollected?.Invoke();
         }
     }
 }

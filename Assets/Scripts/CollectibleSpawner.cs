@@ -6,24 +6,34 @@ public class CollectibleSpawner : MonoBehaviour
 {
 
     public GameObject collectibleBox;
-    public float delay = 10;
-    float timer;
+    public float delay = 4;
+    public bool isSpawn = true;
 
-    // Start is called before the first frame update
+
+    // Update is called once per frame
     void Start()
     {
+        StartCoroutine(spawnCollectable());
+    }
+
+
+    private IEnumerator spawnCollectable(){
+        while(true){
+            if(isSpawn){
+                spawn();
+            }
+            yield return new WaitForSeconds(delay);
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(transform.childCount == 0){
-            timer += Time.deltaTime;
-            if(timer > delay){
-                Instantiate(collectibleBox, this.transform.position, Quaternion.Euler(90f, Time.time * 100f, 0), this.transform);
-            }
-        }
+    public void collectableDestroyed(){
+        isSpawn = true;
+    }
 
+    public void spawn(){
+        var spawnObject = Instantiate(collectibleBox, this.transform.position, Quaternion.Euler(90f, Time.time * 100f, 0), this.transform);
+        spawnObject.GetComponent<CollectibleScript>().spawner = this;
+        isSpawn = false;
     }
 }
