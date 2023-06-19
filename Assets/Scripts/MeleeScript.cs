@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
@@ -8,6 +6,9 @@ public class MeleeScript : MonoBehaviour
     public bool hasDash = false;
     public float dashSpeed = 10.0f;
     public float rotateDirection = -720.0f;
+
+    public InputActionReference moveAction;
+    public InputActionReference attackAction;
 
     private bool isAttacking = false;
     private int attackType = 0;
@@ -18,20 +19,9 @@ public class MeleeScript : MonoBehaviour
 
     private Animator animator;
     private CharacterController characterController;
-    private PlayerInput playerInput;
     private BoxCollider boxColliderStick;
 
     private static readonly int meleeAttackTrigger = Animator.StringToHash("MeleeAttack");
-
-    // Start is called before the first frame update
-
-    public void OnMelee(InputAction.CallbackContext context)
-    {
-        if (context.started && !this.isAttacking)
-        {
-            StartAttack();
-        }
-    }
 
     public void OnCounter(InputAction.CallbackContext context)
     {
@@ -47,11 +37,23 @@ public class MeleeScript : MonoBehaviour
 
         this.characterController = GetComponent<CharacterController>();
 
-        this.playerInput = GetComponent<PlayerInput>();
-
         this.boxColliderStick = GetComponentInChildren<BoxCollider>();
 
         this.boxColliderStick.enabled = false;
+
+        attackAction.action.started += ctx => {
+            if (ctx.started && !isAttacking) {
+                StartAttack();
+            }
+        };
+    }
+
+    private void OnEnable() {
+        attackAction.action.Enable();
+    }
+
+    private void OnDisable() {
+        attackAction.action.Disable();
     }
 
     // Update is called once per frame
@@ -101,7 +103,7 @@ public class MeleeScript : MonoBehaviour
                 }
 
                 this.attackType = 0;
-                this.playerInput.actions["Move"].Enable();
+                moveAction.action.Enable();
             }
         }
     }
@@ -122,7 +124,7 @@ public class MeleeScript : MonoBehaviour
             this.attackTime = 0.5f;
             this.rotateDirection = -720.0f;
 
-            float sideMove = this.playerInput.actions["Move"].ReadValue<Vector2>().x;
+            float sideMove = moveAction.action.ReadValue<Vector2>().x;
 
             if (sideMove < 0) this.isRight = false;
             else this.isRight = true;
@@ -134,11 +136,11 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            playerInput.actions["Move"].Disable();
+            moveAction.action.Disable();
         }
         else
         {
-            float sideMove = this.playerInput.actions["Move"].ReadValue<Vector2>().x;
+            float sideMove = moveAction.action.ReadValue<Vector2>().x;
 
             switch (sideMove)
             {
@@ -162,7 +164,7 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            playerInput.actions["Move"].Disable();
+            moveAction.action.Disable();
         }
     }
 
@@ -174,12 +176,12 @@ public class MeleeScript : MonoBehaviour
         this.attackTime = 0.2f;
         this.attackType = 3;
         this.gameObject.layer = 2;
-        playerInput.actions["Move"].Disable();
+        moveAction.action.Disable();
     }
 
     void UpdateSide()
     {
-        float sideMove = this.playerInput.actions["Move"].ReadValue<Vector2>().x;
+        float sideMove = moveAction.action.ReadValue<Vector2>().x;
 
         if (sideMove < 0 && this.isRight || sideMove > 0 && !this.isRight)
         {

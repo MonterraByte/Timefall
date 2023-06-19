@@ -5568,6 +5568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 700129977}
   weapon: {fileID: 287022930}
+  toggleAction: {fileID: 2581905126108661269, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!1 &706976316
 GameObject:
   m_ObjectHideFlags: 0
