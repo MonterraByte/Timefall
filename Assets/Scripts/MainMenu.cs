@@ -7,6 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Spaceship Level version 2");
+        SceneManager.LoadScene("Spaceship Level");
     }
 }
