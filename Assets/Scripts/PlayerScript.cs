@@ -141,10 +141,10 @@ public class PlayerScript : MonoBehaviour {
 
             if (healthManager != null)
             {
-                if (healthManager.getShields() == 0) {
-                    healthManager.takeHeart();
+                if (healthManager.Shields > 0) {
+                    healthManager.Shields--;
                 } else {
-                    healthManager.takeShield();
+                    healthManager.Lives--;
                 }
             }
 

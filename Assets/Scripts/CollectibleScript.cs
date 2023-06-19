@@ -16,7 +16,6 @@ public class CollectibleScript : MonoBehaviour
     void Update()
     {
         transform.localRotation = Quaternion.Euler(90f, Time.time * 100f, 0);
-        
     }
 
 
@@ -28,14 +27,10 @@ public class CollectibleScript : MonoBehaviour
             HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
             switch(typeCollectable){
                 case 1:
-                    if(healthManager.getLifes() < 3){
-                        healthManager.gainHeart();
-                    }
+                    healthManager.Lives++;
                     break;
                 case 2:
-                    if(healthManager.getShields() == 0){
-                        healthManager.gainShield();
-                    }
+                    healthManager.Shields++;
                     break;
                 default:
                     Debug.LogError("Invalid collectable type.");
