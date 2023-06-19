@@ -8,7 +8,7 @@ public class Gun : RangedWeapon
 
     private int bulletLayer;
 
-    public void Start() {
+    public void Awake() {
         bulletLayer = LayerMask.NameToLayer("Player Projectile");
     }
 
