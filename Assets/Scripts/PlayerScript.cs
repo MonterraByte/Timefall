@@ -128,8 +128,9 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnDeath()
     {
-        if (this.health == 0)
+        if (this.health <= 0)
         {
+            Debug.Log("On Death");
             RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
             HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
 
@@ -140,6 +141,7 @@ public class PlayerScript : MonoBehaviour {
 
             if (healthManager != null)
             {
+                Debug.Log("Taking heart");
                 healthManager.takeHeart();
             }
 
@@ -176,11 +178,15 @@ public class PlayerScript : MonoBehaviour {
                 this.onPlatform = true;
                 break;
             case "Bullet":
-                Debug.Log("Bullet hit");
-                this.health -= 10;
-                animator.SetTrigger(hurtTrigger);
+                TakeDamage(100);
                 break;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        this.health -= damage;
+        Debug.Log(this.health);
     }
 
     private void OnTriggerExit(Collider other)
