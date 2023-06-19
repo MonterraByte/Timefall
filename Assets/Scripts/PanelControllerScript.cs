@@ -8,6 +8,8 @@ public class PanelController : MonoBehaviour
     public float fadeDuration = 1f; // Duration in seconds for the fade-in and fade-out effect
 
     private GameObject[] panels; // Array to store all the panels
+    private GameObject lifes;
+    private GameObject manager;
 
     private void Start()
     {
@@ -18,6 +20,9 @@ public class PanelController : MonoBehaviour
             panels[i] = transform.GetChild(i).gameObject;
             panels[i].SetActive(false); // Set all panels initially inactive
         }
+
+        lifes = GameObject.Find("Lifes");
+        manager = FindObjectOfType<HealthManager>().gameObject;
     }
 
     // Call this method from another script when you want to show a panel
@@ -28,6 +33,10 @@ public class PanelController : MonoBehaviour
 
     private IEnumerator ShowPanelCoroutine(int panelIndex, float customDuration)
     {
+        //Deactivate health counter
+        manager.SetActive(false);
+        lifes.SetActive(false);
+
         // Pause the game
         Time.timeScale = 0f;
 
@@ -62,6 +71,10 @@ public class PanelController : MonoBehaviour
 
         // Set the panel inactive
         panels[panelIndex].SetActive(false);
+
+        //Activate health counter
+        lifes.SetActive(true);
+        manager.SetActive(true);
 
         // Unpause the game
         Time.timeScale = 1f;
