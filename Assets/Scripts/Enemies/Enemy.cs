@@ -19,8 +19,11 @@ public class Enemy : MonoBehaviour
 
     protected CharacterController characterController;
 
+    private int projectileLayer;
+
     private void Start()
     {
+        projectileLayer = LayerMask.NameToLayer("Enemy Projectile");
         characterController = GetComponent<CharacterController>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -100,6 +103,7 @@ public class Enemy : MonoBehaviour
     protected virtual void AttackPlayer()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        bullet.layer = projectileLayer;
         Vector3 direction = (player.position - bullet.transform.position).normalized;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), speedRotation * Time.deltaTime);
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
