@@ -8,8 +8,6 @@ public class Enemy : MonoBehaviour
     public float sightRange = 1f;
     public float attackCooldown = 2f;
     public float speedRotation = 25f;
-    protected int health = 10;
-
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public float bulletSpeed = 0.1f;
@@ -110,27 +108,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other){
         if (other.gameObject.tag == "Bullet") {
-            DamageEnemy(other.gameObject.GetComponent<BulletController>().damage);
+            Destroy(other.gameObject);
         }
-    }
-
-    protected virtual void DamageEnemy(int damage){
-        TakeDamage(damage);
-        VerifyPlayerHealth();
-    }
-
-    private void TakeDamage(int damage){
-        health -= damage;
-    }
-
-    private void VerifyPlayerHealth() {
-        if (health <= 0) {
-            Die();
-        }
-    }
-
-    protected void Die()
-    {
-        Destroy(gameObject);
     }
 }

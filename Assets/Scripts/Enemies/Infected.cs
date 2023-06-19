@@ -12,15 +12,13 @@ public class Infected : Enemy
     protected override void AttackPlayer(){
         if (Time.time > lastAttackTime + attackCooldown) {
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            playerScript.DamagePlayer(attackDamage);
+            playerScript.health -= attackDamage;
         }
         
     }
 
-    // if infected in contact with player, infected stops moving
     protected override void OnTriggerEnter(Collider other)
     {
-        // Call the base method to handle bullet collision
         base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag("Player"))
         {

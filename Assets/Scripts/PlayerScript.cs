@@ -173,6 +173,9 @@ public class PlayerScript : MonoBehaviour {
             case "Moving":
                 this.onPlatform = true;
                 break;
+            case "Bullet":
+                this.health -= 10;
+                break;
         }
     }
 
