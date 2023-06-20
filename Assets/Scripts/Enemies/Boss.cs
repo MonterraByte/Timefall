@@ -8,7 +8,9 @@ public class Boss : MonoBehaviour
 {
     public int health = 100;
 
-    private bool isAttacking = false;
+    public float bulletSpeed = 500.0f;
+
+    public GameObject bulletPrefab;
 
     private static readonly BossMove[] moves = (BossMove[])Enum.GetValues(typeof(BossMove));
 
@@ -28,15 +30,23 @@ public class Boss : MonoBehaviour
         FlyAndDropProjectiles
     }
 
+    private void Start()
+    {
+        chooseAttack();
+    }
+
     private void chooseAttack()
     {
 
         // Choose a random attack move
         BossMove randomMove = moves[UnityEngine.Random.Range(0, moves.Length)];
 
+        randomMove = BossMove.ConeProjectile;
+
         switch (randomMove)
         {
             case BossMove.ConeProjectile:
+                Debug.Log("Switch case : Cone Projectile");
                 StartCoroutine(ConeProjectileAttack());
 
                 break;
@@ -56,7 +66,29 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ConeProjectileAttack()
     {
+        const int bulletCount = 10;
+        const float delayBetweenBullets = 0.1f; // Adjust the delay as desired
 
+        for (int i = 0; i < bulletCount; i++)
+        {
+            
+            // Calculate the angle for each bullet
+            float angle = (-45f / 2f) + (45f / (bulletCount - 1)) * i;
+
+            // Create a bullet object
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            bullet.gameObject.layer = bulletLayer;
+            // Rotate the bullet towards the calculated angle
+            bullet.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            var BulletRB = bullet.GetComponent<Rigidbody>();
+            BulletRB.AddRelativeForce(bullet.transform.forward * bulletSpeed);
+
+            yield return new WaitForSeconds(delayBetweenBullets);
+        }
+
+        yield return new WaitForSeconds(2);
         chooseAttack();
         yield break;
     }
