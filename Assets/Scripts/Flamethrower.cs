@@ -12,19 +12,8 @@ public class Flamethrower : RangedWeapon
     public float fireDuration;
 
     private ParticleSystem currentFirePS;
-    private bool enabled = false;
 
-    public void setEnable()
-    {
-        this.enabled = true;
-    }
-
-    public bool getEnable()
-    {
-        return this.enabled;
-    }
-
-    public override void Fire()
+    protected override void Fire()
     {
 
             // Instantiate a particle system that simulates fire
@@ -43,9 +32,8 @@ public class Flamethrower : RangedWeapon
             fireHandler.fire = currentFirePS;
 
             StartCoroutine(StartCooldown());
-        
+
 
     }
 
 }
-

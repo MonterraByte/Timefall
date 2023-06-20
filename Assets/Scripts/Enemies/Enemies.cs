@@ -8,6 +8,7 @@ class Enemies : MonoBehaviour
     public Bot botPrefab;
     public Human humanPrefab;
     public Infected infectedPrefab;
+    public Boss bossPrefab;
 
     private List<Transform> usedSpawnPointsBots = new List<Transform>();
 
@@ -24,12 +25,15 @@ class Enemies : MonoBehaviour
 
     public Transform[] spawnPointsInfected;
 
+    public Transform spawnPointBoss;
+
 
     private void Start(){
         
-        //SpawnBots();
-        //SpawnHumans();
+        SpawnBots();
+        SpawnHumans();
         SpawnInfected();
+        SpawnBoss();
     }
 
     void SpawnBots(){
@@ -81,6 +85,10 @@ class Enemies : MonoBehaviour
             Infected infected = Instantiate(infectedPrefab, spawnPoint.position, spawnPoint.rotation);
             infected.killed += OnInfectedKilled;
         }
+    }
+
+    void SpawnBoss(){
+        Instantiate(bossPrefab, spawnPointBoss.position, spawnPointBoss.rotation);
     }
 
     private void OnInfectedKilled(){
