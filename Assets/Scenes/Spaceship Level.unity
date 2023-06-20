@@ -20554,7 +20554,7 @@ GameObject:
   - component: {fileID: 2028973728}
   - component: {fileID: 2028973729}
   - component: {fileID: 2028973730}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TipTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
