@@ -67,11 +67,40 @@ public class Boss : MonoBehaviour
     private IEnumerator ConeProjectileAttack()
     {
         const int bulletCount = 10;
+        const float delayBetweenBullets = 1f; // Adjust the delay as desired
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+
+            // Calculate the angle for each bullet
+            // Generate a random angle within the desired range
+            float angle = UnityEngine.Random.Range(-22.5f, 22.5f);
+
+            // Create a bullet object
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            bullet.gameObject.layer = bulletLayer;
+            // Rotate the bullet towards the calculated angle
+            bullet.transform.rotation = Quaternion.Euler(0f,0f, angle);
+
+            var BulletRB = bullet.GetComponent<Rigidbody>();
+            BulletRB.AddRelativeForce(bullet.transform.right * bulletSpeed);
+
+            yield return new WaitForSeconds(delayBetweenBullets);
+        }
+
+        yield return new WaitForSeconds(3);
+        chooseAttack();
+        yield break;
+    }
+    private IEnumerator AllDirectionsAttack()
+    {
+        const int bulletCount = 10;
         const float delayBetweenBullets = 0.1f; // Adjust the delay as desired
 
         for (int i = 0; i < bulletCount; i++)
         {
-            
+
             // Calculate the angle for each bullet
             float angle = (-45f / 2f) + (45f / (bulletCount - 1)) * i;
 
@@ -83,7 +112,7 @@ public class Boss : MonoBehaviour
             bullet.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             var BulletRB = bullet.GetComponent<Rigidbody>();
-            BulletRB.AddRelativeForce(bullet.transform.forward * bulletSpeed);
+            BulletRB.AddRelativeForce(bullet.transform.right * bulletSpeed);
 
             yield return new WaitForSeconds(delayBetweenBullets);
         }
@@ -92,11 +121,7 @@ public class Boss : MonoBehaviour
         chooseAttack();
         yield break;
     }
-    private IEnumerator AllDirectionsAttack()
-    {
-        chooseAttack();
-        yield break;
-    }
+
     private IEnumerator ChargeAttack()
     {
         chooseAttack();
