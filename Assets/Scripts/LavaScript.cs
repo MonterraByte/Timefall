@@ -26,6 +26,10 @@ public class LavaScript : MonoBehaviour
 
             player.setHealth(newHealth);
         }
+        else if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Infected"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

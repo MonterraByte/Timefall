@@ -161,6 +161,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected virtual void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Getting in: " + other.gameObject.tag);
+
+        if (other.gameObject.CompareTag("FlameThrow"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Getting in: " + collision.gameObject.tag);

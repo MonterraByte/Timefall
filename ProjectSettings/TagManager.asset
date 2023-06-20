@@ -22,6 +22,7 @@ TagManager:
   - ForceField
   - CollectableA
   - Wrench
+  - FlameThrow
   layers:
   - Default
   - TransparentFX
