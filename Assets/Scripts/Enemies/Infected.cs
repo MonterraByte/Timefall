@@ -11,7 +11,7 @@ public class Infected : Enemy
         if (Time.time > lastAttackTime + attackCooldown) {
             animator.SetTrigger(attackTrigger);
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            playerScript.TakeDamage(damage);
+            playerScript.TakeDamage(100);
         }
     }
 
