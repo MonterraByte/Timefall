@@ -21739,6 +21739,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 396626689805084070, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_TagString
+      value: Wrench
+      objectReference: {fileID: 0}
+    - target: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: dashAction
+      value: 
+      objectReference: {fileID: -3449931175761169844, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
     - target: {fileID: 2599666274164506151, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -21930,6 +21938,18 @@ PrefabInstance:
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Size.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Center.z
+      value: -0.00000008940697
       objectReference: {fileID: 0}
     - target: {fileID: 4191535152341307726, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_Enabled

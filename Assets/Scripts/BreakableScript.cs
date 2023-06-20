@@ -18,7 +18,7 @@ public class BreakableScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 1 || other.gameObject.layer == 7)
+        if (other.gameObject.CompareTag("Wrench") || (other.gameObject.CompareTag("Bullet") && other.gameObject.layer == 7))
         {
             Destroy(this.gameObject);
         }

@@ -151,6 +151,7 @@ public class Enemy : MonoBehaviour
         switch(other.gameObject.tag)
         {
             case "Bullet":
+            case "Wrench":
                 Destroy(gameObject);
                 break;
 
