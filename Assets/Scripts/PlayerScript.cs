@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour {
     private const string ClimbLayer = "Climbable Wall";
+    private const string PlayerLayer = "Player";
 
     public float playerSpeed = 1.0f;
     public float playerAcceleration = 1.0f;
@@ -16,6 +17,7 @@ public class PlayerScript : MonoBehaviour {
     public Animator animator;
     private CharacterController characterController;
     private LayerMask climbLayerMask;
+    private LayerMask playerLayerMask;
     private HookshotScript hookScript;
 
     private static readonly int jumpTrigger = Animator.StringToHash("Jump");
@@ -39,6 +41,7 @@ public class PlayerScript : MonoBehaviour {
     private void Start() {
         characterController = GetComponent<CharacterController>();
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
+        playerLayerMask = LayerMask.GetMask(PlayerLayer);
         hookScript = GetComponentsInChildren<HookshotScript>()[0];
     }
 
@@ -70,7 +73,7 @@ public class PlayerScript : MonoBehaviour {
     private void FixedUpdate() {
         OnDeath();
 
-        isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f);
+        isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f, Physics.DefaultRaycastLayers ^ playerLayerMask);
         animator.SetBool(groundedParameter, isGrounded);
     }
 
