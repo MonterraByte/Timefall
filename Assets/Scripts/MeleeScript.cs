@@ -109,7 +109,6 @@ public class MeleeScript : MonoBehaviour
                 switch(this.attackType)
                 {
                     case 1:
-                        Debug.Log("Rotate = " + this.transform.rotation.x * Mathf.Rad2Deg);
                         this.transform.Rotate(-this.addRotate, 0, 0);
                         break;
 
@@ -136,20 +135,6 @@ public class MeleeScript : MonoBehaviour
         this.attackTime = 0.5f;
 
         //moveAction.action.Disable();
-
-        /*if (velocity.y != 0)
-        {
-            this.attackType = 2;
-            this.animator.SetTrigger(meleeAttackTrigger);
-            this.currentAttackTime = 0.0f;
-            this.attackTime = 0.5f;
-            this.rotateDirection = 720.0f;
-
-            float sideMove = moveAction.action.ReadValue<Vector2>().x;
-
-            if (sideMove < 0) this.isRight = false;
-            else this.isRight = true;
-        }*/
     }
     
 
