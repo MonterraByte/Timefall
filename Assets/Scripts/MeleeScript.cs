@@ -73,13 +73,13 @@ public class MeleeScript : MonoBehaviour
                     case 1:
                         if (this.isRight) velocity.x = this.dashSpeed;
                         else velocity.x = -this.dashSpeed;
-                        this.transform.Rotate(0, 0, -90 * Time.deltaTime);
+                        this.transform.Rotate(90 * Time.deltaTime, 0, 0);
                         characterController.Move(velocity * Time.deltaTime);
                         break;
 
                     case 2:
                         UpdateSide();
-                        this.transform.Rotate(0, 0, this.rotateDirection * Time.deltaTime);
+                        this.transform.Rotate(rotateDirection * Time.deltaTime, 0, 0);
                         break;
                 }
 
@@ -107,7 +107,6 @@ public class MeleeScript : MonoBehaviour
                 }
 
                 this.attackType = 0;
-                moveAction.action.Enable();
             }
         }
     }
@@ -126,7 +125,7 @@ public class MeleeScript : MonoBehaviour
             this.animator.SetTrigger(meleeAttackTrigger);
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            this.rotateDirection = -720.0f;
+            this.rotateDirection = 720.0f;
 
             float sideMove = moveAction.action.ReadValue<Vector2>().x;
 
@@ -140,7 +139,6 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            moveAction.action.Disable();
         }
         else
         {
@@ -168,7 +166,6 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            moveAction.action.Disable();
         }
     }
 

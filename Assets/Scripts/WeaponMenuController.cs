@@ -8,7 +8,7 @@ public class WeaponMenuController : MonoBehaviour
     public Animator anim;
     public static int weaponID;
 
-    public RangedWeapon weapon;
+    public RangedWeapon[] weapons;
     public InputActionReference toggleAction;
 
 
@@ -34,43 +34,30 @@ public class WeaponMenuController : MonoBehaviour
         toggleAction.action.Disable();
     }
 
-    // Update is called once per frame
+    private bool Equip(int weaponId) {
+        Debug.Log(weaponId);
+        if (!weapons[weaponId].enabled) {
+            return false;
+        }
+
+        for (var i = 0; i < weapons.Length; i++) {
+            weapons[i].Equipped = i == weaponId;
+        }
+        return true;
+    }
+
     private void Update()
     {
         if (isOpen)
         {
-            switch (weaponID)
-            {
-                case 0:// nothing is selected
-                    break;
-                case 1: //wrench
-                    Debug.Log("Wrench");
-                    isOpen = false;
-                    break;
-                case 2: //laser gun
-                    Debug.Log("Laser gun");
-                    weapon.disableGuns();
-                    weapon.activateWeapon(0);
-                    isOpen = false;
-                    break;
-                case 3: //flamethrower
-                    Debug.Log("flamethrower");
-                    if (weapon.checkIfPossible(2))
-                    {
-                        weapon.disableGuns();
-                        weapon.activateWeapon(2);
-                    }
-                    isOpen = false;
-                    break;
-                case 4: //boomerang
-                    Debug.Log("boomerang");
-                    if (weapon.checkIfPossible(1))
-                    {
-                        weapon.disableGuns();
-                        weapon.activateWeapon(1);
-                    }
-                    isOpen = false;
-                    break;
+            if (weaponID == 0) {
+                return;
+            }
+            Debug.Log(weaponID);
+
+            var equippedWeapon = Equip(weaponID - 1);
+            if (equippedWeapon) {
+                isOpen = false;
             }
         }
     }

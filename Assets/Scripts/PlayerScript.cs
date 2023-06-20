@@ -141,8 +141,11 @@ public class PlayerScript : MonoBehaviour {
 
             if (healthManager != null)
             {
-                Debug.Log("Taking heart");
-                healthManager.takeHeart();
+                if (healthManager.Shields > 0) {
+                    healthManager.Shields--;
+                } else {
+                    healthManager.Lives--;
+                }
             }
 
             this.health = 100;
@@ -167,11 +170,11 @@ public class PlayerScript : MonoBehaviour {
                 break;
 
             case "Flame":
-                GetComponentInChildren<Flamethrower>().setEnable();
+                GetComponentInChildren<Flamethrower>().enabled = true;
                 break;
 
             case "Boomerang":
-                GetComponentInChildren<Boomerang>().setEnable();
+                GetComponentInChildren<Boomerang>().enabled = true;
                 break;
 
             case "Moving":
