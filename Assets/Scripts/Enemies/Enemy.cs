@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
 
         characterController.Move(movement);
 
-        if (Mathf.Abs(this.transform.position.x - this.limitX) < 2.5f)
+        if (Mathf.Abs(this.transform.position.x - this.limitX) < 1.0f)
         {
             this.isHooked = false;
             this.isStunned = true;
@@ -162,13 +162,25 @@ public class Enemy : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other){
         Debug.Log("Getting in: " + other.gameObject.tag);
 
-        if (other.gameObject.tag == "Bullet") {
-            Destroy(gameObject);
-        }
-
-        if (other.gameObject.CompareTag("HookWeapon"))
+        switch(other.gameObject.tag)
         {
-            GotHooked(other.gameObject);
+            case "Bullet":
+                Destroy(gameObject);
+                break;
+
+            case "HookWeapon":
+                GotHooked(other.gameObject);
+                break;
+        }
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Getting in: " + collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("ForceField"))
+        {
+            Destroy(gameObject);
         }
     }
 
