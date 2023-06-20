@@ -20,6 +20,7 @@ public class MeleeScript : MonoBehaviour
     private Animator animator;
     private CharacterController characterController;
     private BoxCollider boxColliderStick;
+    private GameObject forceField;
 
     private static readonly int meleeAttackTrigger = Animator.StringToHash("MeleeAttack");
 
@@ -40,6 +41,8 @@ public class MeleeScript : MonoBehaviour
         this.boxColliderStick = GetComponentInChildren<BoxCollider>();
 
         this.boxColliderStick.enabled = false;
+
+        this.forceField = transform.Find("ForceField").gameObject;
 
         attackAction.action.started += ctx => {
             if (ctx.started && !isAttacking) {
@@ -98,7 +101,8 @@ public class MeleeScript : MonoBehaviour
                         break;
 
                     case 3:
-                        this.gameObject.layer = 0;
+                        //this.gameObject.layer = 0;
+                        this.forceField.SetActive(false);
                         break;
                 }
 
@@ -128,7 +132,7 @@ public class MeleeScript : MonoBehaviour
             if (sideMove < 0) this.isRight = false;
             else this.isRight = true;
         }
-        else if (!this.hasDash)
+        if (!this.hasDash)
         {
             this.attackType = 0;
             this.animator.SetTrigger(meleeAttackTrigger);
@@ -167,12 +171,14 @@ public class MeleeScript : MonoBehaviour
 
     void StartCounter()
     {
-        this.animator.SetTrigger("Counter");
+        //this.animator.SetTrigger("Counter");
+        this.forceField.SetActive(true);
         this.isAttacking = true;
         this.currentAttackTime = 0.0f;
-        this.attackTime = 0.2f;
+        this.attackTime = 0.4f;
         this.attackType = 3;
-        this.gameObject.layer = 2;
+        //this.gameObject.layer = 2;
+        moveAction.action.Disable();
     }
 
     void UpdateSide()

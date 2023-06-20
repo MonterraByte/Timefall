@@ -18,6 +18,8 @@ TagManager:
   - Enemy
   - Infected
   - Bullet
+  - HookWeapon
+  - ForceField
   layers:
   - Default
   - TransparentFX

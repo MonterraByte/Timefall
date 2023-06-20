@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -12,10 +13,21 @@ public class Enemy : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public float bulletSpeed = 0.1f;
+    public float durationStun = 1.0f;
+
     protected Transform player;
     protected float gravityValue = -9.81f;
     protected CharacterController characterController;
     private int projectileLayer;
+
+    private bool isHooked = false;
+    private Vector2 hookDir;
+    private float hookSpeed;
+    private bool whichSide;
+    private float limitX;
+
+    private bool isStunned = false;
+    private float currentStunDuration = 0.0f;
 
     private void Start()
     {
@@ -58,7 +70,16 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) > sightRange)
+        if (this.isHooked)
+        {
+            Hooked();
+        }
+        else if (this.isStunned)
+        {
+            Stunned();
+            DefaultAction();
+        }
+        else if (Vector3.Distance(transform.position, player.position) > sightRange)
         {
             DefaultAction();
         }
@@ -69,6 +90,35 @@ public class Enemy : MonoBehaviour
         else
         {
             AttackPlayer();
+        }
+    }
+
+    protected virtual void Hooked()
+    {
+        Vector3 movement;
+
+        if (this.whichSide) movement = new Vector3(this.hookDir.x, -this.hookDir.y, 0) * this.hookSpeed * Time.deltaTime;
+        else movement = new Vector3(-this.hookDir.x, -this.hookDir.y, 0) * this.hookSpeed * Time.deltaTime;
+
+        characterController.Move(movement);
+
+        if (Mathf.Abs(this.transform.position.x - this.limitX) < 1.0f)
+        {
+            this.isHooked = false;
+            this.isStunned = true;
+            this.currentStunDuration = 0.0f;
+        }
+    }
+
+    protected virtual void Stunned()
+    {
+        if (this.currentStunDuration > this.durationStun)
+        {
+            this.isStunned = false;
+        }
+        else
+        {
+            this.currentStunDuration += Time.deltaTime;
         }
     }
 
@@ -107,8 +157,37 @@ public class Enemy : MonoBehaviour
     }
 
     protected virtual void OnTriggerEnter(Collider other){
-        if (other.gameObject.tag == "Bullet") {
+        Debug.Log("Getting in: " + other.gameObject.tag);
+
+        switch(other.gameObject.tag)
+        {
+            case "Bullet":
+                Destroy(gameObject);
+                break;
+
+            case "HookWeapon":
+                GotHooked(other.gameObject);
+                break;
+        }
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Getting in: " + collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("ForceField"))
+        {
             Destroy(gameObject);
         }
+    }
+
+    private void GotHooked(GameObject stick)
+    {
+        this.isHooked = true;
+        HookshotScript hookshotScript = stick.GetComponent<HookshotScript>();
+        this.hookDir = hookshotScript.getCurrentCoordinates();
+        this.hookSpeed = hookshotScript.hookSpeed;
+        this.whichSide = hookshotScript.getSide();
+        this.limitX = FindObjectOfType<PlayerScript>().transform.position.x;
     }
 }
