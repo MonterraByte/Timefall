@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     protected Transform player;
     protected float gravityValue = -9.81f;
     protected CharacterController characterController;
+    protected Animator animator;
     private int projectileLayer;
 
     private bool isHooked = false;
@@ -34,19 +35,7 @@ public class Enemy : MonoBehaviour
         projectileLayer = LayerMask.NameToLayer("Enemy Projectile");
         characterController = GetComponent<CharacterController>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (gameObject.tag == "Infected")
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
-        else if (gameObject.tag == "Human")
-        {  
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;   
-        }
-        else if (gameObject.tag == "Bot")
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
-        }
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected virtual void ChasePlayer()
@@ -67,8 +56,8 @@ public class Enemy : MonoBehaviour
             movement.y = 0f;
         }
     }
-    
-    private void Update()
+
+    protected void Update()
     {
         if (this.isHooked)
         {
@@ -125,7 +114,7 @@ public class Enemy : MonoBehaviour
     protected virtual void DefaultAction()
     {
         Vector3 movement = Vector3.zero;
-        
+
         movement.y += gravityValue * Time.deltaTime;
 
         characterController.Move(movement);
