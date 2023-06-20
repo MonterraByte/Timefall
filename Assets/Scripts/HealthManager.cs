@@ -51,7 +51,7 @@ public class HealthManager : MonoBehaviour
         heart1.gameObject.SetActive(Lives >= 1);
         heart2.gameObject.SetActive(Lives >= 2);
         heart3.gameObject.SetActive(Lives >= 3);
-        shield.gameObject.SetActive(Shields >= 0);
+        shield.gameObject.SetActive(Shields >= 1);
         gameOver.gameObject.SetActive(Lives <= 0);
     }
 }
