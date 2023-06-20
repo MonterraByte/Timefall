@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int damage = 10;
+    public int health = 100;
     public float movementSpeed = 5f;
     public float attackRange = 1f;
     public float sightRange = 1f;
@@ -156,13 +156,22 @@ public class Enemy : MonoBehaviour
         lastAttackTime = Time.time;
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     protected virtual void OnTriggerEnter(Collider other){
         Debug.Log("Getting in: " + other.gameObject.tag);
 
         switch(other.gameObject.tag)
         {
             case "Bullet":
-                Destroy(gameObject);
+                TakeDamage(100);
                 break;
 
             case "HookWeapon":

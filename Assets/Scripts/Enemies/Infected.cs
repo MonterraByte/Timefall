@@ -8,7 +8,7 @@ public class Infected : Enemy
         if (Time.time > lastAttackTime + attackCooldown) {
             Debug.Log("Attack");
             PlayerScript playerScript = player.GetComponent<PlayerScript>();
-            playerScript.TakeDamage(damage);
+            playerScript.TakeDamage(100);
         }
         
     }
