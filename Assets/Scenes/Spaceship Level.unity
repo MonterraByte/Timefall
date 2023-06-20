@@ -21686,6 +21686,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 396626689805084070, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_TagString
+      value: Wrench
+      objectReference: {fileID: 0}
     - target: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: dashAction
       value: 
@@ -21881,6 +21885,18 @@ PrefabInstance:
     - target: {fileID: 2619132402960791343, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Size.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693805877160259052, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
+      propertyPath: m_Center.z
+      value: -0.00000008940697
       objectReference: {fileID: 0}
     - target: {fileID: 4191535152341307726, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_Enabled

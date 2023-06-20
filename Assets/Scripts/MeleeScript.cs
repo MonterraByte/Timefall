@@ -41,7 +41,7 @@ public class MeleeScript : MonoBehaviour
 
         this.characterController = GetComponent<CharacterController>();
 
-        this.boxColliderStick = GetComponentInChildren<BoxCollider>();
+        this.boxColliderStick = GameObject.Find("Wrench").GetComponent<BoxCollider>();
 
         this.boxColliderStick.enabled = false;
 
