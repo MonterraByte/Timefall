@@ -17015,7 +17015,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 647832544}
+  buttons:
+  - {fileID: 970052383}
+  - {fileID: 1821689644}
+  - {fileID: 697301699}
   pauseAction: {fileID: 2978766404086752806, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  upAction: {fileID: 2541058584469022122, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  downAction: {fileID: 196267075071974569, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  confirmAction: {fileID: 5670557397115675658, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!1 &1744505350
 GameObject:
   m_ObjectHideFlags: 0
