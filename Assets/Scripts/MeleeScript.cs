@@ -18,6 +18,7 @@ public class MeleeScript : MonoBehaviour
     private bool dashRight;
     private float attackTime;
     private float currentAttackTime;
+    private float addRotate = 0.0f;
 
     private Animator animator;
     private CharacterController characterController;
@@ -83,9 +84,10 @@ public class MeleeScript : MonoBehaviour
                 switch (this.attackType)
                 {
                     case 1:
-                        if (this.isRight) velocity.x = this.dashSpeed;
+                        if (this.dashRight) velocity.x = this.dashSpeed;
                         else velocity.x = -this.dashSpeed;
                         this.transform.Rotate(90 * Time.deltaTime, 0, 0);
+                        this.addRotate += 90 * Time.deltaTime;
                         characterController.Move(velocity * Time.deltaTime);
                         break;
 
@@ -107,14 +109,11 @@ public class MeleeScript : MonoBehaviour
                 switch(this.attackType)
                 {
                     case 1:
-                    case 2:
-                    case 0:
-                        //if (isRight) this.transform.rotation = new Quaternion(0, 0, 0, 0);
-                        //else this.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+                        Debug.Log("Rotate = " + this.transform.rotation.x * Mathf.Rad2Deg);
+                        this.transform.Rotate(-this.addRotate, 0, 0);
                         break;
 
                     case 3:
-                        //this.gameObject.layer = 0;
                         this.forceField.SetActive(false);
                         break;
                 }
@@ -136,7 +135,7 @@ public class MeleeScript : MonoBehaviour
         this.currentAttackTime = 0.0f;
         this.attackTime = 0.5f;
 
-        moveAction.action.Disable();
+        //moveAction.action.Disable();
 
         /*if (velocity.y != 0)
         {
@@ -165,19 +164,18 @@ public class MeleeScript : MonoBehaviour
         this.attackType = 1;
         this.currentAttackTime = 0.0f;
         this.attackTime = 0.5f;
+        this.addRotate = 0.0f;
         this.animator.SetTrigger(meleeAttackTrigger);
         moveAction.action.Disable();
     }
 
     void StartCounter()
     {
-        //this.animator.SetTrigger("Counter");
         this.forceField.SetActive(true);
         this.isAttacking = true;
         this.currentAttackTime = 0.0f;
         this.attackTime = 0.4f;
         this.attackType = 3;
-        //this.gameObject.layer = 2;
         moveAction.action.Disable();
     }
 
