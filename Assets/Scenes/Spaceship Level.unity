@@ -9036,8 +9036,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1734750746}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Resume
-        m_Mode: 1
+        m_MethodName: set_IsPaused
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -17015,6 +17015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 647832544}
+  pauseAction: {fileID: 2978766404086752806, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!1 &1744505350
 GameObject:
   m_ObjectHideFlags: 0
