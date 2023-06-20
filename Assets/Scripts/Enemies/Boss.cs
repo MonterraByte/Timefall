@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public class Boss : MonoBehaviour
@@ -41,7 +42,7 @@ public class Boss : MonoBehaviour
         // Choose a random attack move
         BossMove randomMove = moves[UnityEngine.Random.Range(0, moves.Length)];
 
-        randomMove = BossMove.ConeProjectile;
+        randomMove = BossMove.FlyAndDropProjectiles;
 
         switch (randomMove)
         {
@@ -129,10 +130,99 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator FlyAndDropAttack()
     {
+        const float flySpeed = 40f; // Adjust the fly speed as desired
+        const float initialX = 85f; // Initial x position to fly towards
+        const float totalDuration = 20f; // Total duration of the action
+
+        float originalX;
+        float targetX;
+        float originalY = transform.position.y;
+        float targetY = originalY + 5f;
+        float currentX = transform.position.x;
+        float currentY = transform.position.y;
+        float elapsedTime = 0f;
+
+        // Fly towards initialX and elevated position
+        while (Mathf.Abs(currentX - initialX) > 0.1f || Mathf.Abs(currentY - targetY) > 0.1f)
+        {
+            currentX = Mathf.MoveTowards(currentX, initialX, flySpeed * 2 * Time.deltaTime);
+            currentY = Mathf.MoveTowards(currentY, targetY, flySpeed * 2 * Time.deltaTime);
+            transform.position = new Vector3(currentX, currentY, transform.position.z);
+
+
+            // Create a bullet object
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            bullet.gameObject.layer = bulletLayer;
+
+
+            var BulletRB = bullet.GetComponent<Rigidbody>();
+            BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return new WaitForSeconds(0.5f);
+
+            
+        }
+
+        // Reset variables for back-and-forth movement
+        originalX = initialX;
+        targetX = originalX + 20f;
+        currentX = transform.position.x;
+        currentY = transform.position.y;
+        elapsedTime = 0f;
+
+        // Back-and-forth movement
+        while (elapsedTime < totalDuration)
+        {
+            currentX = Mathf.MoveTowards(currentX, targetX, flySpeed * Time.deltaTime);
+            transform.position = new Vector3(currentX, currentY, transform.position.z);
+
+            if (Mathf.Abs(currentX - targetX) <= 0.1f)
+            {
+                float tempX = targetX;
+                targetX = originalX;
+                originalX = tempX;
+
+
+
+                yield return new WaitForSeconds(2f);
+            }
+
+            // Create a bullet object
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            bullet.gameObject.layer = bulletLayer;
+
+
+            var BulletRB = bullet.GetComponent<Rigidbody>();
+            BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return new WaitForSeconds(0.5f);
+            
+        }
+
+        // Return to the original position
+        while (Mathf.Abs(currentX - originalX) > 0.1f && Mathf.Abs(currentY - originalY) > 0.1f)
+        {
+            currentX = Mathf.MoveTowards(currentX, originalX, flySpeed * Time.deltaTime);
+            currentY = Mathf.MoveTowards(currentY, originalY, flySpeed * Time.deltaTime);
+            transform.position = new Vector3(currentX, currentY, transform.position.z);
+
+            yield return null;
+        }
 
         chooseAttack();
         yield break;
     }
+
+
+
+
+
 
 
     protected void OnTriggerEnter(Collider other)
