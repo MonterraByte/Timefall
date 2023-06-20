@@ -103,7 +103,6 @@ public class MeleeScript : MonoBehaviour
                 }
 
                 this.attackType = 0;
-                moveAction.action.Enable();
             }
         }
     }
@@ -136,7 +135,6 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            moveAction.action.Disable();
         }
         else
         {
@@ -164,7 +162,6 @@ public class MeleeScript : MonoBehaviour
 
             this.currentAttackTime = 0.0f;
             this.attackTime = 0.5f;
-            moveAction.action.Disable();
         }
     }
 
@@ -176,7 +173,6 @@ public class MeleeScript : MonoBehaviour
         this.attackTime = 0.2f;
         this.attackType = 3;
         this.gameObject.layer = 2;
-        moveAction.action.Disable();
     }
 
     void UpdateSide()
