@@ -80,14 +80,16 @@ public class HookshotScript : MonoBehaviour
             this.hook = false;
             this.boxCollider.enabled = true;
             this.animator.enabled = false;
-            this.gameObject.layer = 3;
+            //this.gameObject.layer = 3;
             this.hookState = 1;
             this.endSwing = false;
 
             playerInput.actions["Move"].Disable();
-            playerInput.actions["Melee"].Disable();
+            playerInput.actions["Dash"].Disable();
             playerInput.actions["Jump"].Disable();
             playerInput.actions["Counter"].Disable();
+            playerInput.actions["PrimaryAttack"].Disable();
+
 
             Plane playerplane = new Plane(new Vector3(0, 0, 1), transform.position);
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -115,13 +117,13 @@ public class HookshotScript : MonoBehaviour
 
             if (this.vector.x < 0)
             {
-                this.transform.localPosition = new Vector3(-this.currentX, this.currentY, -0.5f);
-                this.transform.Rotate(-20, 0, this.currentAngle * Mathf.Rad2Deg);
+                this.transform.localPosition += new Vector3(0, this.currentY, -this.currentX);
+                this.transform.Rotate(0, 0, this.currentAngle * Mathf.Rad2Deg);
             }
             else
             {
-                this.transform.localPosition = new Vector3(this.currentX, this.currentY, -0.5f);
-                this.transform.Rotate(-20, 0, -this.currentAngle * Mathf.Rad2Deg);
+                this.transform.localPosition += new Vector3(0, this.currentY, this.currentX);
+                this.transform.Rotate(0, 0, -this.currentAngle * Mathf.Rad2Deg);
             }
         }
     }
@@ -133,8 +135,8 @@ public class HookshotScript : MonoBehaviour
             case 1:
                 this.transform.localScale += new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
 
-                if (this.vector.x < 0) this.transform.localPosition += new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                else this.transform.localPosition += new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                if (this.vector.x < 0) this.transform.localPosition += new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
+                else this.transform.localPosition += new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
 
                 if (this.transform.localScale.y > 10.0)
                 {
@@ -146,19 +148,23 @@ public class HookshotScript : MonoBehaviour
             case 2:
                 this.transform.localScale -= new Vector3(0, this.hookSpeed, 0) * Time.deltaTime;
 
-                if (this.vector.x < 0) this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                else this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                if (this.vector.x < 0) this.transform.localPosition -= new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
+                else this.transform.localPosition -= new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
 
                 if (this.transform.localScale.y < 1.0)
                 {
                     this.hookState = 0;
                     this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+                    this.transform.localPosition = Vector3.zero;
+                    if (this.transform.localRotation.z > 0) this.transform.Rotate(0, 0, -this.currentAngle * Mathf.Rad2Deg);
+                    else this.transform.Rotate(0, 0, this.currentAngle * Mathf.Rad2Deg);
                     this.animator.enabled = true;
-                    this.gameObject.layer = 1;
+                    //this.gameObject.layer = 1;
                     playerInput.actions["Move"].Enable();
-                    playerInput.actions["Melee"].Enable();
+                    playerInput.actions["Dash"].Enable();
                     playerInput.actions["Jump"].Enable();
                     playerInput.actions["Counter"].Enable();
+                    playerInput.actions["PrimaryAttack"].Enable();
                 }
                 break;
 
@@ -167,24 +173,22 @@ public class HookshotScript : MonoBehaviour
 
                 if (this.isRight && this.vector.x < 0)
                 {
-                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition -= velocity;
-                    this.parentController.Move(velocity);
+                    this.transform.localPosition -= new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else if (this.isRight && this.vector.x >= 0)
                 {
-                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition -= velocity;
-                    this.parentController.Move(velocity);
+                    this.transform.localPosition -= new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else if (!this.isRight && this.vector.x < 0)
                 {
-                    this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
                     this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
                     this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
 
@@ -192,12 +196,16 @@ public class HookshotScript : MonoBehaviour
                 {
                     this.hookState = 0;
                     this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+                    this.transform.localPosition = Vector3.zero;
+                    if (this.transform.localRotation.z > 0) this.transform.Rotate(0, 0, -this.currentAngle * Mathf.Rad2Deg);
+                    else this.transform.Rotate(0, 0, this.currentAngle * Mathf.Rad2Deg);
                     this.animator.enabled = true;
-                    this.gameObject.layer = 1;
+                    //this.gameObject.layer = 1;
                     playerInput.actions["Move"].Enable();
-                    playerInput.actions["Melee"].Enable();
+                    playerInput.actions["Dash"].Enable();
                     playerInput.actions["Jump"].Enable();
                     playerInput.actions["Counter"].Enable();
+                    playerInput.actions["PrimaryAttack"].Enable();
                 }
                 break;
 
@@ -206,24 +214,22 @@ public class HookshotScript : MonoBehaviour
 
                 if (this.isRight && this.vector.x < 0)
                 {
-                    Vector3 velocity = new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition -= velocity;
-                    this.parentController.Move(velocity);
+                    this.transform.localPosition -= new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else if (this.isRight && this.vector.x >= 0)
                 {
-                    Vector3 velocity = new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
-                    this.transform.localPosition -= velocity;
-                    this.parentController.Move(velocity);
+                    this.transform.localPosition -= new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
+                    this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else if (!this.isRight && this.vector.x < 0)
                 {
-                    this.transform.localPosition -= new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= new Vector3(0, this.currentY, -this.currentX) * this.hookSpeed * Time.deltaTime;
                     this.parentController.Move(new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    this.transform.localPosition -= new Vector3(this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime;
+                    this.transform.localPosition -= new Vector3(0, this.currentY, this.currentX) * this.hookSpeed * Time.deltaTime;
                     this.parentController.Move(new Vector3(-this.currentX, this.currentY, 0) * this.hookSpeed * Time.deltaTime);
                 }
 
@@ -265,13 +271,17 @@ public class HookshotScript : MonoBehaviour
         {
             this.hookState = 0;
             this.transform.localScale = new Vector3(0.1f, 1, 0.1f);
+            this.transform.localPosition = Vector3.zero;
+            if (this.transform.localRotation.z > 0) this.transform.Rotate(0, 0, -this.currentAngle * Mathf.Rad2Deg);
+            else this.transform.Rotate(0, 0, this.currentAngle * Mathf.Rad2Deg);
             this.animator.enabled = true;
-            this.gameObject.layer = 1;
+            //this.gameObject.layer = 1;
             this.lineRenderer.enabled = false;
             this.endSwing = false;
-            playerInput.actions["Melee"].Enable();
+            playerInput.actions["Dash"].Enable();
             playerInput.actions["Counter"].Enable();
             playerInput.actions["Move"].Enable();
+            playerInput.actions["PrimaryAttack"].Enable();
         }
 
         Vector3 velocity = this.swingPoint - this.parentTransform.position;
