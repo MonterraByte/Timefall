@@ -103,6 +103,7 @@ public class MeleeScript : MonoBehaviour
                     case 3:
                         //this.gameObject.layer = 0;
                         this.forceField.SetActive(false);
+                        moveAction.action.Enable();
                         break;
                 }
 
