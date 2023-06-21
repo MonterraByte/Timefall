@@ -21959,10 +21959,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wrench
       objectReference: {fileID: 0}
-    - target: {fileID: 933477672625220058, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
-      propertyPath: dashAction
-      value: 
-      objectReference: {fileID: -3449931175761169844, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
     - target: {fileID: 2599666274164506151, guid: 8de9e510660a1b54b806745caff650ea, type: 3}
       propertyPath: m_RootOrder
       value: 2

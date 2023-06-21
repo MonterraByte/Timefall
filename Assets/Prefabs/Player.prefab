@@ -518,6 +518,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 92dab415-46b5-40a0-85c8-d5ba2c90cc96
     m_ActionName: Menu/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b421a408-87bd-4efe-a10f-4d2c0947a0f1
+    m_ActionName: Menu/Up[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a86db0c4-dcb0-4445-80ef-2aa2aeb72bb9
+    m_ActionName: Menu/Down[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 99f05e68-fda2-4876-aa62-f64557ee789b
+    m_ActionName: Menu/Left[/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: daa5e72b-5fb9-4842-ae47-249c1e95a4b2
+    m_ActionName: Menu/Right[/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ba14de6-5bac-4c19-a35a-cbdd682920bc
+    m_ActionName: Menu/Confirm[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -566,6 +586,7 @@ MonoBehaviour:
   rotateDirection: -720
   moveAction: {fileID: -1641312880010274799, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
   attackAction: {fileID: 3915551019711098263, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  dashAction: {fileID: -3449931175761169844, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!120 &869882088263529225
 LineRenderer:
   serializedVersion: 2
