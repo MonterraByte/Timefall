@@ -9,7 +9,6 @@ public class PanelController : MonoBehaviour
 
     private GameObject[] panels; // Array to store all the panels
     private GameObject lifes;
-    private GameObject manager;
 
     private void Start()
     {
@@ -22,7 +21,6 @@ public class PanelController : MonoBehaviour
         }
 
         lifes = GameObject.Find("Lifes");
-        manager = FindObjectOfType<HealthManager>().gameObject;
     }
 
     // Call this method from another script when you want to show a panel
@@ -34,7 +32,6 @@ public class PanelController : MonoBehaviour
     private IEnumerator ShowPanelCoroutine(int panelIndex, float customDuration)
     {
         //Deactivate health counter
-        manager.SetActive(false);
         lifes.SetActive(false);
 
         // Pause the game
@@ -74,7 +71,6 @@ public class PanelController : MonoBehaviour
 
         //Activate health counter
         lifes.SetActive(true);
-        manager.SetActive(true);
 
         // Unpause the game
         Time.timeScale = 1f;

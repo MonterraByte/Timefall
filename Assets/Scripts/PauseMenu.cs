@@ -66,8 +66,8 @@ public class PauseMenu : MonoBehaviour {
 
     public void Controls()
     {
-        panel.ShowPanel(5, 10);
         IsPaused = false;
+        panel.ShowPanel(5, 10);
     }
 
     public void LoadMenu() {
