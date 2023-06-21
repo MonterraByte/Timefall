@@ -23,6 +23,7 @@ public class PauseMenu : MonoBehaviour {
     public InputActionReference downAction;
     public InputActionReference confirmAction;
 
+    private PanelController panel;
     private int _selectedButton;
     private int SelectedButton {
         get => _selectedButton;
@@ -33,6 +34,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     private void Start() {
+        panel = FindObjectOfType<PanelController>();
         pauseAction.action.started += _ => { IsPaused = !IsPaused; };
         upAction.action.started += _ => {
             if (IsPaused) {
@@ -60,6 +62,12 @@ public class PauseMenu : MonoBehaviour {
 
     private void OnDisable() {
         pauseAction.action.Disable();
+    }
+
+    public void Controls()
+    {
+        panel.ShowPanel(5, 10);
+        IsPaused = false;
     }
 
     public void LoadMenu() {
