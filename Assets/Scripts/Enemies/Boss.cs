@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class Boss : MonoBehaviour
@@ -49,7 +47,7 @@ public class Boss : MonoBehaviour
         // Choose a random attack move
         BossMove randomMove = moves[UnityEngine.Random.Range(0, moves.Length)];
 
-        
+
         switch (randomMove)
         {
             case BossMove.ConeProjectile:
@@ -166,7 +164,7 @@ public class Boss : MonoBehaviour
 
             float distance = Vector3.Distance(transform.position, player.transform.position);
 
-            if (Math.Abs(distance) < 3.0f)
+            if (Math.Abs(distance) < 2.5f)
             {
                 this.isHit = true;
                 PlayerScript playerScript = player.GetComponent<PlayerScript>();
@@ -249,7 +247,7 @@ public class Boss : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
 
-            
+
         }
 
         // Reset variables for back-and-forth movement
@@ -288,7 +286,7 @@ public class Boss : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             yield return new WaitForSeconds(0.5f);
-            
+
         }
 
         // Return to the original position
@@ -305,9 +303,6 @@ public class Boss : MonoBehaviour
         yield break;
     }
 
-
-
-
     protected void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))
@@ -315,7 +310,7 @@ public class Boss : MonoBehaviour
 
             if (this.chargePhase == 1) this.isHit = true;
             this.health -= 10;
-           
+
         }
     }
 
