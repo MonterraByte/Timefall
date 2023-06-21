@@ -18,15 +18,12 @@ public class BulletController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(this.gameObject);
-    }   
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag + " has entered");
-
         if (other.gameObject.CompareTag("ForceField"))
         {
-            Debug.Log("im here");
             this.gameObject.layer = projectileLayer;
             Vector3 velocity = this.rb.velocity;
             rb.velocity = -velocity * this.force;

@@ -157,7 +157,6 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag + " hit");
         switch(other.gameObject.tag)
         {
             case "Boots":
@@ -198,7 +197,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Moving")
+        if (other.gameObject.CompareTag("Moving"))
         {
             this.onPlatform = false;
         }

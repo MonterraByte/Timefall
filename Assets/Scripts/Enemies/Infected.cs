@@ -15,7 +15,7 @@ public class Infected : Enemy
         }
     }
 
-    private void Update() {
+    private new void Update() {
         base.Update();
         animator.SetBool(walkingParameter, characterController.velocity.sqrMagnitude > 0.001);
     }

@@ -146,8 +146,6 @@ public class Enemy : MonoBehaviour
     }
 
     protected virtual void OnTriggerEnter(Collider other){
-        Debug.Log("Getting in: " + other.gameObject.tag);
-
         switch(other.gameObject.tag)
         {
             case "Bullet":
@@ -163,8 +161,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnParticleCollision(GameObject other)
     {
-        Debug.Log("Getting in: " + other.gameObject.tag);
-
         if (other.gameObject.CompareTag("FlameThrow"))
         {
             Destroy(gameObject);
@@ -173,8 +169,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Getting in: " + collision.gameObject.tag);
-
         if (collision.gameObject.CompareTag("ForceField"))
         {
             Destroy(gameObject);
