@@ -246,6 +246,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4c27485c-6625-4af7-b92b-76fd6030bd05",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8196a6b3-6ef0-46a6-a412-a0482e42e99a",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
