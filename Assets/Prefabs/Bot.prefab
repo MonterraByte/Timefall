@@ -36,7 +36,7 @@ Transform:
   - {fileID: 4212528045496506500}
   - {fileID: 4147283272935642642}
   m_Father: {fileID: 0}
-  m_RootOrder: 128
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &664294225114649770
 MeshFilter:
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73e488de28313465b81e0bc3f0d3ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
   movementSpeed: 2
   attackRange: 5
   sightRange: 10
@@ -132,6 +132,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 289034907574265465, guid: 40753370f7b9eee448191865657ab4ae, type: 3}
   bulletSpawnPoint: {fileID: 4147283272935642642}
   bulletSpeed: 3
+  durationStun: 1
 --- !u!143 &6723264418019169720
 CharacterController:
   m_ObjectHideFlags: 0

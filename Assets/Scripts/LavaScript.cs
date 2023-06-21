@@ -1,30 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LavaScript : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+public class LavaScript : MonoBehaviour {
     private void detectCollision(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
-
-            int newHealth = (int)(player.health - 3 * Time.deltaTime);
-
-            player.setHealth(newHealth);
+            player.TakeDamage(1, true);
         }
         else if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Infected"))
         {

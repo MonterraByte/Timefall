@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +11,48 @@ public class PlayerScript : MonoBehaviour {
     public float playerAcceleration = 1.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
-    public int health = 100;
+
+    public HealthUi healthUi;
+
+    public float invincibilityDuration = 1.1f;
+    private float damageCooldown;
+
+    public int maxLives = 5;
+    private int _lives;
+    public int Lives {
+        get => _lives;
+        set {
+            if (damageCooldown > 0.0f) {
+                return;
+            }
+            damageCooldown = invincibilityDuration;
+
+            _lives = Math.Clamp(value, 0, maxLives);
+            if (healthUi != null) {
+                healthUi.UpdateUi(Lives, Shields);
+            }
+        }
+    }
+
+    public int maxShields = 1;
+    private int _shields;
+    public int Shields {
+        get => _shields;
+        set {
+            if (damageCooldown > 0.0f) {
+                return;
+            }
+            damageCooldown = invincibilityDuration;
+
+            _shields = Math.Clamp(value, 0, maxShields);
+            if (healthUi != null) {
+                healthUi.UpdateUi(Lives, Shields);
+            }
+        }
+    }
+
+    public Vector3 respawnLocation;
+    private GameObject lastRespawnPointObject;
 
     public bool hasDoubleJump;
     public bool hasClimb;
@@ -43,6 +86,9 @@ public class PlayerScript : MonoBehaviour {
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
         playerLayerMask = LayerMask.GetMask(PlayerLayer);
         hookScript = GetComponentsInChildren<HookshotScript>()[0];
+
+        Lives = maxLives;
+        Shields = 0;
     }
 
     private bool CanJump() {
@@ -65,14 +111,7 @@ public class PlayerScript : MonoBehaviour {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void setHealth(int newHealth)
-    {
-        this.health = newHealth;
-    }
-
     private void FixedUpdate() {
-        OnDeath();
-
         isGrounded = characterController.isGrounded || Physics.Raycast(transform.position, Vector3.down, (characterController.height / 2.0f) + 0.01f, Physics.DefaultRaycastLayers ^ playerLayerMask);
         animator.SetBool(groundedParameter, isGrounded);
     }
@@ -117,6 +156,7 @@ public class PlayerScript : MonoBehaviour {
             animator.SetTrigger(jumpTrigger);
         }
         jumpInput -= Time.deltaTime;
+        damageCooldown -= Time.deltaTime;
 
         velocity.x = Mathf.Lerp(velocity.x, moveInput.x * playerSpeed, playerAcceleration * Time.deltaTime);
         if (!this.onPlatform)
@@ -127,32 +167,6 @@ public class PlayerScript : MonoBehaviour {
 
         animator.SetFloat(runSpeedParameter, Mathf.Abs(velocity.x));
         characterController.Move(velocity * Time.deltaTime);
-    }
-
-    private void OnDeath()
-    {
-        if (this.health <= 0)
-        {
-            Debug.Log("On Death");
-            RespawnManagerScript manager = GameObject.FindObjectOfType<RespawnManagerScript>();
-            HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
-
-            if (manager != null)
-            {
-                manager.StartRespawn();
-            }
-
-            if (healthManager != null)
-            {
-                if (healthManager.Shields > 0) {
-                    healthManager.Shields--;
-                } else {
-                    healthManager.Lives--;
-                }
-            }
-
-            this.health = 100;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -183,16 +197,57 @@ public class PlayerScript : MonoBehaviour {
                 this.onPlatform = true;
                 break;
             case "Bullet":
-                TakeDamage(100);
+                TakeDamage(1);
                 break;
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool environmental = false)
     {
-        this.health -= damage;
+        if (damageCooldown > 0.0f) {
+            return;
+        }
+
+        if (Shields > 0) {
+            Shields -= damage;
+        } else {
+            Lives -= damage;
+        }
+
         animator.SetTrigger(hurtTrigger);
-        Debug.Log(this.health);
+
+        if (environmental) {
+            damageCooldown = Mathf.Infinity;
+            StartCoroutine(QueuedMoveToRespawnPoint());
+        }
+    }
+
+    public void MoveToRespawnPoint() {
+        Debug.Log($"Moving player to {respawnLocation}");
+        transform.position = respawnLocation;
+    }
+
+    private IEnumerator QueuedMoveToRespawnPoint() {
+        yield return new WaitForSeconds(0.1f);
+        MoveToRespawnPoint();
+        damageCooldown = invincibilityDuration;
+    }
+
+    public void SetRespawnPoint(Vector3 point) {
+        respawnLocation = point;
+        if (lastRespawnPointObject != null) {
+            lastRespawnPointObject.SetActive(true);
+        }
+        lastRespawnPointObject = null;
+    }
+
+    public void SetRespawnPoint(GameObject spawner) {
+        respawnLocation = spawner.transform.position;
+        if (lastRespawnPointObject != null) {
+            lastRespawnPointObject.SetActive(true);
+        }
+        lastRespawnPointObject = spawner;
+        lastRespawnPointObject.SetActive(false);
     }
 
     private void OnTriggerExit(Collider other)

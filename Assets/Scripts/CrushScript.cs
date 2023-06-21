@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrushScript : MonoBehaviour
@@ -12,12 +10,6 @@ public class CrushScript : MonoBehaviour
     private int state = 0;
     private float stay = 1.0f;
     private float currentTime = 0.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -73,7 +65,7 @@ public class CrushScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
-            player.setHealth(0);
+            player.TakeDamage(0, true);
         }
     }
 }

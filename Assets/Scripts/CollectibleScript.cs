@@ -18,14 +18,14 @@ public class CollectibleScript : MonoBehaviour
 
 
     void OnTriggerEnter(Collider other){
-        if(other.CompareTag("Player")){
-            HealthManager healthManager = GameObject.FindObjectOfType<HealthManager>();
+        if(other.CompareTag("Player")) {
+            var player = other.gameObject.GetComponent<PlayerScript>();
             switch(typeCollectable){
                 case 1:
-                    healthManager.Lives++;
+                    player.Lives++;
                     break;
                 case 2:
-                    healthManager.Shields++;
+                    player.Shields++;
                     break;
                 default:
                     Debug.LogError("Invalid collectable type.");

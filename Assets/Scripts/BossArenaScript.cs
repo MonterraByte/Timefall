@@ -7,7 +7,6 @@ public class BossArenaScript : MonoBehaviour {
     public CinemachineCamera defaultCamera;
     public CinemachineCamera bossFightCamera;
     public GameObject horizontalDoor;
-    public GameObject respawnPoint;
 
     private Boss bossScript;
     private Vector3 bossInitialPosition;
@@ -21,12 +20,12 @@ public class BossArenaScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.GetComponent<PlayerScript>() == null) {
+        var player = other.gameObject.GetComponent<PlayerScript>();
+        if (player == null) {
             return;
         }
 
-        var respawnManager = FindObjectOfType<RespawnManagerScript>();
-        respawnManager.setSpawnPoint(respawnPoint);
+        player.SetRespawnPoint(new Vector3(117f, 76f, -0.5f));
 
         bossFightCamera.gameObject.SetActive(true);
         defaultCamera.gameObject.SetActive(false);

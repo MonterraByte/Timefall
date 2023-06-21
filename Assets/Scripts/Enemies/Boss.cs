@@ -179,7 +179,7 @@ public class Boss : MonoBehaviour {
             {
                 this.isHit = true;
                 PlayerScript playerScript = player.GetComponent<PlayerScript>();
-                playerScript.setHealth(0);
+                playerScript.TakeDamage(1);
             }
 
             yield return null;

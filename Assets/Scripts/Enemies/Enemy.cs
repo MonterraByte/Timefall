@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage = 1;
     public float movementSpeed = 5f;
     public float attackRange = 1f;
     public float sightRange = 1f;
