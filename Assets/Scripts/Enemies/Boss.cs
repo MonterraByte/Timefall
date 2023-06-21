@@ -17,9 +17,16 @@ public class Boss : MonoBehaviour
 
     private int bulletLayer;
 
+    private GameObject player;
+
+    private int chargePhase = 0;
+
+    private bool isHit = false;
+
     public void Awake()
     {
         bulletLayer = LayerMask.NameToLayer("Enemy Projectile");
+        player = FindObjectOfType<PlayerScript>().gameObject;
     }
 
 
@@ -42,8 +49,7 @@ public class Boss : MonoBehaviour
         // Choose a random attack move
         BossMove randomMove = moves[UnityEngine.Random.Range(0, moves.Length)];
 
-        randomMove = BossMove.FlyAndDropProjectiles;
-
+        randomMove = BossMove.Charge;
         switch (randomMove)
         {
             case BossMove.ConeProjectile:
@@ -125,8 +131,88 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ChargeAttack()
     {
+        this.chargePhase = 1;
+        float elapsedTime = 0.0f;
+        float duration = 5.0f;
+        float stunDuration = 3.0f;
+        float chargeDuration = 1.5f;
+        Vector3 originalPos = this.transform.position;
+        Vector3 finalPos = new Vector3(109.0f, originalPos.y + 1.25f, originalPos.z);
+        Vector3 upPos = new Vector3(originalPos.x, originalPos.y + 1.25f, originalPos.z);
+        float currentX = originalPos.x;
+        float currentY = originalPos.y;
+
+        while (elapsedTime < duration && !this.isHit)
+        {
+            float t = (elapsedTime / duration);
+            this.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 2.5f, t);
+            this.transform.position = Vector3.Lerp(originalPos, upPos, t);
+            elapsedTime += Time.deltaTime;
+            chargeDuration = 1.5f + 3.5f * t;
+            yield return null;
+        }
+
+        this.isHit = false;
+        this.chargePhase = 2;
+        elapsedTime = 0.0f;
+
+        Debug.Log("pos x = " + this.transform.position.x);
+
+        while (elapsedTime < chargeDuration && !this.isHit)
+        {
+            float t = (elapsedTime / chargeDuration);
+            this.transform.position = Vector3.Lerp(upPos, finalPos, t);
+            elapsedTime += Time.deltaTime;
+
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            if (Math.Abs(distance) < 3.0f)
+            {
+                this.isHit = true;
+                PlayerScript playerScript = player.GetComponent<PlayerScript>();
+                playerScript.setHealth(0);
+            }
+
+            yield return null;
+        }
+
+        this.chargePhase = 3;
+        elapsedTime = 0.0f;
+
+        if (!this.isHit)
+        {
+            Vector3 originalScale = this.transform.localScale;
+
+            while (elapsedTime < stunDuration)
+            {
+                float t = (elapsedTime / duration);
+                this.transform.localScale = Vector3.Lerp(originalScale, Vector3.one, t);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        currentX = this.transform.position.x;
+        currentY = this.transform.position.y;
+
+        while (Mathf.Abs(currentX - originalPos.x) > 0.1f || Mathf.Abs(currentY - originalPos.y) > 0.1f)
+        {
+            currentX = Mathf.MoveTowards(currentX, originalPos.x, 100 * Time.deltaTime);
+            currentY = Mathf.MoveTowards(currentY, originalPos.y, 100 * Time.deltaTime);
+            transform.position = new Vector3(currentX, currentY, transform.position.z);
+
+            yield return null;
+        }
+
+        //this.transform.position = originalPos;
+        this.isHit = false;
+        this.chargePhase = 0;
+
+        this.transform.localScale = Vector3.one;
+        yield return new WaitForSeconds(2);
         chooseAttack();
         yield break;
+
     }
     private IEnumerator FlyAndDropAttack()
     {
@@ -222,13 +308,12 @@ public class Boss : MonoBehaviour
 
 
 
-
-
-
     protected void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
+
+            if (this.chargePhase == 1) this.isHit = true;
             this.health -= 10;
            
         }
