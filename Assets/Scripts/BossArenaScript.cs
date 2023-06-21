@@ -10,11 +10,13 @@ public class BossArenaScript : MonoBehaviour {
     public GameObject respawnPoint;
 
     private Boss bossScript;
+    private Vector3 bossInitialPosition;
     private Vector3 horizontalDoorInitialPosition;
 
     void Start() {
         bossScript = boss.GetComponent<Boss>();
         bossScript.enabled = false;
+        bossInitialPosition = boss.transform.position;
         horizontalDoorInitialPosition = horizontalDoor.transform.position;
     }
 
@@ -39,6 +41,8 @@ public class BossArenaScript : MonoBehaviour {
         }
 
         bossScript.enabled = false;
+        bossScript.StopAllCoroutines();
+        boss.transform.position = bossInitialPosition;
         defaultCamera.gameObject.SetActive(true);
         bossFightCamera.gameObject.SetActive(false);
         horizontalDoor.transform.position = horizontalDoorInitialPosition;

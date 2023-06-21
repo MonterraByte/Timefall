@@ -3,9 +3,19 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Boss : MonoBehaviour
-{
-    public int health = 100;
+public class Boss : MonoBehaviour {
+    public int initialHealth = 500;
+
+    private int _health;
+    public int Health {
+        get => _health;
+        set {
+            _health = value;
+            if (_health < 0) {
+                OnDeath();
+            }
+        }
+    }
 
     public float bulletSpeed = 500.0f;
 
@@ -36,8 +46,8 @@ public class Boss : MonoBehaviour
         FlyAndDropProjectiles
     }
 
-    private void Start()
-    {
+    private void OnEnable() {
+        Health = initialHealth;
         chooseAttack();
     }
 
@@ -133,28 +143,28 @@ public class Boss : MonoBehaviour
         float elapsedTime = 0.0f;
         float duration = 5.0f;
         float stunDuration = 3.0f;
-        float chargeDuration = 1.5f;
+        float chargeDuration = 2.5f;
         Vector3 originalPos = this.transform.position;
-        Vector3 finalPos = new Vector3(109.0f, originalPos.y + 1.25f, originalPos.z);
+        Vector3 finalPos = new Vector3(109.0f, originalPos.y, originalPos.z);
         Vector3 upPos = new Vector3(originalPos.x, originalPos.y + 1.25f, originalPos.z);
         float currentX = originalPos.x;
         float currentY = originalPos.y;
 
         while (elapsedTime < duration && !this.isHit)
         {
-            float t = (elapsedTime / duration);
+            var t = elapsedTime / duration;
             this.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 2.5f, t);
+            finalPos = new Vector3(109.0f, Mathf.Lerp(originalPos.y ,originalPos.y + 1.25f, t), originalPos.z);
+            upPos = new Vector3(originalPos.x, Mathf.Lerp(originalPos.y ,originalPos.y + 1.25f, t), originalPos.z);
             this.transform.position = Vector3.Lerp(originalPos, upPos, t);
             elapsedTime += Time.deltaTime;
-            chargeDuration = 1.5f + 3.5f * t;
+            chargeDuration = 2.5f + 1.5f * t;
             yield return null;
         }
 
         this.isHit = false;
         this.chargePhase = 2;
         elapsedTime = 0.0f;
-
-        Debug.Log("pos x = " + this.transform.position.x);
 
         while (elapsedTime < chargeDuration && !this.isHit)
         {
@@ -214,17 +224,17 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator FlyAndDropAttack()
     {
-        const float flySpeed = 40f; // Adjust the fly speed as desired
+        const float flySpeed = 3f; // Adjust the fly speed as desired
         const float initialX = 85f; // Initial x position to fly towards
         const float totalDuration = 20f; // Total duration of the action
 
-        float originalX;
-        float targetX;
-        float originalY = transform.position.y;
-        float targetY = originalY + 5f;
-        float currentX = transform.position.x;
-        float currentY = transform.position.y;
-        float elapsedTime = 0f;
+        var initialPosition = transform.position;
+        float targetY = initialPosition.y + 5f;
+        float currentX = initialPosition.x;
+        float currentY = initialPosition.y;
+
+        const float bulletCooldownTime = 0.5f;
+        var bulletCooldown = 0.0f;
 
         // Fly towards initialX and elevated position
         while (Mathf.Abs(currentX - initialX) > 0.1f || Mathf.Abs(currentY - targetY) > 0.1f)
@@ -235,28 +245,28 @@ public class Boss : MonoBehaviour
 
 
             // Create a bullet object
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bulletCooldown -= Time.deltaTime;
+            if (bulletCooldown <= 0.0f) {
+                var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-            bullet.gameObject.layer = bulletLayer;
-
-
-            var BulletRB = bullet.GetComponent<Rigidbody>();
-            BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
-
-            elapsedTime += Time.deltaTime;
-
-            yield return new WaitForSeconds(0.5f);
+                bullet.gameObject.layer = bulletLayer;
 
 
+                var BulletRB = bullet.GetComponent<Rigidbody>();
+                BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
+                bulletCooldown = bulletCooldownTime;
+            }
+
+            yield return null;
         }
 
         // Reset variables for back-and-forth movement
-        originalX = initialX;
-        targetX = originalX + 20f;
+        var previousX = initialX;
+        var targetX = previousX + 20f;
         currentX = transform.position.x;
         currentY = transform.position.y;
-        elapsedTime = 0f;
 
+        var elapsedTime = 0f;
         // Back-and-forth movement
         while (elapsedTime < totalDuration)
         {
@@ -265,37 +275,31 @@ public class Boss : MonoBehaviour
 
             if (Mathf.Abs(currentX - targetX) <= 0.1f)
             {
-                float tempX = targetX;
-                targetX = originalX;
-                originalX = tempX;
-
-
-
-                yield return new WaitForSeconds(2f);
+                (targetX, previousX) = (previousX, targetX);
+                yield return new WaitForSeconds(1f);
             }
 
             // Create a bullet object
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bulletCooldown -= Time.deltaTime;
+            if (bulletCooldown <= 0.0f) {
+                GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-            bullet.gameObject.layer = bulletLayer;
+                bullet.gameObject.layer = bulletLayer;
 
 
-            var BulletRB = bullet.GetComponent<Rigidbody>();
-            BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
+                var BulletRB = bullet.GetComponent<Rigidbody>();
+                BulletRB.AddRelativeForce(-bullet.transform.up * bulletSpeed);
+                bulletCooldown = bulletCooldownTime;
+            }
 
             elapsedTime += Time.deltaTime;
-
-            yield return new WaitForSeconds(0.5f);
-
+            yield return null;
         }
 
         // Return to the original position
-        while (Mathf.Abs(currentX - originalX) > 0.1f && Mathf.Abs(currentY - originalY) > 0.1f)
-        {
-            currentX = Mathf.MoveTowards(currentX, originalX, flySpeed * Time.deltaTime);
-            currentY = Mathf.MoveTowards(currentY, originalY, flySpeed * Time.deltaTime);
-            transform.position = new Vector3(currentX, currentY, transform.position.z);
-
+        var finalPosition = transform.position;
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime) {
+            transform.position = Vector3.Lerp(finalPosition, initialPosition, t);
             yield return null;
         }
 
@@ -305,13 +309,35 @@ public class Boss : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bullet"))
-        {
-
+        if (other.gameObject.CompareTag("Bullet") || other.gameObject.CompareTag("Wrench")) {
             if (this.chargePhase == 1) this.isHit = true;
-            this.health -= 10;
-
+            Health -= 10;
         }
     }
 
+    protected void OnParticleCollision(GameObject other)
+    {
+        if (other.gameObject.CompareTag("FlameThrow")) {
+            if (this.chargePhase == 1) this.isHit = true;
+            Health -= 10;
+        }
+    }
+
+    private void OnDeath() {
+        StopAllCoroutines();
+        StartCoroutine(DeathAnimation());
+    }
+
+    private IEnumerator DeathAnimation() {
+        var renderer = GetComponent<Renderer>();
+        var initialColor = renderer.material.color;
+        var targetColor = Color.red;
+        const float duration = 3.0f;
+        for (var t = 0.0f; t < duration; t += Time.deltaTime) {
+            renderer.material.color = Color.Lerp(initialColor, targetColor, t * (1.0f/duration));
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
 }
