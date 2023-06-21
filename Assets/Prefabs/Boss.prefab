@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 921054172082582903}
   - component: {fileID: 4246005939618597500}
   - component: {fileID: -5665931866197522074}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  bulletSpeed: 500
+  bulletPrefab: {fileID: 289034907574265465, guid: 40753370f7b9eee448191865657ab4ae, type: 3}
 --- !u!143 &-5665931866197522074
 CharacterController:
   m_ObjectHideFlags: 0
