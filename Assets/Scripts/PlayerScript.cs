@@ -63,6 +63,9 @@ public class PlayerScript : MonoBehaviour {
     private LayerMask playerLayerMask;
     private HookshotScript hookScript;
 
+    public InputActionAsset actionAsset;
+    private InputActionMap playerActionMap;
+
     private static readonly int jumpTrigger = Animator.StringToHash("Jump");
     private static readonly int doubleJumpTrigger = Animator.StringToHash("DoubleJump");
     private static readonly int hurtTrigger = Animator.StringToHash("Hurt");
@@ -81,11 +84,28 @@ public class PlayerScript : MonoBehaviour {
 
     private bool onPlatform = false;
 
+    private bool _playerEnabled = true;
+
+    private bool PlayerEnabled {
+        get => _playerEnabled;
+        set {
+            _playerEnabled = value;
+            characterController.detectCollisions = _playerEnabled;
+            if (_playerEnabled) {
+                playerActionMap.Enable();
+            } else {
+                playerActionMap.Disable();
+            }
+        }
+    }
+
     private void Start() {
         characterController = GetComponent<CharacterController>();
         climbLayerMask = LayerMask.GetMask(ClimbLayer);
         playerLayerMask = LayerMask.GetMask(PlayerLayer);
         hookScript = GetComponentsInChildren<HookshotScript>()[0];
+        playerActionMap = actionAsset.FindActionMap("Player");
+        playerActionMap.Enable();
 
         Lives = maxLives;
         Shields = 0;
@@ -118,6 +138,10 @@ public class PlayerScript : MonoBehaviour {
 
     private void Update()
     {
+        if (!PlayerEnabled) {
+            return;
+        }
+
         var velocity = characterController.velocity;
 
         var headingInput = new Vector3(moveInput.x, 0.0f, 0.0f);
@@ -217,20 +241,25 @@ public class PlayerScript : MonoBehaviour {
         animator.SetTrigger(hurtTrigger);
 
         if (environmental) {
+            PlayerEnabled = false;
             damageCooldown = Mathf.Infinity;
             StartCoroutine(QueuedMoveToRespawnPoint());
         }
     }
 
     public void MoveToRespawnPoint() {
-        Debug.Log($"Moving player to {respawnLocation}");
         transform.position = respawnLocation;
     }
 
     private IEnumerator QueuedMoveToRespawnPoint() {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
+        MoveToRespawnPoint();
+        yield return null;
+        MoveToRespawnPoint();
+        yield return null;
         MoveToRespawnPoint();
         damageCooldown = invincibilityDuration;
+        PlayerEnabled = true;
     }
 
     public void SetRespawnPoint(Vector3 point) {

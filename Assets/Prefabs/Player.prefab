@@ -417,10 +417,15 @@ MonoBehaviour:
   playerAcceleration: 15
   jumpHeight: 2
   gravityValue: -18
-  health: 100
+  healthUi: {fileID: 0}
+  invincibilityDuration: 1.1
+  maxLives: 5
+  maxShields: 1
+  respawnLocation: {x: 0, y: 0, z: 0}
   hasDoubleJump: 0
   hasClimb: 0
   animator: {fileID: 4686501482761536514}
+  actionAsset: {fileID: -944628639613478452, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
 --- !u!114 &2619132402960791343
 MonoBehaviour:
   m_ObjectHideFlags: 0
