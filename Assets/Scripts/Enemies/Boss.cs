@@ -49,7 +49,7 @@ public class Boss : MonoBehaviour
         // Choose a random attack move
         BossMove randomMove = moves[UnityEngine.Random.Range(0, moves.Length)];
 
-        randomMove = BossMove.Charge;
+        
         switch (randomMove)
         {
             case BossMove.ConeProjectile:
