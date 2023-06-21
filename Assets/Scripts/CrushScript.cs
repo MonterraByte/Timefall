@@ -65,7 +65,7 @@ public class CrushScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerScript player = collision.gameObject.GetComponent<PlayerScript>();
-            player.TakeDamage(0, true);
+            player.TakeDamage(1, true);
         }
     }
 }
