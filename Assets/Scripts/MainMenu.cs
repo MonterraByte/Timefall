@@ -9,7 +9,4 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Spaceship Level");
     }
-    public void QuitGame(){
-        Application.Quit();
-    }
 }
