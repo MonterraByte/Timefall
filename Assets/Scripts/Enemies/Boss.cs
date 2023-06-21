@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class Boss : MonoBehaviour {
@@ -338,6 +339,9 @@ public class Boss : MonoBehaviour {
             yield return null;
         }
 
-        Destroy(gameObject);
+        renderer.enabled = false;
+
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene("Credits");
     }
 }

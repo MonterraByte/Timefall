@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Spaceship Level.unity
     guid: a32d6ca010dc0ff4eb35a824c9232243
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 145ceb1999fb1a14699657b087ecf4c5
   m_configObjects: {}
