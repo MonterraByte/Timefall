@@ -6,7 +6,9 @@ public class SkipToMainMenu : MonoBehaviour {
     public InputActionReference skipAction;
 
     void Start() {
-        skipAction.action.performed += _ => SceneManager.LoadScene("MainMenu");
+        skipAction.action.performed += _ => {
+            skipAction.action.Disable();
+            SceneManager.LoadScene("MainMenu"); };
         skipAction.action.Enable();
     }
 }
