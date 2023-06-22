@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public abstract class RangedWeapon : MonoBehaviour {
     public InputActionReference fireAction;
+    public InputActionReference positionalAimAction;
+    public InputActionReference directionalAimAction;
 
     public float CooldownDuration = 1.0f;
 
@@ -25,6 +27,14 @@ public abstract class RangedWeapon : MonoBehaviour {
 
     private Camera mainCamera;
 
+    private enum AimDevice {
+        Mouse,
+        Controller,
+    }
+    private AimDevice lastUsedDevice;
+    private Vector2 lastMousePosition = Vector2.zero;
+    private Vector2 lastControllerDirection = Vector2.zero;
+
     protected abstract void Fire();
 
     private void Start()
@@ -37,6 +47,8 @@ public abstract class RangedWeapon : MonoBehaviour {
             }
         };
         fireAction.action.Enable();
+        positionalAimAction.action.Enable();
+        directionalAimAction.action.Enable();
     }
 
     private void OnFire() {
@@ -47,8 +59,14 @@ public abstract class RangedWeapon : MonoBehaviour {
         Fire();
     }
 
-    private void Update()
-    {
+    private void Update() {
+        var mousePosition = positionalAimAction.action.ReadValue<Vector2>();
+        var controllerDirection = directionalAimAction.action.ReadValue<Vector2>();
+        lastUsedDevice = (lastMousePosition - mousePosition).sqrMagnitude >
+                         (lastControllerDirection - controllerDirection).sqrMagnitude ? AimDevice.Mouse : AimDevice.Controller;
+        lastMousePosition = mousePosition;
+        lastControllerDirection = controllerDirection;
+
         RotateGun();
     }
 
@@ -76,29 +94,38 @@ public abstract class RangedWeapon : MonoBehaviour {
             FacingRight = false;
         }
 
-        Plane playerplane = new Plane(new Vector3(0, 0, 1), transform.position);
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        float hitdist;
-
-        if (playerplane.Raycast(ray, out hitdist))
-        {
-            Vector3 targetPoint = ray.GetPoint(hitdist);
-            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-
-            if (FacingRight && targetRotation.y < 0) // Facing right and pointing left
-            {
-                targetRotation.y = -targetRotation.y;
-                targetRotation.z = -targetRotation.z;
+        Vector3? rotationDirection = null;
+        if (lastUsedDevice == AimDevice.Mouse || lastControllerDirection == Vector2.zero) {
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            var playerplane = new Plane(new Vector3(0, 0, 1), transform.position);
+            float hitdist;
+            if (playerplane.Raycast(ray, out hitdist)) {
+                var targetPoint = ray.GetPoint(hitdist);
+                rotationDirection = targetPoint - transform.position;
             }
-            else if (!FacingRight && targetRotation.y > 0) // Facing left and pointing right
-            {
-                targetRotation.y = -targetRotation.y;
-                targetRotation.z = -targetRotation.z;
-            }
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, SpeedRotation * Time.deltaTime);
         }
+        else {
+            rotationDirection = lastControllerDirection;
+        }
+
+        if (rotationDirection == null) {
+            return;
+        }
+
+        var targetRotation = Quaternion.LookRotation(rotationDirection.Value);
+        if (FacingRight && targetRotation.y < 0) // Facing right and pointing left
+        {
+            targetRotation.y = -targetRotation.y;
+            targetRotation.z = -targetRotation.z;
+        }
+        else if (!FacingRight && targetRotation.y > 0) // Facing left and pointing right
+        {
+            targetRotation.y = -targetRotation.y;
+            targetRotation.z = -targetRotation.z;
+        }
+
+        transform.rotation =
+            Quaternion.Slerp(transform.rotation, targetRotation, SpeedRotation * Time.deltaTime);
     }
 
     public IEnumerator StartCooldown()

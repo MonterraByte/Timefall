@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireAction: {fileID: 2019694695399964765, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  positionalAimAction: {fileID: 1827282670094433478, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  directionalAimAction: {fileID: -1014574473796931673, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
   CooldownDuration: 1
   SpeedRotation: 25
   bulletSpawnPoint: {fileID: 7712523169745513150}
@@ -118,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireAction: {fileID: 2019694695399964765, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  positionalAimAction: {fileID: 1827282670094433478, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  directionalAimAction: {fileID: -1014574473796931673, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
   CooldownDuration: 1
   SpeedRotation: 25
   fireSpawnPoint: {fileID: 7712523169745513150}
@@ -137,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireAction: {fileID: 2019694695399964765, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  positionalAimAction: {fileID: 1827282670094433478, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
+  directionalAimAction: {fileID: -1014574473796931673, guid: dc84a77451d34fa42a8d288cd68589d9, type: 3}
   CooldownDuration: 1
   SpeedRotation: 25
   boomerangSpawnPoint: {fileID: 7712523169745513150}
